@@ -1,0 +1,77 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.0"
+
+    defaultConfig {
+        applicationId "com.developer.phimtatnhanh"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 5
+        versionName "2.0"
+        renderscriptTargetApi 28
+        renderscriptSupportModeEnabled true
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.tencent:mmkv-static:1.2.2'
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.github.florent37:viewanimator:1.1.0'
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+
+    implementation "com.google.dagger:dagger:2.27"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.15"
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    implementation 'org.greenrobot:eventbus:3.2.0'
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    implementation 'com.xw.repo:bubbleseekbar:3.20'
+
+    implementation 'jp.wasabeef:glide-transformations:4.1.0'
+
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    implementation 'com.divyanshu.colorseekbar:colorseekbar:1.0.2'
+
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+}

@@ -1,0 +1,150 @@
+<resources>
+    <string name="app_name">Công Cụ Assistive Touch</string>
+    <string name="not_click_touch">Không có hành động</string>
+    <string name="back_click_touch">Quay lại</string>
+    <string name="home_click_touch">Màn hình chính</string>
+    <string name="recent_click_touch">Ứng dụng gần đây</string>
+    <string name="source_click_touch">Hộp thoại nguồn</string>
+    <string name="menu_floating_click_touch">Menu nổi</string>
+    <string name="notification_click_touch">Kéo thông báo</string>
+    <string name="lock_click_touch">Khóa màn hình</string>
+    <string name="title_click_single">Nhấn đơn</string>
+    <string name="select">Chọn</string>
+    <string name="cancel">Hủy</string>
+    <string name="setting">Cài đặt</string>
+    <string name="click_one">Nhấn đơn</string>
+    <string name="click_two">Nhấn đúp</string>
+    <string name="click_long">Nhấn lâu</string>
+    <string name="floating">Biểu tượng nổi</string>
+    <string name="floating_type">Biểu tượng</string>
+    <string name="type_0">Kiểu 1</string>
+    <string name="floating_size">Kích thước</string>
+    <string name="floating_color">Chọn màu sắc</string>
+    <string name="menu_layout">Bố cục</string>
+    <string name="menu_location">Vị trí cố định</string>
+    <string name="rate_share"><![CDATA[Đánh giá & Chia sẻ]]></string>
+    <string name="rate">Đánh giá ứng dụng</string>
+    <string name="share">Chia sẻ cho bạn bè</string>
+    <string name="policy">Chính sách bảo mật</string>
+    <string name="chonapp">Chọn ứng dung</string>
+    <string name="home_menu_touch">Màn hình chính</string>
+    <string name="recent_menu_touch">Ứng dụng gần đây</string>
+    <string name="back_menu_touch">Quay lại</string>
+    <string name="air_menu_touch">Máy bay</string>
+    <string name="bluetool_menu_touch">Bluetooth</string>
+    <string name="bright_menu_touch">Độ sáng màn hình</string>
+    <string name="setting_menu_touch">Cài đặt</string>
+    <string name="notification_menu_touch">Thông báo</string>
+    <string name="flash_menu_touch">Đèn pin</string>
+    <string name="loc_screen_menu_touch">Khóa màn hình</string>
+    <string name="rotate_menu_touch">Xoay màn hình</string>
+    <string name="volue_up_menu_touch">Tăng âm lượng</string>
+    <string name="volue_out_menu_touch">Giảm âm lượng</string>
+    <string name="wifi_menu_touch">Wifi</string>
+    <string name="network_menu_touch">Dữ liệu di động</string>
+    <string name="star_menu_touch">Yêu thích</string>
+    <string name="time_bright_menu_touch">Thời gian độ sáng</string>
+    <string name="device_menu_touch">Thiết bị</string>
+    <string name="capture_video_menu_touch">Quay video</string>
+    <string name="capture_menu_touch">Chụp ảnh màn hình</string>
+    <string name="none">Không có gì</string>
+    <string name="back">Trở về</string>
+    <string name="des">
+        *Ứng dụng cần sựu cho phép Dịch vụ Trợ năng Truy cập để thực hiện các hành động\n
+        +Trở về\n
+        +Mở màn hình đa nhiệm\n
+        +Trở về màn hình chính\n
+        +Chụp ảnh màn hình\n
+        +Mở thông báo
+    </string>
+    <string name="time_bright_15giay">15 giây</string>
+    <string name="time_bright_30giay">30 giây</string>
+    <string name="time_bright_1phut">1 phút</string>
+    <string name="time_bright_2phut">2 phút</string>
+    <string name="time_bright_10phut">10 phút</string>
+    <string name="time_bright_30phut">30 phút</string>
+    <string name="time_bright_never">Không bao giờ</string>
+    <string name="time_bright">Thời gian chờ</string>
+    <string name="screen_orientation_off">Chế độ xoay TẮT</string>
+    <string name="screen_orientation_on">Chế độ xoay BẬT</string>
+    <string name="desadmin">Để sử dụng được chức năng tắt màn hình chúng tôi yêu cầu bạn hãy cấp quyền quản trị viên cho ứng dụng</string>
+    <string name="flash_on_off">Bật tắt đèn pin</string>
+    <string name="flash_set">*Điều chỉnh từ 0 tới 5 để nhấp nháy đèn*</string>
+    <string name="pcamera_denied">Vui lòng cấp quyền camera để sử dụng tính năng</string>
+    <string name="preadwrite_denied">Vui lòng cấp quyền đọc ghi bộ nhớ để sử dụng tính năng</string>
+    <string name="precord_denied">Vui lòng cấp quyền ghi âm để sử dụng tính năng</string>
+    <string name="start">Bắt đầu…</string>
+    <string name="brightness_setting">Cài đặt độ sáng màn hình</string>
+    <string name="brightness_xiaomi">Trên một số dòng máy China(Xiaomi, Oppo, …) sẽ có độ sáng lớn. Nếu điện thoại của bạn trong danh sách đó hãy bật chế độ sửa lỗi độ sáng </string>
+    <string name="fix_brightness">Sửa lỗi độ sáng trên máy China</string>
+    <string name="title_menu_activity">Thay đổi bố cục</string>
+    <string name="power_menu_touch">Menu nguồn</string>
+    <string name="menu_bg_color">Màu sắc làm nền</string>
+    <string name="menu_bg_photo">Hình ảnh làm nền</string>
+    <string name="photo">Chọn hình ảnh</string>
+    <string name="set_color">Thay đổi màu nền, bo góc và độ mờ Menu Touch</string>
+    <string name="set_photo">Thay đổi hình ảnh, bo góc và độ mờ Menu Touch(Hình ảnh sẽ được làm mờ)</string>
+    <string name="color_bg">Màu nền👉</string>
+    <string name="boder_bg">Bo góc👉</string>
+    <string name="alpha_bg">Độ mờ👉</string>
+    <string name="select_photo">Chọn ảnh</string>
+    <string name="luachon">Lựa chọn</string>
+    <string name="error">Có lỗi xảy ra</string>
+    <string name="blur_bg">Blur👉</string>
+    <string name="restore">Khôi phục mặc định</string>
+    <string name="warning">Cảnh báo</string>
+    <string name="warning_user">Bạn có chắc chắn muốn khôi phục không?</string>
+    <string name="yes">Có</string>
+    <string name="title_touch_activity">Thay đổi biểu tượng</string>
+    <string name="size_bg">Kích cỡ👉</string>
+    <string name="pmedia_denied">Vui lòng cấp quyền để sử dụng tính năng</string>
+    <string name="err_brightness">Độ sáng tối đa với máy của bạn là 255 và chúng tôi đã cài đặt lại</string>
+    <string name="capture_setting">Ảnh chụp màn hình</string>
+    <string name="album">Ảnh của bạn</string>
+    <string name="capture_preview">Hiển thị hình ảnh Preview</string>
+    <string name="dev_des">\t\tDesign By VanTinhIT\t\t</string>
+    <string name="capture_sussce">Đã chụp xong</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_video_resolution">Resolution</string>
+    <string name="title_record_audio">Record Audio</string>
+
+    <string name="summary_video_resolution">Specify video size</string>
+    <string name="summary_record_audio">Should audio be recorded</string>
+
+    <string name="key_record_audio">key_record_audio</string>
+    <string name="key_video_resolution">key_video_resolution</string>
+    <string name="key_video_fps">key_video_fps</string>
+    <string name="key_video_bitrate">key_video_bitrate</string>
+    <string name="key_show_notification">key_show_notification</string>
+    <string name="key_video_encoder">key_video_encoder</string>
+    <string name="key_audio_source">key_audio_source</string>
+    <string name="key_output_format">key_output_format</string>
+    <string name="setting_capture_video">Cài đặt quay video</string>
+    <string name="capture_video_setting">Quay video màn hình</string>
+    <string name="video">Video của bạn</string>
+    <string name="audio">Cấu hình âm thanh</string>
+    <string name="videoconfig">Cấu hình video</string>
+    <string name="audio_source">Nguồn âm thanh</string>
+    <string name="mic">Mic</string>
+    <string name="audio_record">Ghi âm</string>
+    <string name="bit_rate">Tốc độ bit</string>
+    <string name="frame_rate">Tỷ lệ khung hình</string>
+    <string name="resolution">Độ phân giải</string>
+    <string name="video_encoder">Bộ mã hóa video</string>
+    <string name="more">Nâng cao</string>
+    <string name="output_format">Định dạng đầu ra</string>
+    <string name="user_video">Video của bạn</string>
+    <string name="xiaomi">Quan trọng : Quyền trên máy xiaomi</string>
+    <string name="start_in_backgroud_content">Nếu bạn đang sử dụng thiết bị Xiaomi, hãy nhấn vào cấp quyền và cho phép toàn bộ quyền mà ứng dụng yêu cầu</string>
+    <string name="yes_per">Cấp quyền</string>
+    <string name="edit">Chỉnh sửa</string>
+    <string name="delete">Xóa</string>
+    <string name="close">Hủy</string>
+    <string name="k_t_n_i">Kết nối</string>
+    <string name="ti_n_i_ch">Tiện ích</string>
+    <string name="developer">Tính năng đang phát triển</string>
+
+</resources>

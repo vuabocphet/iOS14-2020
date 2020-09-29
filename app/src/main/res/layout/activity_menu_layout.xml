@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:background="@color/black"
+    tools:context=".ui.menulayout.MenuActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <com.developer.phimtatnhanh.view.CompatView
+        android:id="@+id/compatView"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_220sdp"
+        android:visibility="gone"
+        app:alphaview="250"
+        app:boderview="@dimen/_9sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="@+id/include"
+        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintTop_toTopOf="@+id/include" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_bg_menu"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_220sdp"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="@+id/include"
+        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintTop_toTopOf="@+id/include"
+        app:riv_corner_radius="@dimen/_15sdp" />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/home_menu_touch"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_220sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/thin_ios"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/_4sdp"
+        android:lines="1"
+        android:text="@string/title_menu_activity"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textColor="@color/black" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cs_color"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:padding="@dimen/_20sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:fontFamily="@font/thin_ios"
+            android:includeFontPadding="false"
+            android:text="@string/color_bg"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/color_seek"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/color_seek" />
+
+        <com.divyanshu.colorseekbar.ColorSeekBar
+            android:id="@+id/color_seek"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/appCompatTextView6"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/thin_ios"
+            android:includeFontPadding="false"
+            android:text="@string/boder_bg"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/boder_seek"
+            app:layout_constraintEnd_toEndOf="@+id/appCompatTextView6"
+            app:layout_constraintStart_toStartOf="@+id/appCompatTextView6"
+            app:layout_constraintTop_toTopOf="@+id/boder_seek" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/thin_ios"
+            android:includeFontPadding="false"
+            android:text="@string/alpha_bg"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/alpha_seek"
+            app:layout_constraintEnd_toEndOf="@+id/appCompatTextView6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/appCompatTextView6"
+            app:layout_constraintTop_toTopOf="@+id/alpha_seek"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/thin_ios"
+            android:includeFontPadding="false"
+            android:text="@string/blur_bg"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@+id/blur_seek"
+            app:layout_constraintBottom_toBottomOf="@+id/blur_seek"
+            app:layout_constraintEnd_toEndOf="@+id/appCompatTextView6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/appCompatTextView6" />
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/boder_seek"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/appCompatTextView7"
+            app:layout_constraintTop_toBottomOf="@+id/color_seek" />
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/alpha_seek"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/appCompatTextView7"
+            app:layout_constraintTop_toBottomOf="@+id/boder_seek" />
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/blur_seek"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/appCompatTextView7"
+            app:layout_constraintTop_toBottomOf="@+id/alpha_seek" />
+
+        <Button
+            android:id="@+id/btn_select_photo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@drawable/ripper_click"
+            android:fontFamily="@font/thin_ios"
+            android:text="@string/select_photo"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/color_seek"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/blur_view"
+            android:visibility="gone"
+            app:constraint_referenced_ids="appCompatTextView8,blur_seek"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bt_close"
+        android:layout_width="?actionBarSize"
+        android:layout_height="?actionBarSize"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="@dimen/_12sdp"
+        android:tint="@color/white"
+        android:onClick="onBack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/all_ic_back" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

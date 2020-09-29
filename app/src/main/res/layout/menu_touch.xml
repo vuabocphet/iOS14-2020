@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cs_layout_all"
+    android:layout_width="@dimen/_220sdp"
+    android:layout_height="@dimen/_220sdp"
+    android:background="@android:color/transparent">
+
+    <com.developer.phimtatnhanh.view.CompatView
+        android:visibility="gone"
+        app:boderview="@dimen/_9sdp"
+        app:alphaview="250"
+        android:id="@+id/compatView"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_220sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_bg"
+        android:visibility="gone"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_220sdp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="20dp" />
+
+    <include layout="@layout/home_menu_touch"  />
+
+    <include layout="@layout/star_menu_touch"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

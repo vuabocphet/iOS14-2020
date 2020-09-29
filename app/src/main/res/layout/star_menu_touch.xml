@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/_220sdp"
+    android:layout_height="@dimen/_220sdp"
+    android:background="@android:color/transparent"
+    android:visibility="gone"
+    android:id="@+id/cs_star_app_menu_touch"
+    tools:visibility="visible"
+    tools:background="@color/red">
+
+
+    <GridView
+        android:columnWidth="@dimen/_60sdp"
+        android:id="@+id/grid_star_app_menu_touch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:numColumns="3"
+        android:scrollbarThumbVertical="@android:color/transparent"
+        android:overScrollMode="never"
+        android:padding="@dimen/_10sdp"
+        android:verticalSpacing="@dimen/_10sdp"
+        android:horizontalSpacing="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_star_menu_touch" />
+
+    <ProgressBar
+        android:theme="@style/Pro"
+        android:id="@+id/progress_load"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black90">
+
+    <LinearLayout
+        android:id="@+id/ll_layout_all"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.developer.phimtatnhanh.view.CustomSeekBarIOS
+            android:id="@+id/boxed_vertical"
+            android:layout_width="@dimen/_66sdp"
+            android:layout_height="@dimen/_222sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:padding="@dimen/_30sdp"
+            app:backgroundColor="@color/white"
+            app:defaultValue="140"
+            app:imageEnabled="false"
+            app:libCornerRadius="@dimen/_15sdp"
+            app:max="300"
+            app:progressColor="@color/red"
+            app:step="2"
+            app:textBottomPadding="60"
+            app:textColor="@color/white"
+            app:textEnabled="true"
+            app:textSize="@dimen/_10sdp"
+            app:touchDisabled="true" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_type"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/all_ic_sun"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_close"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_width="@dimen/_42sdp"
+        android:layout_height="@dimen/_42sdp"
+        android:padding="@dimen/_10sdp"
+        android:background="@drawable/all_bg_boder_white_full"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_layout_all"
+        app:srcCompat="@drawable/all_ic_baseline_close" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

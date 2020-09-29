@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cs_home_menu_touch"
+    android:layout_width="@dimen/_220sdp"
+    android:layout_height="@dimen/_220sdp"
+    android:background="@android:color/transparent"
+    android:visibility="visible"
+    >
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_top_to_centter"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_top_to_center"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:padding="@dimen/_1sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view"
+            app:srcCompat="@drawable/all_click_notification" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_top_to_center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/thin_ios"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lines="1"
+            android:textColor="@drawable/all_click_text"
+            android:textSize="@dimen/_10sdp"
+            tools:text="Thông báo" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_bottom_to_centter"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:layout_marginBottom="@dimen/_9sdp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:padding="@dimen/_1sdp"
+            android:id="@+id/iv_bottom_to_center"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            app:srcCompat="@drawable/all_click_home" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_bottom_to_center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/thin_ios"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lines="1"
+            android:textColor="@drawable/all_click_text"
+            android:textSize="@dimen/_10sdp"
+            tools:text="Màn hình chính" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_top_to_left"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:layout_marginTop="@dimen/_32sdp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/ll_top_to_centter"
+        app:layout_constraintTop_toTopOf="@+id/ll_top_to_centter">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:padding="@dimen/_1sdp"
+            android:id="@+id/iv_top_to_left"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            app:srcCompat="@drawable/all_click_capture" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_top_to_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/thin_ios"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lines="1"
+            android:textColor="@drawable/all_click_text"
+            android:textSize="@dimen/_10sdp"
+            tools:text="Chụp ảnh" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_top_to_right"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_top_to_left"
+        app:layout_constraintStart_toEndOf="@+id/ll_top_to_centter"
+        app:layout_constraintTop_toTopOf="@+id/ll_top_to_left">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:padding="@dimen/_1sdp"
+            android:id="@+id/iv_top_to_right"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            app:srcCompat="@drawable/all_click_volue_up" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_top_to_right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/thin_ios"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lines="1"
+            android:textColor="@drawable/all_click_text"
+            android:textSize="@dimen/_10sdp"
+            tools:text="Thiết bị" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_bottom_to_right"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_bottom_to_left"
+        app:layout_constraintStart_toEndOf="@+id/ll_bottom_to_centter"
+        app:layout_constraintTop_toTopOf="@+id/ll_bottom_to_left">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:padding="@dimen/_1sdp"
+            android:id="@+id/iv_bottom_to_right"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            app:srcCompat="@drawable/all_click_setting" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_bottom_to_right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/thin_ios"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lines="1"
+            android:textColor="@drawable/all_click_text"
+            android:textSize="@dimen/_10sdp"
+            tools:text="Tắt màn hình" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_bottom_to_left"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:layout_marginBottom="@dimen/_32sdp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_bottom_to_centter"
+        app:layout_constraintEnd_toStartOf="@+id/ll_bottom_to_centter">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:padding="@dimen/_1sdp"
+            android:id="@+id/iv_bottom_to_left"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            app:srcCompat="@drawable/all_click_star" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_bottom_to_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/thin_ios"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lines="1"
+            android:textColor="@drawable/all_click_text"
+            android:textSize="@dimen/_10sdp"
+            tools:text="Yêu thích" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

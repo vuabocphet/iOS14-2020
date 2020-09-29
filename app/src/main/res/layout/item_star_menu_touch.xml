@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_layout"
+    android:background="?android:selectableItemBackgroundBorderless"
+    android:layout_width="@dimen/_60sdp"
+    android:layout_height="@dimen/_60sdp"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:background="@color/red">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_app"
+        android:layout_width="@dimen/_38sdp"
+        android:layout_height="@dimen/_38sdp"
+        app:srcCompat="@drawable/all_ic_logo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/thin_ios"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:lines="1"
+        android:textColor="@drawable/all_click_text"
+        android:textSize="@dimen/_10sdp"
+        tools:text="Chụp ảnh" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+

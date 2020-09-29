@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/black90">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_margin="@dimen/_20sdp"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/all_bg_boder_black_sneekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/_20sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/thin_ios"
+                android:includeFontPadding="false"
+                android:text="@string/flash_on_off"
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                tools:ignore="RtlHardcoded" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:id="@+id/btn_flash"
+                android:layout_width="120dp"
+                android:layout_height="202dp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/btn_switch_off" />
+
+            <com.xw.repo.BubbleSeekBar
+                android:id="@+id/bubble_seekbar"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bsb_auto_adjust_section_mark="true"
+                app:bsb_second_track_color="@color/red"
+                app:bsb_section_count="5"
+                app:bsb_show_progress_in_float="true"
+                app:bsb_section_text_position="below_section_mark"
+                app:bsb_show_section_mark="true"
+                app:bsb_show_section_text="true"
+                app:bsb_max="5"
+                app:bsb_hide_bubble="true"
+                app:bsb_thumb_text_color="@color/red"
+                app:bsb_second_track_size="@dimen/_5sdp"
+                app:bsb_track_color="@android:color/darker_gray"
+                app:bsb_min="0"
+                app:bsb_progress="0"
+                app:bsb_show_thumb_text="true"
+                app:bsb_thumb_text_size="22sp"
+                app:bsb_touch_to_seek="true"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv1"
+                android:fontFamily="@font/thin_ios"
+                android:textColor="@color/blue"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:includeFontPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/flash_set"
+                />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:selectableItemBackground"
+            android:id="@+id/btn_close"
+            android:layout_width="@dimen/_44sdp"
+            android:layout_height="@dimen/_44sdp"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/_10sdp"
+            android:layout_margin="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/all_ic_baseline_close" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>

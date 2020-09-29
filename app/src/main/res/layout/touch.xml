@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <com.developer.phimtatnhanh.view.CompatView
+        android:id="@+id/cv_touch"
+        android:layout_width="@dimen/_42sdp"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/_2sdp"
+        android:padding="@dimen/_5sdp"
+        android:visibility="visible"
+        app:alphaview="160"
+        app:boderview="@dimen/_9sdp"
+        app:endcolor="13171d"
+        app:srcCompat="@drawable/all_ic_logo"
+        app:startcolor="13171d"
+        tools:visibility="visible" />
+
+    <com.developer.phimtatnhanh.view.CompatLayout
+        android:id="@+id/cpll_time_video"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/_2sdp"
+        android:padding="@dimen/_5sdp"
+        android:visibility="gone"
+        app:alphaview="230"
+        app:boderview="@dimen/_200sdp"
+        app:endcolor="2987f9"
+        app:startcolor="2987f9">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_time_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_9sdp"
+            tools:text="00:00" />
+
+    </com.developer.phimtatnhanh.view.CompatLayout>
+
+</RelativeLayout>

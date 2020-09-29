@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_3"
+    tools:context=".ui.home.HomeActivity">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/top_layout" />
+
+        <include layout="@layout/top_1_layout" />
+
+        <include layout="@layout/setting_layout" />
+
+        <include layout="@layout/float_layout" />
+
+        <include layout="@layout/menu_layout" />
+
+        <include layout="@layout/fix_brightness_xiaomi" />
+
+        <include layout="@layout/capture_screen_layout" />
+
+        <include layout="@layout/capture_screen_video_layout" />
+
+        <include layout="@layout/rate_share_layout" />
+
+        <include layout="@layout/policy_layout" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.core.widget.NestedScrollView>

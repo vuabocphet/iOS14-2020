@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/non_sliding_view"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@android:color/transparent"
+            android:id="@+id/sliding_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/layout_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/c3"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_120sdp"
+                        app:layout_constraintEnd_toStartOf="@+id/relativeLayout"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <View
+                            android:id="@+id/view2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.6"
+                            android:background="@drawable/main_touch_tienich" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txtKetnoi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/thin_ios"
+                            android:text="@string/k_t_n_i"
+                            android:textColor="#666666"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/maybay"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/shape_tienich_b"
+                            android:padding="@dimen/_12sdp"
+                            app:layout_constraintEnd_toEndOf="@+id/bluetooh"
+                            app:layout_constraintTop_toTopOf="@+id/wifi"
+                            app:srcCompat="@drawable/ic_all_ic_planes" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/mangdidong"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/shape_tienich_b"
+                            android:padding="@dimen/_12sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/wifi"
+                            app:srcCompat="@drawable/ic_all_ic_network_mobile" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/wifi"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/shape_tienich_b"
+                            android:padding="@dimen/_11sdp"
+                            app:layout_constraintStart_toStartOf="@+id/view2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_all_ic_wifi" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/bluetooh"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_12sdp"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/shape_tienich_b"
+                            android:padding="@dimen/_12sdp"
+                            app:layout_constraintBottom_toBottomOf="@+id/mangdidong"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:srcCompat="@drawable/ic_all_ic_bluetool" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/relativeLayout"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_120sdp"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/c3"
+                        app:layout_constraintTop_toTopOf="@+id/c3">
+
+                        <View
+                            android:id="@+id/view3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.6"
+                            android:background="@drawable/main_touch_tienich" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txtTienich"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/thin_ios"
+                            android:text="@string/ti_n_i_ch"
+                            android:textColor="#666666"
+                            app:layout_constraintBottom_toBottomOf="@+id/view3"
+                            app:layout_constraintEnd_toEndOf="@+id/view3"
+                            app:layout_constraintStart_toStartOf="@+id/view3"
+                            app:layout_constraintTop_toTopOf="@+id/view3" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/audio"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/shape_tienich"
+                            android:padding="@dimen/_8sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_all_ic_volue_up" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/rung"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_12sdp"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/shape_tienich"
+                            app:layout_constraintBottom_toBottomOf="@+id/auto"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:srcCompat="@drawable/all_ic_vibration"
+                            app:tint="@color/white" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/auto"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginBottom="@dimen/_12sdp"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/shape_tienich"
+                            android:padding="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:srcCompat="@drawable/ic_all_ic_volume_off"
+                            app:tint="@color/white" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imglang"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/shape_tienich"
+                            android:padding="@dimen/_8sdp"
+                            app:layout_constraintEnd_toEndOf="@+id/rung"
+                            app:layout_constraintTop_toTopOf="@+id/audio"
+                            app:srcCompat="@drawable/all_ic_auto_brightness"
+                            app:tint="@color/white" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/c4"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:padding="5dp"
+                        app:layout_constraintStart_toStartOf="@+id/c3"
+                        app:layout_constraintTop_toBottomOf="@+id/c3">
+
+                        <View
+                            android:id="@+id/view4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.8"
+                            android:background="@drawable/main_touch_tienich" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/xoay"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:padding="@dimen/_12sdp"
+                            android:rotation="-45"
+                            app:layout_constraintBottom_toBottomOf="@+id/view4"
+                            app:layout_constraintEnd_toEndOf="@+id/view4"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/view4"
+                            app:srcCompat="@drawable/all_ic_rotate"
+                            app:tint="@color/white" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/c7"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:padding="5dp"
+                        app:layout_constraintEnd_toEndOf="@+id/c3"
+                        app:layout_constraintTop_toBottomOf="@+id/c3">
+
+                        <View
+                            android:id="@+id/view5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.8"
+                            android:background="@drawable/main_touch_tienich_red" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/camera"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:padding="@dimen/_12sdp"
+                            app:layout_constraintBottom_toBottomOf="@+id/view5"
+                            app:layout_constraintEnd_toEndOf="@+id/view5"
+                            app:layout_constraintStart_toStartOf="@+id/view5"
+                            app:layout_constraintTop_toTopOf="@+id/view5"
+                            app:srcCompat="@drawable/all_ic_camera"
+                            app:tint="@color/white" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/c8"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:padding="5dp"
+                        app:layout_constraintEnd_toEndOf="@+id/c3"
+                        app:layout_constraintTop_toBottomOf="@+id/c7">
+
+                        <View
+                            android:id="@+id/view6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.8"
+                            android:background="@drawable/main_touch_tienich" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/flash"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:padding="@dimen/_12sdp"
+                            app:layout_constraintBottom_toBottomOf="@+id/view6"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/view6"
+                            app:layout_constraintTop_toTopOf="@+id/view6"
+                            app:layout_constraintVertical_bias="0.0"
+                            app:srcCompat="@drawable/ic_all_ic_flashlight"
+                            app:tint="@color/white" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/c9"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:padding="5dp"
+                        app:layout_constraintStart_toStartOf="@+id/c4"
+                        app:layout_constraintTop_toTopOf="@+id/c8">
+
+                        <View
+                            android:id="@+id/view7"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.8"
+                            android:background="@drawable/main_touch_tienich_red" />
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/back"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:padding="@dimen/_12sdp"
+                            app:layout_constraintBottom_toBottomOf="@+id/view7"
+                            app:layout_constraintEnd_toEndOf="@+id/view7"
+                            app:layout_constraintStart_toStartOf="@+id/view7"
+                            app:layout_constraintTop_toTopOf="@+id/view7"
+                            app:srcCompat="@drawable/ic_all_ic_back"
+                            app:tint="@color/white" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <com.developer.phimtatnhanh.view.CustomSeekBarIOS
+                        android:id="@+id/boxed_verticalAnhSang"
+                        android:layout_width="75dp"
+                        android:layout_height="0dp"
+                        app:backgroundColor="#CCCCCC"
+                        app:cornerRadius="@dimen/_30sdp"
+                        app:defaultValue="0"
+                        app:imageEnabled="false"
+                        app:layout_constraintBottom_toBottomOf="@+id/c8"
+                        app:layout_constraintStart_toStartOf="@+id/relativeLayout"
+                        app:layout_constraintTop_toTopOf="@+id/c4"
+                        app:max="255"
+                        app:progressColor="@color/white"
+                        app:step="5"
+                        app:textBottomPadding="20"
+                        app:textColor="#666666"
+                        app:textEnabled="true"
+                        app:textSize="12sp"
+                        app:touchDisabled="true" />
+
+                    <com.developer.phimtatnhanh.view.CustomSeekBarIOS
+                        android:id="@+id/boxed_verticalAudio"
+                        android:layout_width="75dp"
+                        android:layout_height="0dp"
+                        app:backgroundColor="#CCCCCC"
+                        app:cornerRadius="@dimen/_30sdp"
+                        app:defaultValue="0"
+                        app:imageEnabled="false"
+                        app:layout_constraintBottom_toBottomOf="@+id/boxed_verticalAnhSang"
+                        app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
+                        app:layout_constraintTop_toTopOf="@+id/boxed_verticalAnhSang"
+                        app:max="100"
+                        app:progressColor="@color/white"
+                        app:step="1"
+                        app:textBottomPadding="20"
+                        app:textColor="#666666"
+                        app:textEnabled="true"
+                        app:textSize="12sp"
+                        app:touchDisabled="true" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </RelativeLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

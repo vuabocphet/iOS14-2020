@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LayoutCustom">
+
+        <attr name="start_color" format="string" />
+
+        <attr name="end_color" format="string" />
+
+        <attr name="boder" format="float" />
+
+        <attr name="is_gradient" format="boolean" />
+
+
+    </declare-styleable>
+
+    <declare-styleable name="CompatView">
+
+        <attr name="startcolor" format="string" />
+
+        <attr name="endcolor" format="string" />
+
+        <attr name="boderview" format="dimension" />
+
+        <attr name="isgradient" format="boolean" />
+
+        <attr name="alphaview" format="integer" />
+
+    </declare-styleable>
+
+    <declare-styleable name="CompatViewImageBoder">
+
+        <attr name="boderView" format="float" />
+
+        <attr name="srcCompat_view" format="reference|integer" />
+
+
+    </declare-styleable>
+
+    <declare-styleable name="BoxedVertical">
+        <attr name="points" format="integer" />
+        <attr name="max" format="integer" />
+        <attr name="min" format="integer"/>
+        <attr name="defaultValue" format="integer" />
+        <attr name="textBottomPadding" format="integer" />
+        <attr name="libCornerRadius" format="dimension" />
+        <attr name="step" format="integer"/>
+
+        <attr name="defaultImage" format="reference"/>
+        <attr name="minImage" format="reference"/>
+        <attr name="maxImage" format="reference"/>
+
+        <attr name="progressColor" format="color" />
+        <attr name="backgroundColor" format="color" />
+
+        <attr name="textSize" format="dimension"/>
+        <attr name="textColor" format="color"/>
+
+        <attr name="clockwise" format="boolean" />
+        <attr name="enabled" format="boolean" />
+        <attr name="touchDisabled" format="boolean" />
+        <attr name="textEnabled" format="boolean" />
+        <attr name="imageEnabled" format="boolean" />
+
+    </declare-styleable>
+
+</resources>

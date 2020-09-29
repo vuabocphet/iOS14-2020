@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_10sdp"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_marginEnd="@dimen/_10sdp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="2dp">
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="60dp"
+            android:fontFamily="@font/thin_ios"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:text="@string/setting"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs_click_one"
+            android:layout_width="match_parent"
+            android:background="?selectableItemBackground"
+            android:layout_height="60dp">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_resolution"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:padding="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/all_ic_click_one" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginBottom="3dp"
+                android:id="@+id/appCompatTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/thin_ios"
+                android:includeFontPadding="false"
+                android:text="@string/click_one"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/g1"
+                app:layout_constraintStart_toEndOf="@+id/iv_resolution" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_click_one"
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/thin_ios"
+                android:includeFontPadding="false"
+                android:text="@string/menu_floating_click_touch"
+                android:textColor="@color/black90"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/appCompatTextView2"
+                app:layout_constraintTop_toTopOf="@+id/g1" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/g1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs_click_two"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:background="?selectableItemBackground"
+            android:layout_height="60dp">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/appCompatImageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:padding="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/all_ic_click_two" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginBottom="3dp"
+                android:id="@+id/appCompatTextView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/thin_ios"
+                android:includeFontPadding="false"
+                android:text="@string/click_two"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/g2"
+                app:layout_constraintStart_toEndOf="@+id/appCompatImageView1" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_click_two"
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/thin_ios"
+                android:includeFontPadding="false"
+                android:text="@string/not_click_touch"
+                android:textColor="@color/black90"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/appCompatTextView3"
+                app:layout_constraintTop_toTopOf="@+id/g2" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/g2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs_click_long"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:background="?selectableItemBackground"
+            android:layout_height="60dp">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/appCompatImageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:padding="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/all_ic_click_long" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginBottom="3dp"
+                android:id="@+id/appCompatTextView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/thin_ios"
+                android:includeFontPadding="false"
+                android:text="@string/click_long"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/g3"
+                app:layout_constraintStart_toEndOf="@+id/appCompatImageView2" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_click_long"
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/thin_ios"
+                android:includeFontPadding="false"
+                android:text="@string/recent_click_touch"
+                android:textColor="@color/black90"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/appCompatTextView4"
+                app:layout_constraintTop_toTopOf="@+id/g3" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/g3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.cardview.widget.CardView>

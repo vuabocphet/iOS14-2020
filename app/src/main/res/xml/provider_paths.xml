@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path
+        name="external_files"
+        path="." />
+    <external-files-path
+        name="extfiles"
+        path="." />
+    <external-files-path
+        name="diary"
+        path="." />
+    <external-files-path
+        name="screenshot"
+        path="." />
+    <external-files-path
+        name="img"
+        path="." />
+    <external-files-path
+        name="imguser"
+        path="." />
+    <external-path
+        name="external"
+        path="." />
+    <external-files-path
+        name="external_files"
+        path="." />
+    <cache-path
+        name="cache"
+        path="." />
+    <external-cache-path
+        name="external_cache"
+        path="." />
+    <files-path
+        name="files"
+        path="." />
+
+</paths>
