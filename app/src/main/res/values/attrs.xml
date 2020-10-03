@@ -13,6 +13,13 @@
 
     </declare-styleable>
 
+    <declare-styleable name="NativeAdView">
+        <attr name="ad_style">
+            <enum name="normal" value="0" />
+            <enum name="mediaView" value="1" />
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="CompatView">
 
         <attr name="startcolor" format="string" />

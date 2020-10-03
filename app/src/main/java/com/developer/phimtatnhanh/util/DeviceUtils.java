@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Insets;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.util.DisplayMetrics;
@@ -36,6 +38,19 @@ public class DeviceUtils {
             return new DisplayMetrics();
         }
         return displayMetrics;
+    }
+
+    public static boolean isConnected(Context context) {
+        NetworkInfo info = getNetworkInfo(context);
+        return (info != null && info.isConnected());
+    }
+
+    private static NetworkInfo getNetworkInfo(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm != null) {
+            return cm.getActiveNetworkInfo();
+        }
+        return null;
     }
 
     private static DisplayMetrics get(WindowManager windowManager) {

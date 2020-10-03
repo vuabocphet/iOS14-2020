@@ -1,0 +1,6 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:color="@android:color/darker_gray"
+    tools:targetApi="lollipop">
+    <item android:drawable="@drawable/shape_blue_boder_10"/>
+</ripple>

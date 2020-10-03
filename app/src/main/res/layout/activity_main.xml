@@ -16,6 +16,14 @@
 
         <include layout="@layout/top_1_layout" />
 
+        <com.developer.phimtatnhanh.ads.NativeAdView
+            android:id="@+id/nv_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"/>
+
         <include layout="@layout/setting_layout" />
 
         <include layout="@layout/float_layout" />

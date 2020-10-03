@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><!--    ad_matrix_color_default_cta_bg-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <item android:drawable="@color/transparent" android:state_activated="true" />
+
+    <item android:state_activated="false">
+        <shape>
+            <corners android:radius="@dimen/_2sdp" />
+            <solid android:color="@color/ad_loading_bg" />
+        </shape>
+    </item>
+</selector>

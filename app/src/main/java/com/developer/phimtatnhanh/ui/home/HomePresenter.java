@@ -21,6 +21,7 @@ import com.developer.phimtatnhanh.ui.menulayout.TypeEditMenu;
 import com.developer.phimtatnhanh.ui.settingcapturevideo.SettingCaptureVideoActivity;
 import com.developer.phimtatnhanh.ui.touch.TouchActivity;
 import com.developer.phimtatnhanh.ui.touch.TypeEditTouch;
+import com.developer.phimtatnhanh.util.Utilities;
 
 import javax.inject.Inject;
 
@@ -134,7 +135,13 @@ public class HomePresenter implements BaseMvpPresenter<HomeView>, OptionDialog.S
                 break;
             case R.id.cs_setting_video:
                 getHomeView().startActivity(SettingCaptureVideoActivity.class, null, null);
-
+                break;
+            case R.id.cs_share:
+                Utilities.doShareApp(this.homeView.getContext());
+                break;
+            case R.id.cs_rate:
+                Utilities.openCHPlay(this.homeView.getContext());
+                break;
         }
     }
 

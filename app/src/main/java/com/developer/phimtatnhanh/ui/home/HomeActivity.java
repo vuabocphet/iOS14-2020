@@ -18,6 +18,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 
 import com.developer.phimtatnhanh.R;
+import com.developer.phimtatnhanh.ads.InterAds;
+import com.developer.phimtatnhanh.ads.NativeAdLoader;
+import com.developer.phimtatnhanh.ads.NativeAdView;
+import com.developer.phimtatnhanh.ads.UnitID;
 import com.developer.phimtatnhanh.base.MvpActivity;
 import com.developer.phimtatnhanh.data.ListUtils;
 import com.developer.phimtatnhanh.data.Pref;
@@ -31,6 +35,7 @@ import com.developer.phimtatnhanh.setuptouch.utilities.permission.PermissionUtil
 import com.developer.phimtatnhanh.ui.menulayout.TypeEditMenu;
 import com.developer.phimtatnhanh.ui.touch.TypeEditTouch;
 import com.developer.phimtatnhanh.util.DeviceUtils;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.suke.widget.SwitchButton;
 
 import javax.inject.Inject;
@@ -38,7 +43,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class HomeActivity extends MvpActivity implements HomeView, View.OnClickListener, ConfigPer {
+public class HomeActivity extends MvpActivity implements HomeView, View.OnClickListener, ConfigPer, UnitID {
 
     //region Butter Knife
     @BindView(R.id.switch_on_off)
@@ -113,6 +118,9 @@ public class HomeActivity extends MvpActivity implements HomeView, View.OnClickL
     @BindView(R.id.cs_restore_menu_touch)
     ConstraintLayout csRestoreMenuTouch;
 
+    @BindView(R.id.nv_view)
+    NativeAdView nvView;
+
     //endregion
 
     @Inject
@@ -177,6 +185,8 @@ public class HomeActivity extends MvpActivity implements HomeView, View.OnClickL
         this.homePresenter.attachView(this);
         this.initView();
         this.prefUtil.postInt(Pref.W, DeviceUtils.w(this));
+        InterAds.get().reload();
+        this.loadAd();
     }
 
     @Override
@@ -324,21 +334,33 @@ public class HomeActivity extends MvpActivity implements HomeView, View.OnClickL
         if (typeEditMenu != null) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(TYPE, typeEditMenu);
-            this.startActivity(a, false, bundle);
+            InterAds.get().show(() -> {
+                InterAds.get().reload();
+                this.startActivity(a, false, bundle);
+            });
             return;
         }
         if (typeEditTouch != null) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(TYPE, typeEditTouch);
-            this.startActivity(a, false, bundle);
+            InterAds.get().show(() -> {
+                InterAds.get().reload();
+                this.startActivity(a, false, bundle);
+            });
             return;
         }
-        this.startActivity(a, false);
+        InterAds.get().show(() -> {
+            InterAds.get().reload();
+            this.startActivity(a, false);
+        });
     }
 
     @Override
     public void startActivityCustom(Intent intent) {
-        this.startActivity(intent);
+        InterAds.get().show(() -> {
+            InterAds.get().reload();
+            this.startActivity(intent);
+        });
     }
 
     @Override
@@ -417,5 +439,24 @@ public class HomeActivity extends MvpActivity implements HomeView, View.OnClickL
 
     @OnClick(R.id.g2)
     public void onClick() {
+    }
+
+    private void loadAd() {
+        NativeAdLoader.newInstance().setAdPosition(NT_AD)
+                .setAdUnit(NT_AD_KEY)
+                .setLiveKey(NT_AD_LIVE)
+                .setOnAdLoaderListener(new NativeAdLoader.NativeAdLoaderListener() {
+                    @Override
+                    public void onAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                        super.onAdLoaded(unifiedNativeAd);
+                        nvView.show(unifiedNativeAd);
+                    }
+
+                    @Override
+                    public void onAdLoadFailed(String message) {
+                        super.onAdLoadFailed(message);
+                        nvView.setVisibility(View.GONE);
+                    }
+                }).loadAd(this);
     }
 }
