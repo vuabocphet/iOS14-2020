@@ -359,6 +359,9 @@ public class ViewManagerUtil implements ConfigAll, EvenClick, OnHomePressedListe
         this.runnable = () -> {
             this.longtime = this.longtime + 1000;
             date.setTime(this.longtime);
+            if (this.tvTimeVideo == null || this.handler == null) {
+                return;
+            }
             this.tvTimeVideo.setText(format.format(date));
             this.handler.postDelayed(this.runnable, 1000);
         };

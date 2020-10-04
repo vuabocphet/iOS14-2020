@@ -15,11 +15,11 @@ public class Utilities implements Const {
 
 
     public static void openCHPlay(Context context) {
-        if (PrefUtil.get().getBool(RATE, false)) {
+    /*    if (PrefUtil.get().getBool(RATE, false)) {
             return;
         }
-        PrefUtil.get().postBool(RATE, true);
-        final String appPackageName = BuildConfig.DEBUG ? "com.creative.lovedays&hl=vi" : context.getPackageName();
+        PrefUtil.get().postBool(RATE, true);*/
+        final String appPackageName = context.getPackageName();
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
         } catch (android.content.ActivityNotFoundException anfe) {
@@ -28,7 +28,7 @@ public class Utilities implements Const {
     }
 
     public static void doShareApp(Context context) {
-        final String appPackageName = BuildConfig.DEBUG ? "com.creative.lovedays&hl=vi" : context.getPackageName();
+        final String appPackageName =context.getPackageName();
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         Intent chooserIntent = Intent.createChooser(shareIntent, context.getString(R.string.chiasebanbe));

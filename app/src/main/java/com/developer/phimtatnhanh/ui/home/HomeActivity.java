@@ -449,13 +449,17 @@ public class HomeActivity extends MvpActivity implements HomeView, View.OnClickL
                     @Override
                     public void onAdLoaded(UnifiedNativeAd unifiedNativeAd) {
                         super.onAdLoaded(unifiedNativeAd);
-                        nvView.show(unifiedNativeAd);
+                        if (nvView!=null){
+                            nvView.show(unifiedNativeAd);
+                        }
                     }
 
                     @Override
                     public void onAdLoadFailed(String message) {
                         super.onAdLoadFailed(message);
-                        nvView.setVisibility(View.GONE);
+                        if (nvView!=null){
+                            nvView.setVisibility(View.GONE);
+                        }
                     }
                 }).loadAd(this);
     }

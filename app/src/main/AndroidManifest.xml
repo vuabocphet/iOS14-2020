@@ -78,7 +78,8 @@
             android:name=".notui.PerActivityTransparent"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Transparent" />
+            android:theme="@style/Theme.Transparent"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:launchMode="singleTask"
