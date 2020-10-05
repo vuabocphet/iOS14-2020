@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="not_click_touch">No action</string>
+    <string name="back_click_touch">Come back</string>
+    <string name="home_click_touch">Main screen</string>
+    <string name="recent_click_touch">Recent App</string>
+    <string name="source_click_touch">Source dialog box</string>
+    <string name="menu_floating_click_touch">Floating menu</string>
+    <string name="notification_click_touch">Pull notifications</string>
+    <string name="lock_click_touch">Lock screen</string>
+    <string name="title_click_single">Press menu</string>
+    <string name="select">Choose</string>
+    <string name="cancel">Cancel</string>
+    <string name="setting">Setting</string>
+    <string name="click_one">Press menu</string>
+    <string name="click_two">Double click</string>
+    <string name="click_long">Long press</string>
+    <string name="floating">Floating icons</string>
+    <string name="floating_type">Icon</string>
+    <string name="type_0">Type 1</string>
+    <string name="floating_size">Size</string>
+    <string name="floating_color">Choose your colors</string>
+    <string name="menu_layout">Layout</string>
+    <string name="menu_location">Fixed position</string>
+    <string name="rate_share"><![CDATA[Rate & Share]]></string>
+    <string name="rate">App reviews</string>
+    <string name="share">Share your friends</string>
+    <string name="policy">Privacy Policy</string>
+    <string name="chonapp">Choose an application</string>
+    <string name="home_menu_touch">Main screen</string>
+    <string name="recent_menu_touch">Recent App</string>
+    <string name="back_menu_touch">Come back</string>
+    <string name="air_menu_touch">Planes</string>
+    <string name="bluetool_menu_touch">Bluetooth</string>
+    <string name="bright_menu_touch">Screen brightness</string>
+    <string name="setting_menu_touch">Setting</string>
+    <string name="notification_menu_touch">Notification</string>
+    <string name="flash_menu_touch">Flashlight</string>
+    <string name="loc_screen_menu_touch">Lock screen</string>
+    <string name="rotate_menu_touch">Screen rotation</string>
+    <string name="volue_up_menu_touch">Volume up</string>
+    <string name="volue_out_menu_touch">Turn down the volume</string>
+    <string name="wifi_menu_touch">Wifi</string>
+    <string name="network_menu_touch">Mobile data</string>
+    <string name="star_menu_touch">Favourite</string>
+    <string name="time_bright_menu_touch">Brightness time</string>
+    <string name="device_menu_touch">Device</string>
+    <string name="capture_video_menu_touch">Video Screen</string>
+    <string name="capture_menu_touch">Screen capture</string>
+    <string name="none">Nothing</string>
+    <string name="back">Back</string>
+    <string name="des">
+        *Apps need Accessibility Service permission to perform actions\n
+        +Back\n
+        +Open the multitasking screen\n
+        +Return to the main screen\n
+        +Screen capture\n
+        +Open notifications
+    </string>
+    <string name="time_bright_15giay">15 seconds</string>
+    <string name="time_bright_30giay">30 seconds</string>
+    <string name="time_bright_1phut">1 minute</string>
+    <string name="time_bright_2phut">2 minute</string>
+    <string name="time_bright_10phut">10 minute</string>
+    <string name="time_bright_30phut">30 minute</string>
+    <string name="time_bright_never">Never</string>
+    <string name="time_bright">Waiting time</string>
+    <string name="screen_orientation_off">Rotation mode OFF</string>
+    <string name="screen_orientation_on">Rotation mode ON</string>
+    <string name="desadmin">To use the screen off function we ask you to grant administrator rights to the application</string>
+    <string name="flash_on_off">Flashlight on and off</string>
+    <string name="flash_set">*Adjust from 0 to 5 for light flashing*</string>
+    <string name="pcamera_denied">Please grant camera permission to use the feature</string>
+    <string name="preadwrite_denied">Please grant read and write memory permission to use feature</string>
+    <string name="precord_denied">Please grant recording permission to use the feature</string>
+    <string name="start">Begin…</string>
+    <string name="brightness_setting">Screen brightness setting</string>
+    <string name="brightness_xiaomi">On some models of China (Xiaomi, Oppo, …) will have great brightness. If your phone is on that list, turn on brightness correction mode </string>
+    <string name="fix_brightness">Fix brightness error on China machine</string>
+    <string name="title_menu_activity">Change the layout</string>
+    <string name="power_menu_touch">Source menu</string>
+    <string name="menu_bg_color">Color as background</string>
+    <string name="menu_bg_photo">Image as background</string>
+    <string name="photo">Choose an image</string>
+    <string name="set_color">Change background color, bokeh angle and opacity Touch Menu</string>
+    <string name="set_photo">Change picture, bokeh and Menu Touch opacity (Image will be blurred)</string>
+    <string name="color_bg">Background color👉</string>
+    <string name="boder_bg">Rounded corners👉</string>
+    <string name="alpha_bg">Opacity👉</string>
+    <string name="select_photo">Choose an image</string>
+    <string name="luachon">Selection</string>
+    <string name="error">An error occurred</string>
+    <string name="blur_bg">Blur👉</string>
+    <string name="restore">Restore default</string>
+    <string name="warning">Warning</string>
+    <string name="warning_user">Are you sure you want to recover?</string>
+    <string name="yes">Yes</string>
+    <string name="title_touch_activity">Change icons</string>
+    <string name="size_bg">Size👉</string>
+    <string name="pmedia_denied">Please grant permission to use the feature</string>
+    <string name="err_brightness">Maximum brightness with yours is 255 and we did a reset</string>
+    <string name="capture_setting">Screenshots</string>
+    <string name="album">Your picture</string>
+    <string name="capture_preview">Display image Preview</string>
+    <string name="dev_des">\t\tDesign By VanTinhIT\t\t</string>
+    <string name="capture_sussce">Finished shooting</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_video_resolution">Resolution</string>
+    <string name="title_record_audio">Record Audio</string>
+
+    <string name="summary_video_resolution">Specify video size</string>
+    <string name="summary_record_audio">Should audio be recorded</string>
+
+    <string name="key_record_audio">key_record_audio</string>
+    <string name="key_video_resolution">key_video_resolution</string>
+    <string name="key_video_fps">key_video_fps</string>
+    <string name="key_video_bitrate">key_video_bitrate</string>
+    <string name="key_show_notification">key_show_notification</string>
+    <string name="key_video_encoder">key_video_encoder</string>
+    <string name="key_audio_source">key_audio_source</string>
+    <string name="key_output_format">key_output_format</string>
+    <string name="setting_capture_video">Video recording settings</string>
+    <string name="capture_video_setting">Screen recording</string>
+    <string name="video">Your video</string>
+    <string name="audio">Configure sound</string>
+    <string name="videoconfig">Video configuration</string>
+    <string name="audio_source">Sound source</string>
+    <string name="mic">Mic</string>
+    <string name="audio_record">Recording</string>
+    <string name="bit_rate">Bit rate</string>
+    <string name="frame_rate">Frame rate</string>
+    <string name="resolution">Resolution</string>
+    <string name="video_encoder">Video encoder</string>
+    <string name="more">Advanced</string>
+    <string name="output_format">Output format</string>
+    <string name="user_video">Your video</string>
+    <string name="xiaomi">Important: Permissions on xiaomi device</string>
+    <string name="start_in_backgroud_content">If you are using a Xiaomi device, tap on grant and allow all the permissions requested by the app</string>
+    <string name="yes_per">Authorization</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Erase</string>
+    <string name="close">Cancel</string>
+    <string name="k_t_n_i">Connect</string>
+    <string name="ti_n_i_ch">Utilities</string>
+    <string name="developer">The skill are improving</string>
+    <string name="chiasebanbe">Share your friends</string>
+    <string name="content_fb">Very good application</string>
+    <string name="ad">Ad</string>
+</resources>

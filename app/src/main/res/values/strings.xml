@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Assistive Touch iOS 14</string>
+    <string name="app_name" translatable="false">Assistive Touch iOS 14</string>
+    <string name="app_id" translatable="false">ca-app-pub-8245627032927086~2238336322</string>
+
     <string name="not_click_touch">Không có hành động</string>
     <string name="back_click_touch">Quay lại</string>
     <string name="home_click_touch">Màn hình chính</string>
@@ -149,6 +151,5 @@
     <string name="chiasebanbe">Chia sẻ cho bạn bè</string>
     <string name="content_fb">Ứng dụng rất hay</string>
     <string name="ad">Ad</string>
-    <string name="app_id" translatable="false">ca-app-pub-8245627032927086~2238336322</string>
 
 </resources>
