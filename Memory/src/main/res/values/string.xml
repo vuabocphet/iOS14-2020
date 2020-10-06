@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="apk_clean">Gói cài đặt apk</string>
+    <string name="tmp_clean">Tệp tạm thời</string>
+    <string name="log_clean">Tệp nhật ký</string>
+    <string name="cache_clean">Bộ nhớ cache</string>
+    <string name="system_cache">Bộ nhớ đệm hệ thống</string>
+
+    <string name="byte_short">B</string>
+    <!-- Suffix added to a number to signify size in kilobytes. -->
+    <string name="kilo_byte_short">KB</string>
+    <!-- Suffix added to a number to signify size in megabytes. -->
+    <string name="mega_byte_short">MB</string>
+    <!-- Suffix added to a number to signify size in gigabytes. -->
+    <string name="giga_byte_short">GB</string>
+    <!-- Suffix added to a number to signify size in terabytes. -->
+    <string name="tera_byte_short">TB</string>
+    <!-- Suffix added to a number to signify size in petabytes. -->
+    <string name="peta_byte_short">PB</string>
+
+    <string name="clean_file_size_suffix">%1$s%2$s</string>
+</resources>

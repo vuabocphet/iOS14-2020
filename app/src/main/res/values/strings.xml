@@ -151,5 +151,7 @@
     <string name="chiasebanbe">Chia sẻ cho bạn bè</string>
     <string name="content_fb">Ứng dụng rất hay</string>
     <string name="ad">Ad</string>
+    <string name="clean_junk">Dọn rác</string>
+    <string name="scan">Đang quét rác…</string>
 
 </resources>

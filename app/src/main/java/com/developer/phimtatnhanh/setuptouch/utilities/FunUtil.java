@@ -22,6 +22,7 @@ import com.developer.phimtatnhanh.setuptouch.dialog.TimeBrightnessDialog;
 import com.developer.phimtatnhanh.setuptouch.utilities.capturescreen.RxScreenCapture;
 import com.developer.phimtatnhanh.setuptouch.utilities.permission.ConfigPer;
 import com.developer.phimtatnhanh.setuptouch.utilities.permission.PermissionUtils;
+import com.developer.phimtatnhanh.ui.junk.JunkActivity;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
 import static android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS;
@@ -104,6 +105,9 @@ public class FunUtil implements ConstKey {
                 return;
             case POWER_DIALOG:
                 this.onPowerDialog();
+                return;
+            case SCAN_JUNK:
+                this.junk();
         }
     }
 
@@ -282,6 +286,11 @@ public class FunUtil implements ConstKey {
         if (dialogempty()) return;
         if (allAccessibility()) return;
         this.handler.postDelayed(() -> ObservableTouchUtil.get().getKeyServiceListener().powerDialog(), 255);
+    }
+
+    private void junk() {
+        if (allReadWriteStogre(SCAN_JUNK)) return;
+        JunkActivity.open(AppContext.get().getContext());
     }
 
     private boolean allAccessibility() {

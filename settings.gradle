@@ -1,2 +1,3 @@
+include ':Memory'
 include ':app'
 rootProject.name = "CCTT"

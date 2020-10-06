@@ -14,6 +14,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import com.developer.phimtatnhanh.R;
 import com.developer.phimtatnhanh.data.PrefUtil;
 import com.developer.phimtatnhanh.setuptouch.utilities.ObservableTouchUtil;
 import com.developer.phimtatnhanh.setuptouch.utilities.ViewManagerUtil;
@@ -83,8 +84,8 @@ public class TouchService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            String NOTIFICATION_CHANNEL_ID = "com.example.simpleapp";
-            String channelName = "My Background Service";
+            String NOTIFICATION_CHANNEL_ID = this.getPackageName();
+            String channelName = this.getString(R.string.app_name);
             NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
             chan.setLightColor(Color.BLUE);
             chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
@@ -100,7 +101,7 @@ public class TouchService extends Service {
                     .build();
             startForeground(2, notification);
         }
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     @Override

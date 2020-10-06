@@ -84,7 +84,8 @@ public class ListUtils implements ConfigAll {
                 getString(R.string.device_menu_touch),
                 getString(R.string.capture_video_menu_touch),
                 getString(R.string.capture_menu_touch),
-                getString(R.string.power_menu_touch)
+                getString(R.string.power_menu_touch),
+                getString(R.string.clean_junk)
         );
     }
 
@@ -114,7 +115,8 @@ public class ListUtils implements ConfigAll {
                 R.drawable.ic_all_ic_recent,
                 R.drawable.ic_all_ic_video,
                 R.drawable.ic_all_ic_capture,
-                R.drawable.all_ic_power
+                R.drawable.all_ic_power,
+                R.drawable.all_ic_magic_broom
         );
     }
 
@@ -144,7 +146,8 @@ public class ListUtils implements ConfigAll {
                 R.drawable.all_click_recent,
                 R.drawable.all_click_capture_video,
                 R.drawable.all_click_capture,
-                R.drawable.all_click_power
+                R.drawable.all_click_power,
+                R.drawable.all_click_boom
         );
     }
 

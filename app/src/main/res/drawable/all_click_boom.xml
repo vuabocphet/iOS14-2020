@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true" android:state_pressed="true" android:drawable="@drawable/all_ic_magic_broom"/>
+    <item android:state_focused="false" android:state_pressed="true" android:drawable="@drawable/ic_all_ic_magic_broom_click"/>
+    <item android:state_focused="true" android:drawable="@drawable/all_ic_magic_broom"/>
+    <item android:state_focused="false" android:state_pressed="false" android:drawable="@drawable/all_ic_magic_broom"/>
+</selector>

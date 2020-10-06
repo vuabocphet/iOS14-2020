@@ -20,8 +20,6 @@ public class InterAds implements UnitID {
 
     private Context context;
 
-    private boolean loadAds = true;
-
     public static void initialize(Context context) {
         if (instance == null) {
             instance = new InterAds(context);
@@ -40,7 +38,6 @@ public class InterAds implements UnitID {
 
             @Override
             public void onAdLoaded() {
-                loadAds = true;
                 AppLogEvent.getInstance().log("ADS_LOAD_IT");
             }
 
@@ -51,7 +48,6 @@ public class InterAds implements UnitID {
 
             @Override
             public void onAdFailedToLoad(LoadAdError loadAdError) {
-                loadAds = false;
                 AppLogEvent.getInstance().log("ADS_LOAD_FAILED_IT");
             }
 
@@ -75,7 +71,6 @@ public class InterAds implements UnitID {
         if (this.mInterstitialAd == null) {
             return;
         }
-        this.loadAds = true;
         this.mInterstitialAd.loadAd(AdUtil.getAdRequestBuilderWithTestDevice(this.context).build());
     }
 
