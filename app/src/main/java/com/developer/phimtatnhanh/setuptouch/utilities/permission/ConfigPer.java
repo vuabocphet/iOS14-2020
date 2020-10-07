@@ -16,6 +16,7 @@ public interface ConfigPer {
     int ACTION_ACCESSIBILITY_SETTINGS = 824;
     int ACTION_ADMIN = 825;
     int RQCODE_RECORD_AUDIO = 826;
+    int RQCODE_PACKAGE_USAGE_STATS = 827;
 
     String KEYCODE = "keycode";
     String KEYMENU = "keymenu";

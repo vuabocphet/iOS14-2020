@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.developer.memory.junk.RamMaster;
 import com.developer.phimtatnhanh.R;
 import com.developer.phimtatnhanh.service.MyAdmin;
 import com.developer.phimtatnhanh.service.TouchService;
@@ -29,6 +30,7 @@ import com.developer.phimtatnhanh.setuptouch.config.ConstKey;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.EvenBusCaptureStart;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.EvenBusCaptureStartVideo;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.EvenBusFlash;
+import com.developer.phimtatnhanh.setuptouch.utilities.bus.ScanJunk;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.ShowFloatTouch;
 import com.developer.phimtatnhanh.setuptouch.utilities.capturescreen.RxScreenCapture;
 import com.developer.phimtatnhanh.setuptouch.utilities.permission.ConfigPer;
@@ -142,6 +144,9 @@ public class PerActivityTransparent extends AppCompatActivity implements ConfigP
                 admin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(admin, ACTION_ADMIN);
                 break;
+            case RQCODE_PACKAGE_USAGE_STATS:
+                RamMaster.requestPerRamMaster(this, RQCODE_PACKAGE_USAGE_STATS);
+                break;
             default:
                 finish();
         }
@@ -196,6 +201,15 @@ public class PerActivityTransparent extends AppCompatActivity implements ConfigP
                 return;
             }
             devicePolicyManager.lockNow();
+        }
+
+        if (requestCode == RQCODE_PACKAGE_USAGE_STATS) {
+            if (resultCode != Activity.RESULT_OK) {
+                EventBus.getDefault().post(new ScanJunk());
+                finish();
+                return;
+            }
+
         }
         finish();
     }

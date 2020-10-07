@@ -2,13 +2,19 @@ package com.developer.memory.junk;
 
 
 import android.annotation.SuppressLint;
+import android.app.usage.StorageStats;
+import android.app.usage.StorageStatsManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.IPackageStatsObserver;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageStats;
+import android.os.Build;
 import android.os.Environment;
 import android.os.RemoteException;
+import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import com.developer.memory.R;
 import com.developer.memory.junk.callback.IScanCallback;
@@ -45,8 +51,6 @@ public class JunkScanRx {
     private HashMap<String, String> mAppNames;
     private long mTotalSize = 0L;
     private Disposable subscribe1;
-    private boolean isScanJunk = false;
-    private boolean isScanCache = false;
 
     public JunkScanRx(Context context, IScanCallback callback) {
         mCallback = callback;
@@ -54,6 +58,8 @@ public class JunkScanRx {
         mApkInfo = new JunkInfo(this.context);
         mLogInfo = new JunkInfo(this.context);
         mTmpInfo = new JunkInfo(this.context);
+        mSysCaches = new ArrayList<>();
+        junkInfos = new ArrayList<>();
     }
 
     private void travelPath(File root, int level) {
@@ -99,6 +105,7 @@ public class JunkScanRx {
                 }
                 if (info != null && this.mCallback != null && isRunning) {
                     this.mCallback.onProgress(info);
+                    this.junkInfos.add(info);
                 }
             } else {
                 if (level < SCAN_LEVEL) {
@@ -116,6 +123,9 @@ public class JunkScanRx {
         this.subscribe = this.createJunkRx().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
+    }
+
+    private void startSysCache() {
         this.subscribe1 = this.createCacheRx().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
@@ -134,49 +144,29 @@ public class JunkScanRx {
     private Single<String> createJunkRx() {
         return Single.create(emitter -> {
             try {
-                ArrayList<JunkInfo> junk = this.getJunk();
-                emitter.onSuccess("onSuccess");
-                this.isScanJunk = true;
-                junkInfos.addAll(junk);
-                if (this.mCallback != null && this.isScanCache && isRunning) {
-                    this.mCallback.onFinish(junkInfos, mSysCaches);
-                    this.mCallback.onStopJunk();
-                }
+                this.getJunk();
+                this.startSysCache();
             } catch (Exception e) {
-                e.printStackTrace();
-                emitter.onError(e);
-                if (this.mCallback != null) {
-                    this.mCallback.onErrorJunk();
+                if (mCallback != null) {
+                    mCallback.onErrorJunk(e);
                 }
+                this.startSysCache();
             }
         });
     }
 
-    private ArrayList<JunkInfo> getJunk() {
+    private void finishAll() {
+        if (this.mCallback != null && isRunning) {
+            this.mCallback.onFinish(junkInfos, mSysCaches);
+            this.mCallback.onStopJunk();
+        }
+    }
+
+    private void getJunk() {
         File externalDir = Environment.getExternalStorageDirectory();
         if (externalDir != null) {
             this.travelPath(externalDir, 0);
         }
-        ArrayList<JunkInfo> list = new ArrayList<>();
-
-        if (mApkInfo.mSize > 0L) {
-            Collections.sort(mApkInfo.mChildren);
-            Collections.reverse(mApkInfo.mChildren);
-            list.add(mApkInfo);
-        }
-
-        if (mLogInfo.mSize > 0L) {
-            Collections.sort(mLogInfo.mChildren);
-            Collections.reverse(mLogInfo.mChildren);
-            list.add(mLogInfo);
-        }
-
-        if (mTmpInfo.mSize > 0L) {
-            Collections.sort(mTmpInfo.mChildren);
-            Collections.reverse(mTmpInfo.mChildren);
-            list.add(mTmpInfo);
-        }
-        return list;
     }
 
     private Single<String> createCacheRx() {
@@ -188,10 +178,7 @@ public class JunkScanRx {
                 IPackageStatsObserver.Stub observer = new PackageStatsObserver();
                 mScanCount = 0;
                 mTotalCount = installedPackages.size();
-                mSysCaches = new ArrayList<>();
-                junkInfos = new ArrayList<>();
                 mAppNames = new HashMap<>();
-
                 for (int i = 0; i < mTotalCount; i++) {
                     if (!this.isRunning) {
                         return;
@@ -200,23 +187,78 @@ public class JunkScanRx {
                     mAppNames.put(info.packageName, pm.getApplicationLabel(info).toString());
                     getPackageInfo(info.packageName, observer);
                 }
-                emitter.onSuccess("onSuccess");
             } catch (Exception e) {
-                e.printStackTrace();
-                emitter.onError(e);
+                if (mCallback != null) {
+                    mCallback.onErrorJunk(e);
+                }
             }
         });
     }
 
     public void getPackageInfo(String packageName, IPackageStatsObserver.Stub observer) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            this.getSizeBelow26(packageName, observer);
+            return;
+        }
+        this.getSizeAbove25(packageName);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @SuppressLint("WrongConstant")
+    private void getSizeAbove25(String packageName) {
+        final StorageStatsManager storageStatsManager = (StorageStatsManager) context.getSystemService(Context.STORAGE_STATS_SERVICE);
+        try {
+            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(packageName, 0);
+            StorageStats storageStats = storageStatsManager.queryStatsForUid(ai.storageUuid, ai.uid);
+            mScanCount++;
+            {
+                JunkInfo info = new JunkInfo(context);
+                info.mPackageName = ai.packageName;
+                info.name = mAppNames.get(info.mPackageName);
+                info.mSize = storageStats.getCacheBytes();
+                if (info.mSize > 0) {
+                    mSysCaches.add(info);
+                    mTotalSize += info.mSize;
+                }
+                if (mCallback != null && isRunning) {
+                    mCallback.onProgress(info);
+                }
+            }
+            if (mScanCount == mTotalCount) {
+                JunkInfo info = new JunkInfo(context);
+                info.name = context.getString(R.string.system_cache);
+                info.mSize = mTotalSize;
+                Collections.sort(mSysCaches);
+                Collections.reverse(mSysCaches);
+                info.mChildren = mSysCaches;
+                info.mIsVisible = true;
+                info.mIsChild = false;
+                ArrayList<JunkInfo> list = new ArrayList<>();
+                list.add(info);
+                finishAll();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (mCallback != null) {
+                mCallback.onErrorJunk(e);
+            }
+        }
+    }
+
+    private void getSizeBelow26(String packageName, IPackageStatsObserver.Stub observer) {
         try {
             PackageManager pm = this.context.getPackageManager();
+
             Method getPackageSizeInfo = pm.getClass()
                     .getMethod("getPackageSizeInfo", String.class, IPackageStatsObserver.class);
 
             getPackageSizeInfo.invoke(pm, packageName, observer);
+
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
+            if (mCallback != null) {
+                mCallback.onErrorJunk(e);
+            }
         }
     }
 
@@ -251,11 +293,7 @@ public class JunkScanRx {
                 info.mIsChild = false;
                 ArrayList<JunkInfo> list = new ArrayList<>();
                 list.add(info);
-                isScanCache = true;
-                if (mCallback != null && isScanJunk && isRunning) {
-                    mCallback.onFinish(junkInfos, mSysCaches);
-                    mCallback.onStopJunk();
-                }
+                finishAll();
             }
         }
     }

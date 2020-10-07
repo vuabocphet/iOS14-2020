@@ -15,5 +15,5 @@ public interface IScanCallback {
 
     void onFinish(ArrayList<JunkInfo> junkInfos,ArrayList<JunkInfo> sysCaches);
 
-    void onErrorJunk();
+    void onErrorJunk(Throwable throwable);
 }

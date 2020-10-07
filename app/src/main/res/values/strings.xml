@@ -153,5 +153,8 @@
     <string name="ad">Ad</string>
     <string name="clean_junk">Dọn rác</string>
     <string name="scan">Đang quét rác…</string>
+    <string name="clean_junk_error">Có lỗi…</string>
+    <string name="clean_junk_finish">Đã tìm thấy</string>
+    <string name="clean_junk_ngay">Dọn rác\nngay</string>
 
 </resources>

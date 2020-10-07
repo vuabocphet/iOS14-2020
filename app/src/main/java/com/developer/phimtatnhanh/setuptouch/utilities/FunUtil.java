@@ -8,8 +8,10 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.developer.memory.junk.RamMaster;
 import com.developer.phimtatnhanh.R;
 import com.developer.phimtatnhanh.app.AppContext;
 import com.developer.phimtatnhanh.notui.PerActivityTransparent;
@@ -106,7 +108,7 @@ public class FunUtil implements ConstKey {
             case POWER_DIALOG:
                 this.onPowerDialog();
                 return;
-            case SCAN_JUNK:
+            case MENU_SCAN_JUNK:
                 this.junk();
         }
     }
@@ -289,7 +291,10 @@ public class FunUtil implements ConstKey {
     }
 
     private void junk() {
-        if (allReadWriteStogre(SCAN_JUNK)) return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (allJunk()) return;
+        }
+        if (allReadWriteStogre(MENU_SCAN_JUNK)) return;
         JunkActivity.open(AppContext.get().getContext());
     }
 
@@ -337,6 +342,17 @@ public class FunUtil implements ConstKey {
         boolean cameraEnabled = PermissionUtils.checkPerShowDialog(AppContext.get().getContext(), ConfigPer.RECORD_AUDIO);
         if (!cameraEnabled) {
             PerActivityTransparent.open(AppContext.get().getContext(), ConfigPer.RQCODE_RECORD_AUDIO, MENU_CAPTURE_SCREEN_VIDEO);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean allJunk() {
+        this.menuTouchDialog.cancelMenuTouch(true);
+        boolean permission = RamMaster.hasPermission(AppContext.get().getContext());
+        Log.e("Tinhnv", "allJunk: " + permission);
+        if (!permission) {
+            PerActivityTransparent.open(AppContext.get().getContext(), ConfigPer.RQCODE_PACKAGE_USAGE_STATS, MENU_SCAN_JUNK);
             return true;
         }
         return false;

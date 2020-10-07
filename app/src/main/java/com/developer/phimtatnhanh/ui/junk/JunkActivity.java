@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -20,24 +23,36 @@ import com.developer.phimtatnhanh.R;
 import com.developer.phimtatnhanh.ads.NativeAdLoader;
 import com.developer.phimtatnhanh.ads.NativeAdView;
 import com.developer.phimtatnhanh.base.BaseActivity;
+import com.github.florent37.viewanimator.AnimationListener;
+import com.github.florent37.viewanimator.ViewAnimator;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
+import io.reactivex.disposables.Disposable;
 
 import static com.developer.phimtatnhanh.ads.UnitID.NT_AD;
 import static com.developer.phimtatnhanh.ads.UnitID.NT_AD_KEY;
 import static com.developer.phimtatnhanh.ads.UnitID.NT_AD_LIVE;
 
-public class JunkActivity extends BaseActivity implements IScanCallback {
+public class JunkActivity extends BaseActivity implements IScanCallback, CleanUtil.CleanCallBack {
 
 
     @BindView(R.id.cs_layout_all)
     ConstraintLayout csLayoutAll;
     @BindView(R.id.tv_title)
     AppCompatTextView tvTitle;
+    @BindView(R.id.tv_title_bottom)
+    AppCompatTextView tvTitleBottom;
+    @BindView(R.id.clear_all)
+    RelativeLayout clearAll;
+    @BindView(R.id.anim_iv)
+    LottieAnimationView animIv;
+
+    private Disposable disposableClean;
 
     public static void open(Context context) {
         if (context == null) {
@@ -115,31 +130,51 @@ public class JunkActivity extends BaseActivity implements IScanCallback {
 
     @Override
     public void onStopJunk() {
-        Log.e("TinhNv", "onStopJunk: " );
         if (this.lottie != null) {
-            this.lottie.cancelAnimation();
-        }
-        if (this.handler != null) {
-            this.handler.post(() -> {
-
-            });
+            this.lottie.setRepeatCount(0);
         }
     }
 
     @Override
     public void onProgress(JunkInfo info) {
         this.sizeJunk += info.mSize;
-        this.handler.post(() -> this.tvPreview.setText(CleanUtil.formatShortFileSize(this, this.sizeJunk)));
+        if (this.handler == null) {
+            return;
+        }
+        this.handler.post(() -> {
+            if (this.tvPreview == null || this.tvTitleBottom == null) {
+                return;
+            }
+            this.tvPreview.setText(CleanUtil.formatShortFileSize(this, this.sizeJunk));
+            this.tvTitleBottom.setText(info.mPackageName);
+        });
     }
 
     @Override
     public void onFinish(ArrayList<JunkInfo> junkInfos, ArrayList<JunkInfo> sysCaches) {
-
+        Log.e("TinhNv", "onFinish: ");
+        if (this.handler != null) {
+            this.handler.post(() -> {
+                if (this.tvTitle == null || this.tvTitleBottom == null) {
+                    return;
+                }
+                this.tvTitle.setText(getString(R.string.clean_junk_finish));
+                this.clearAll.setVisibility(View.VISIBLE);
+                ViewAnimator.animate(this.tvTitleBottom).scale(1f, 0f).duration(1000).start().onStop(() -> {
+                    this.tvTitleBottom.setVisibility(View.GONE);
+                });
+                ViewAnimator.animate(this.clearAll).scale(0f, 1f).slideBottomIn().onStop(() -> {
+                    this.animIv.setVisibility(View.VISIBLE);
+                    this.animIv.playAnimation();
+                }).duration(1000).start();
+            });
+        }
+        this.clearAll.setOnClickListener(view -> this.disposableClean = CleanUtil.freeJunkInfos(this, junkInfos, sysCaches, this));
     }
 
     @Override
-    public void onErrorJunk() {
-
+    public void onErrorJunk(Throwable e) {
+        Toast.makeText(this, getString(R.string.clean_junk_error), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -150,6 +185,9 @@ public class JunkActivity extends BaseActivity implements IScanCallback {
         }
         if (this.handler != null) {
             this.handler.removeCallbacksAndMessages(null);
+        }
+        if (this.disposableClean != null) {
+            this.disposableClean.dispose();
         }
     }
 
@@ -174,5 +212,30 @@ public class JunkActivity extends BaseActivity implements IScanCallback {
                         }
                     }
                 }).loadAd(this);
+    }
+
+    @Override
+    public void onComplete() {
+
+    }
+
+    @Override
+    public void onProgressClean(JunkInfo info) {
+        this.sizeJunk -= info.mSize;
+        if (this.handler == null) {
+            return;
+        }
+        this.handler.post(() -> {
+            if (this.tvPreview == null || this.tvTitleBottom == null) {
+                return;
+            }
+            this.tvPreview.setText(CleanUtil.formatShortFileSize(this, this.sizeJunk));
+            this.tvTitleBottom.setText(info.mPackageName);
+        });
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+
     }
 }

@@ -24,7 +24,7 @@ public interface ConstKey {
     int MENU_CAPTURE_SCREEN_VIDEO = 19;
     int MENU_CAPTURE_SCREEN = 20;
     int POWER_DIALOG = 21;
-    int SCAN_JUNK= 22;
+    int MENU_SCAN_JUNK = 22;
     int SCAN_RAM= 23;
 
     int DIALOG_NOT_CLICK = 0;
