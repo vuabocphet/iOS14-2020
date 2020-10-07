@@ -99,11 +99,9 @@ public class CleanUtil {
 
     public static Disposable freeJunkInfos(Context context, ArrayList<JunkInfo> junks, ArrayList<JunkInfo> sysCaches, CleanCallBack cleanCallBack) {
         return Single.create((SingleOnSubscribe<Void>) emitter -> {
-            Log.e("TinhNv", "freeJunkInfos: " + junks.size());
             for (JunkInfo info : junks) {
                 try {
                     File file = new File(info.mPath);
-                    Log.e("TinhNv", "onProgressClean: " + info.name);
                     if (file.exists()) {
                         boolean delete = file.delete();
                         if (delete) {
@@ -130,7 +128,6 @@ public class CleanUtil {
                 }
             }
             cleanCallBack.onComplete();
-            /* freeAllAppsCache(context, cleanCallBack);*/
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
