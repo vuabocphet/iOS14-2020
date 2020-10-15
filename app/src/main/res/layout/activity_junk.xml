@@ -14,15 +14,11 @@
         app:lottie_colorFilter="@color/red"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_fileName="s6.json"
+        app:lottie_fileName="s7.json"
         app:lottie_loop="true" />
 
     <com.developer.phimtatnhanh.ads.NativeAdView
