@@ -29,12 +29,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.developer.phimtatnhanh.R;
 import com.developer.phimtatnhanh.app.AppContext;
-import com.developer.phimtatnhanh.base.MvpActivity;
+import com.developer.phimtatnhanh.base.BaseActivity;
 import com.developer.phimtatnhanh.data.ListUtils;
 import com.developer.phimtatnhanh.data.MenuModel;
 import com.developer.phimtatnhanh.data.Pref;
 import com.developer.phimtatnhanh.data.PrefUtil;
 import com.developer.phimtatnhanh.delayclickview.PostDelayClick;
+import com.developer.phimtatnhanh.di.component.ActivityComponent;
 import com.developer.phimtatnhanh.setuptouch.config.ConfigAll;
 import com.developer.phimtatnhanh.setuptouch.config.ConstKey;
 import com.developer.phimtatnhanh.setuptouch.utilities.permission.ConfigPer;
@@ -60,7 +61,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
-public class MenuActivity extends MvpActivity implements MenuView, ConfigAll, ConstKey, LifePermission {
+public class MenuActivity extends BaseActivity implements MenuView, ConfigAll, ConstKey, LifePermission {
 
     @Inject
     ListUtils listUtils;
@@ -165,6 +166,11 @@ public class MenuActivity extends MvpActivity implements MenuView, ConfigAll, Co
     }
 
     @Override
+    protected void injectDagger(ActivityComponent activityComponent) {
+        activityComponent.inject(this);
+    }
+
+    @Override
     public Context getContext() {
         return this;
     }
@@ -180,9 +186,7 @@ public class MenuActivity extends MvpActivity implements MenuView, ConfigAll, Co
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getComponent().inject(this);
+    protected void init() {
         this.menuPresenter = new MenuPresenter();
         this.menuPresenter.attachView(this);
         this.permissionUtils = PermissionUtils.init(this);

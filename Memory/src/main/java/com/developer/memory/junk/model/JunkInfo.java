@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class JunkInfo implements Comparable<JunkInfo> {
     public String name;
     public long mSize;
+    public int icon;
     public String mPackageName;
     public String mPath;
     public ArrayList<JunkInfo> mChildren = new ArrayList<>();
@@ -26,6 +27,7 @@ public class JunkInfo implements Comparable<JunkInfo> {
 
     @Override
     public int compareTo(JunkInfo another) {
+
         String top = context.getString(R.string.system_cache);
 
         if (this.name != null && this.name.equals(top)) {

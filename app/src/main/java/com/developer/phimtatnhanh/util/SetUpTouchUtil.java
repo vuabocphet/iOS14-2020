@@ -7,10 +7,14 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.developer.phimtatnhanh.app.AppContext;
+import com.developer.phimtatnhanh.data.ListUtils;
 import com.developer.phimtatnhanh.data.Pref;
 import com.developer.phimtatnhanh.data.PrefUtil;
 import com.developer.phimtatnhanh.ui.touch.ConfigFloatTouch;
+import com.developer.phimtatnhanh.ui.touch.gridview.IconModel;
 import com.developer.phimtatnhanh.view.CompatView;
+
+import java.util.List;
 
 public class SetUpTouchUtil implements ConfigFloatTouch {
 
@@ -27,7 +31,11 @@ public class SetUpTouchUtil implements ConfigFloatTouch {
     private void setIcon() {
         if (isNullView()) return;
         int icon = PrefUtil.get().getInt(Pref.ICON_TOUCH, ICON_DEFAULT);
-        Glide.with(AppContext.get().getContext()).load(icon).into(this.compatView);
+        List<IconModel> listIconTouch = ListUtils.get(AppContext.get().getContext()).getListIconTouch();
+        if (icon > listIconTouch.size()) {
+            icon = 0;
+        }
+        Glide.with(AppContext.get().getContext()).load(listIconTouch.get(icon).iconId).into(this.compatView);
     }
 
     /*
@@ -44,7 +52,7 @@ public class SetUpTouchUtil implements ConfigFloatTouch {
      * */
     private void setColor() {
         if (isNullView()) return;
-        int colorDefault = ContextCompat.getColor(AppContext.get().getContext(),COLOR_DEFAULT_ID);
+        int colorDefault = ContextCompat.getColor(AppContext.get().getContext(), COLOR_DEFAULT_ID);
         int color = PrefUtil.get().getInt(Pref.TOUCH_BG_COLOR, colorDefault);
         this.compatView.setColor(color);
     }

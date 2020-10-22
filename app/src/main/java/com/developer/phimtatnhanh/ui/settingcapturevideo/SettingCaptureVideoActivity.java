@@ -2,27 +2,26 @@ package com.developer.phimtatnhanh.ui.settingcapturevideo;
 
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 
 import com.developer.phimtatnhanh.R;
-import com.developer.phimtatnhanh.base.MvpActivity;
+import com.developer.phimtatnhanh.base.BaseActivity;
 import com.developer.phimtatnhanh.data.ListUtils;
 import com.developer.phimtatnhanh.data.Pref;
 import com.developer.phimtatnhanh.data.PrefUtil;
 import com.developer.phimtatnhanh.delayclickview.PostDelayClick;
+import com.developer.phimtatnhanh.di.component.ActivityComponent;
 import com.suke.widget.SwitchButton;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class SettingCaptureVideoActivity extends MvpActivity implements View.OnClickListener, SettingView, Pref {
+public class SettingCaptureVideoActivity extends BaseActivity implements View.OnClickListener, SettingView, Pref {
 
     @BindView(R.id.tv_audio_source)
     AppCompatTextView tvAudioSource;
@@ -79,9 +78,7 @@ public class SettingCaptureVideoActivity extends MvpActivity implements View.OnC
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getComponent().inject(this);
+    protected void init() {
         this.settingPresenter = new SettingPresenter(this);
         this.settingPresenter.attachView(this);
         this.initView();
@@ -107,6 +104,11 @@ public class SettingCaptureVideoActivity extends MvpActivity implements View.OnC
     @Override
     protected int initLayout() {
         return R.layout.activity_setting_capture_video;
+    }
+
+    @Override
+    protected void injectDagger(ActivityComponent activityComponent) {
+        activityComponent.inject(this);
     }
 
     private void initView() {

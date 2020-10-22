@@ -22,11 +22,12 @@ import com.developer.phimtatnhanh.ads.InterAds;
 import com.developer.phimtatnhanh.ads.NativeAdLoader;
 import com.developer.phimtatnhanh.ads.NativeAdView;
 import com.developer.phimtatnhanh.ads.UnitID;
-import com.developer.phimtatnhanh.base.MvpActivity;
+import com.developer.phimtatnhanh.base.BaseActivity;
 import com.developer.phimtatnhanh.data.ListUtils;
 import com.developer.phimtatnhanh.data.Pref;
 import com.developer.phimtatnhanh.data.PrefUtil;
 import com.developer.phimtatnhanh.delayclickview.PostDelayClick;
+import com.developer.phimtatnhanh.di.component.ActivityComponent;
 import com.developer.phimtatnhanh.notui.PerActivityTransparent;
 import com.developer.phimtatnhanh.service.MyAdmin;
 import com.developer.phimtatnhanh.service.TouchService;
@@ -43,7 +44,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class HomeActivity extends MvpActivity implements HomeView, View.OnClickListener, ConfigPer, UnitID {
+public class HomeActivity extends BaseActivity implements HomeView, View.OnClickListener, ConfigPer, UnitID {
 
     //region Butter Knife
     @BindView(R.id.switch_on_off)
@@ -173,14 +174,17 @@ public class HomeActivity extends MvpActivity implements HomeView, View.OnClickL
     }
 
     @Override
+    protected void injectDagger(ActivityComponent activityComponent) {
+        activityComponent.inject(this);
+    }
+
+    @Override
     protected boolean fullScreen() {
         return true;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getComponent().inject(this);
+    protected void init() {
         this.homePresenter = new HomePresenter(this);
         this.homePresenter.attachView(this);
         this.initView();
@@ -273,7 +277,7 @@ public class HomeActivity extends MvpActivity implements HomeView, View.OnClickL
     }
 
     private void clickView(View... views) {
-        if (views == null) {
+        if (views == null || views.length == 0) {
             return;
         }
         for (View view : views) {
@@ -331,6 +335,7 @@ public class HomeActivity extends MvpActivity implements HomeView, View.OnClickL
 
     @Override
     public void startActivity(Class a, TypeEditMenu typeEditMenu, TypeEditTouch typeEditTouch) {
+
         if (typeEditMenu != null) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(TYPE, typeEditMenu);
@@ -449,7 +454,7 @@ public class HomeActivity extends MvpActivity implements HomeView, View.OnClickL
                     @Override
                     public void onAdLoaded(UnifiedNativeAd unifiedNativeAd) {
                         super.onAdLoaded(unifiedNativeAd);
-                        if (nvView!=null){
+                        if (nvView != null) {
                             nvView.show(unifiedNativeAd);
                         }
                     }
@@ -457,7 +462,7 @@ public class HomeActivity extends MvpActivity implements HomeView, View.OnClickL
                     @Override
                     public void onAdLoadFailed(String message) {
                         super.onAdLoadFailed(message);
-                        if (nvView!=null){
+                        if (nvView != null) {
                             nvView.setVisibility(View.GONE);
                         }
                     }

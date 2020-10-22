@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.developer.phimtatnhanh.R;
 import com.developer.phimtatnhanh.base.BaseActivity;
 import com.developer.phimtatnhanh.delayclickview.PostDelayClick;
+import com.developer.phimtatnhanh.di.component.ActivityComponent;
 import com.developer.phimtatnhanh.setuptouch.config.ConfigAll;
 import com.developer.phimtatnhanh.setuptouch.utilities.SaveBitmapUtil;
 
@@ -51,6 +52,11 @@ public class PreviewImage extends BaseActivity implements ConfigAll {
     @Override
     protected int initLayout() {
         return R.layout.activity_preview_image;
+    }
+
+    @Override
+    protected void injectDagger(ActivityComponent activityComponent) {
+
     }
 
     @Override

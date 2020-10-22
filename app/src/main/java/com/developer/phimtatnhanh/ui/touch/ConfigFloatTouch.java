@@ -6,7 +6,7 @@ import com.developer.phimtatnhanh.R;
 public interface ConfigFloatTouch {
 
     int BLUR_DEFAULT = 25;
-    int ICON_DEFAULT = R.drawable.all_ic_logo;
+    int ICON_DEFAULT = 0;
     int ALPHA_DEFAULT = 160;
     int ALPHA_MAX = 255;
     int COLOR_DEFAULT_ID = R.color.nau;

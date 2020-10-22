@@ -27,6 +27,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.developer.phimtatnhanh.ui.touch.ConfigFloatTouch.ICON_DEFAULT;
+
 public class ListUtils implements ConfigAll {
 
 
@@ -245,13 +247,13 @@ public class ListUtils implements ConfigAll {
         listIcon.add(R.raw.a_49);
         listIcon.add(R.raw.a_50);
 
-        int anInt = PrefUtil.get().getInt(Pref.ICON_TOUCH, R.drawable.all_ic_logo);
-        for (Integer integer : listIcon) {
-            if (integer == anInt) {
-                iconModels.add(IconModel.create().setIconId(integer).setStatus(true));
+        int anInt = PrefUtil.get().getInt(Pref.ICON_TOUCH, ICON_DEFAULT);
+        for (int i = 0; i < listIcon.size(); i++) {
+            if (i==anInt){
+                iconModels.add(IconModel.create().setIconId(listIcon.get(i)).setStatus(true));
                 continue;
             }
-            iconModels.add(IconModel.create().setIconId(integer).setStatus(false));
+            iconModels.add(IconModel.create().setIconId(listIcon.get(i)).setStatus(false));
         }
         return iconModels;
     }

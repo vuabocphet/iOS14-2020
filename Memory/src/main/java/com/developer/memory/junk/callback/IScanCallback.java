@@ -13,7 +13,17 @@ public interface IScanCallback {
 
     void onProgress(JunkInfo info);
 
-    void onFinish(ArrayList<JunkInfo> junkInfos,ArrayList<JunkInfo> sysCaches);
+    void onProgressCache(JunkInfo info);
+
+    void onProgressApk(JunkInfo info);
+
+    void onProgressTmp(JunkInfo info);
+
+    void onProgressLog(JunkInfo info);
+
+    void onProgressOther(JunkInfo info);
+
+    void onFinish(ArrayList<JunkInfo> junkInfos, ArrayList<JunkInfo> sysCaches);
 
     void onErrorJunk(Throwable throwable);
 }

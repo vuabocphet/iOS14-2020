@@ -11,7 +11,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageStats;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.RemoteException;
+import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
@@ -40,6 +42,7 @@ public class JunkScanRx {
     private JunkInfo mApkInfo;
     private JunkInfo mLogInfo;
     private JunkInfo mTmpInfo;
+    private JunkInfo mOtherInfo;
     private Disposable subscribe;
     private boolean isRunning = false;
     private Context context;
@@ -52,26 +55,37 @@ public class JunkScanRx {
     private long mTotalSize = 0L;
     private Disposable subscribe1;
 
+    private int timeDelay = 10;
+
     public JunkScanRx(Context context, IScanCallback callback) {
         mCallback = callback;
         this.context = context;
         mApkInfo = new JunkInfo(this.context);
         mLogInfo = new JunkInfo(this.context);
         mTmpInfo = new JunkInfo(this.context);
+        mOtherInfo = new JunkInfo(this.context);
         mSysCaches = new ArrayList<>();
         junkInfos = new ArrayList<>();
     }
 
     private void travelPath(File root, int level) {
+
         if (root == null || !root.exists() || level > SCAN_LEVEL) {
             return;
         }
 
         File[] lists = root.listFiles();
+
+        if (lists == null || lists.length == 0) {
+            return;
+        }
+
         for (File file : lists) {
+
             if (!this.isRunning) {
                 return;
             }
+
             if (file.isFile()) {
                 String name = file.getName();
                 JunkInfo info = null;
@@ -84,6 +98,9 @@ public class JunkScanRx {
                     info.mIsVisible = true;
                     mApkInfo.mChildren.add(info);
                     mApkInfo.mSize += info.mSize;
+                    if (this.mCallback != null && this.isRunning) {
+                        this.mCallback.onProgressApk(info);
+                    }
                 } else if (name.endsWith(".log")) {
                     info = new JunkInfo(this.context);
                     info.mSize = file.length();
@@ -93,6 +110,9 @@ public class JunkScanRx {
                     info.mIsVisible = true;
                     mLogInfo.mChildren.add(info);
                     mLogInfo.mSize += info.mSize;
+                    if (this.mCallback != null && this.isRunning) {
+                        this.mCallback.onProgressLog(info);
+                    }
                 } else if (name.endsWith(".tmp") || name.endsWith(".temp")) {
                     info = new JunkInfo(this.context);
                     info.mSize = file.length();
@@ -102,8 +122,23 @@ public class JunkScanRx {
                     info.mIsVisible = true;
                     mTmpInfo.mChildren.add(info);
                     mTmpInfo.mSize += info.mSize;
+                    if (this.mCallback != null && this.isRunning) {
+                        this.mCallback.onProgressTmp(info);
+                    }
+                } else if (name.endsWith(".zip") || name.endsWith(".oob") || name.endsWith(".txt") || name.endsWith(".rar")) {
+                    info = new JunkInfo(this.context);
+                    info.mSize = file.length();
+                    info.name = name;
+                    info.mPath = file.getAbsolutePath();
+                    info.mIsChild = false;
+                    info.mIsVisible = true;
+                    mOtherInfo.mChildren.add(info);
+                    mOtherInfo.mSize += info.mSize;
+                    if (this.mCallback != null && this.isRunning) {
+                        this.mCallback.onProgressOther(info);
+                    }
                 }
-                if (info != null && this.mCallback != null && isRunning) {
+                if (info != null && this.mCallback != null && this.isRunning) {
                     this.mCallback.onProgress(info);
                     this.junkInfos.add(info);
                 }
@@ -112,6 +147,7 @@ public class JunkScanRx {
                     travelPath(file, level + 1);
                 }
             }
+            SystemClock.sleep(timeDelay);
         }
     }
 
@@ -186,6 +222,7 @@ public class JunkScanRx {
                     ApplicationInfo info = installedPackages.get(i);
                     mAppNames.put(info.packageName, pm.getApplicationLabel(info).toString());
                     getPackageInfo(info.packageName, observer);
+                    SystemClock.sleep(timeDelay);
                 }
             } catch (Exception e) {
                 if (mCallback != null) {
@@ -220,7 +257,9 @@ public class JunkScanRx {
                     mSysCaches.add(info);
                     mTotalSize += info.mSize;
                 }
+
                 if (mCallback != null && isRunning) {
+                    mCallback.onProgressCache(info);
                     mCallback.onProgress(info);
                 }
             }
@@ -279,6 +318,7 @@ public class JunkScanRx {
                 }
                 if (mCallback != null && isRunning) {
                     mCallback.onProgress(info);
+                    mCallback.onProgressCache(info);
                 }
             }
 

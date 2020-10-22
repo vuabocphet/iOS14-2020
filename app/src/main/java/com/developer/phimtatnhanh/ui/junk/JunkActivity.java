@@ -2,14 +2,15 @@ package com.developer.phimtatnhanh.ui.junk;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -23,15 +24,16 @@ import com.developer.phimtatnhanh.R;
 import com.developer.phimtatnhanh.ads.NativeAdLoader;
 import com.developer.phimtatnhanh.ads.NativeAdView;
 import com.developer.phimtatnhanh.base.BaseActivity;
-import com.github.florent37.viewanimator.AnimationListener;
+import com.developer.phimtatnhanh.di.component.ActivityComponent;
+import com.developer.phimtatnhanh.ui.junk.viewjunk.ViewListJunk;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
 
 import static com.developer.phimtatnhanh.ads.UnitID.NT_AD;
@@ -40,7 +42,12 @@ import static com.developer.phimtatnhanh.ads.UnitID.NT_AD_LIVE;
 
 public class JunkActivity extends BaseActivity implements IScanCallback, CleanUtil.CleanCallBack {
 
-
+    @BindView(R.id.native_view)
+    NativeAdView nativeView;
+    @BindView(R.id.lottie)
+    LottieAnimationView lottie;
+    @BindView(R.id.tv_preview)
+    AppCompatTextView tvPreview;
     @BindView(R.id.cs_layout_all)
     ConstraintLayout csLayoutAll;
     @BindView(R.id.tv_title)
@@ -49,10 +56,19 @@ public class JunkActivity extends BaseActivity implements IScanCallback, CleanUt
     AppCompatTextView tvTitleBottom;
     @BindView(R.id.clear_all)
     RelativeLayout clearAll;
-    @BindView(R.id.anim_iv)
-    LottieAnimationView animIv;
+    @BindView(R.id.junk_cache)
+    ViewListJunk junkCache;
+    @BindView(R.id.junk_apk)
+    ViewListJunk junkApk;
+    @BindView(R.id.junk_tmp)
+    ViewListJunk junkTmp;
+    @BindView(R.id.junk_log)
+    ViewListJunk junkLog;
+    @BindView(R.id.junk_other)
+    ViewListJunk junkOther;
 
     private Disposable disposableClean;
+    private HashMap<Object, Object> mJunkGroups;
 
     public static void open(Context context) {
         if (context == null) {
@@ -63,21 +79,33 @@ public class JunkActivity extends BaseActivity implements IScanCallback, CleanUt
         context.startActivity(intent);
     }
 
-    @BindView(R.id.native_view)
-    NativeAdView nativeView;
-    @BindView(R.id.lottie)
-    LottieAnimationView lottie;
-    @BindView(R.id.tv_preview)
-    AppCompatTextView tvPreview;
     private Handler handler;
-    private HashMap<Integer, JunkGroup> mJunkGroups = null;
+
     private JunkScanRx junkScanRx;
+
     private long sizeJunk = 0L;
+
+    private long sizeJunkCache = 0L;
+
+    private long sizeJunkApk = 0L;
+
+    private long sizeJunkLog = 0L;
+
+    private long sizeJunkTmp = 0L;
+
+    private long sizeJunkOther = 0L;
 
 
     @Override
     protected int initLayout() {
         return R.layout.activity_junk;
+    }
+
+    @Override
+    protected void injectDagger(@Nullable ActivityComponent activityComponent) {
+        if (activityComponent != null) {
+            activityComponent.inject(this);
+        }
     }
 
     @Override
@@ -90,22 +118,32 @@ public class JunkActivity extends BaseActivity implements IScanCallback, CleanUt
         JunkGroup cacheGroup = new JunkGroup();
         cacheGroup.mName = getString(R.string.cache_clean);
         cacheGroup.mChildren = new ArrayList<>();
-        this.mJunkGroups.put(JunkGroup.GROUP_CACHE, cacheGroup);
+        this.junkCache.setTvName(cacheGroup.mName);
+        mJunkGroups.put(JunkGroup.GROUP_CACHE, cacheGroup);
 
         JunkGroup apkGroup = new JunkGroup();
         apkGroup.mName = getString(R.string.apk_clean);
         apkGroup.mChildren = new ArrayList<>();
-        this.mJunkGroups.put(JunkGroup.GROUP_APK, apkGroup);
+        this.junkApk.setTvName(apkGroup.mName);
+        mJunkGroups.put(JunkGroup.GROUP_APK, apkGroup);
 
         JunkGroup tmpGroup = new JunkGroup();
         tmpGroup.mName = getString(R.string.tmp_clean);
         tmpGroup.mChildren = new ArrayList<>();
-        this.mJunkGroups.put(JunkGroup.GROUP_TMP, tmpGroup);
+        this.junkTmp.setTvName(tmpGroup.mName);
+        mJunkGroups.put(JunkGroup.GROUP_TMP, tmpGroup);
 
         JunkGroup logGroup = new JunkGroup();
         logGroup.mName = getString(R.string.log_clean);
         logGroup.mChildren = new ArrayList<>();
-        this.mJunkGroups.put(JunkGroup.GROUP_LOG, logGroup);
+        this.junkLog.setTvName(logGroup.mName);
+        mJunkGroups.put(JunkGroup.GROUP_LOG, logGroup);
+
+        JunkGroup otherGroup = new JunkGroup();
+        otherGroup.mName = getString(R.string.other_clean);
+        otherGroup.mChildren = new ArrayList<>();
+        this.junkOther.setTvName(otherGroup.mName);
+        mJunkGroups.put(JunkGroup.GROUP_OTHER, otherGroup);
 
         this.handler.postDelayed(() -> this.junkScanRx.startScanJunkRx(), 1000);
     }
@@ -151,6 +189,48 @@ public class JunkActivity extends BaseActivity implements IScanCallback, CleanUt
     }
 
     @Override
+    public void onProgressCache(JunkInfo info) {
+        this.sizeJunkCache += info.mSize;
+        setProgressJunk(this.junkCache, this.sizeJunkCache);
+    }
+
+    @Override
+    public void onProgressApk(JunkInfo info) {
+        this.sizeJunkApk += info.mSize;
+        setProgressJunk(this.junkApk, this.sizeJunkApk);
+    }
+
+    @Override
+    public void onProgressTmp(JunkInfo info) {
+        this.sizeJunkTmp += info.mSize;
+        setProgressJunk(this.junkTmp, this.sizeJunkTmp);
+    }
+
+    @Override
+    public void onProgressLog(JunkInfo info) {
+        this.sizeJunkLog += info.mSize;
+        setProgressJunk(this.junkLog, this.sizeJunkLog);
+    }
+
+    @Override
+    public void onProgressOther(JunkInfo info) {
+        this.sizeJunkOther += info.mSize;
+        setProgressJunk(this.junkOther, this.sizeJunkOther);
+    }
+
+    private void setProgressJunk(ViewListJunk junkView, long sizeJunk) {
+        if (this.handler == null) {
+            return;
+        }
+        this.handler.post(() -> {
+            if (junkView == null) {
+                return;
+            }
+            junkView.setTvSize(CleanUtil.formatShortFileSize(this, sizeJunk));
+        });
+    }
+
+    @Override
     public void onFinish(ArrayList<JunkInfo> junkInfos, ArrayList<JunkInfo> sysCaches) {
         Log.e("TinhNv", "onFinish: ");
         if (this.handler != null) {
@@ -160,13 +240,8 @@ public class JunkActivity extends BaseActivity implements IScanCallback, CleanUt
                 }
                 this.tvTitle.setText(getString(R.string.clean_junk_finish));
                 this.clearAll.setVisibility(View.VISIBLE);
-                ViewAnimator.animate(this.tvTitleBottom).scale(1f, 0f).duration(1000).start().onStop(() -> {
-                    this.tvTitleBottom.setVisibility(View.GONE);
-                });
-                ViewAnimator.animate(this.clearAll).scale(0f, 1f).slideBottomIn().onStop(() -> {
-                    this.animIv.setVisibility(View.VISIBLE);
-                    this.animIv.playAnimation();
-                }).duration(1000).start();
+                ViewAnimator.animate(this.tvTitleBottom).scale(1f, 0f).duration(1000).start().onStop(() -> this.tvTitleBottom.setVisibility(View.GONE));
+                ViewAnimator.animate(this.clearAll).bounceIn().slideBottomIn().onStop(() -> ViewAnimator.animate(this.clearAll).pulse().duration(1000).repeatCount(ViewAnimator.INFINITE).repeatMode(ViewAnimator.REVERSE).start()).duration(1000).start();
             });
         }
         this.clearAll.setOnClickListener(view -> this.disposableClean = CleanUtil.freeJunkInfos(this, junkInfos, sysCaches, this));
@@ -207,9 +282,9 @@ public class JunkActivity extends BaseActivity implements IScanCallback, CleanUt
                     @Override
                     public void onAdLoadFailed(String message) {
                         super.onAdLoadFailed(message);
-                        if (nativeView != null) {
+                       /* if (nativeView != null) {
                             nativeView.setVisibility(View.GONE);
-                        }
+                        }*/
                     }
                 }).loadAd(this);
     }
@@ -237,5 +312,12 @@ public class JunkActivity extends BaseActivity implements IScanCallback, CleanUt
     @Override
     public void onError(Throwable throwable) {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

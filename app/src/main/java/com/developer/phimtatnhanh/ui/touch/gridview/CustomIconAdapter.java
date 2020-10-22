@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,35 +61,40 @@ public class CustomIconAdapter extends BaseAdapter {
     @SuppressLint("InflateParams")
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
-        ViewHolder holder;
-        if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.item_icon_touch, null);
-            holder = new ViewHolder();
-            holder.iv = convertView.findViewById(R.id.iv_icon);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-        IconModel iconModel = this.iconModels.get(i);
-        if (iconModel.status) {
-            this.iconCurent = i;
-            holder.iv.setBackgroundResource(R.drawable.all_bg_stroke_red);
-        } else {
-            holder.iv.setBackground(new ColorDrawable(Color.TRANSPARENT));
-        }
-        Glide.with(this.context).load(iconModel.iconId).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.iv);
-        holder.iv.setOnClickListener(view -> {
-            if ((this.iconCurent == i)) {
-                return;
+        try {
+            ViewHolder holder;
+            if (convertView == null) {
+                convertView = layoutInflater.inflate(R.layout.item_icon_touch, null);
+                holder = new ViewHolder();
+                holder.iv = convertView.findViewById(R.id.iv_icon);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
             }
-            if (this.clickItem != null) {
-                iconModel.setStatus(true);
-                this.iconModels.set(i, iconModel);
-                this.iconModels.set(this.iconCurent, this.iconModels.get(this.iconCurent).setStatus(false));
-                this.clickItem.onClick(iconModel);
-                notifyDataSetChanged();
+            IconModel iconModel = this.iconModels.get(i);
+            if (iconModel.status) {
+                this.iconCurent = i;
+                holder.iv.setBackgroundResource(R.drawable.all_bg_stroke_red);
+            } else {
+                holder.iv.setBackground(new ColorDrawable(Color.TRANSPARENT));
             }
-        });
+            Glide.with(this.context).load(iconModel.iconId).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.iv);
+            holder.iv.setOnClickListener(view -> {
+                if ((this.iconCurent == i)) {
+                    return;
+                }
+                if (this.clickItem != null) {
+                    iconModel.setStatus(true);
+                    this.iconModels.set(i, iconModel);
+                    this.iconModels.set(this.iconCurent, this.iconModels.get(this.iconCurent).setStatus(false));
+                    this.clickItem.onClick(i);
+                    notifyDataSetChanged();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i("TinhNv", "getView: " + e.toString());
+        }
         return convertView;
     }
 
@@ -97,6 +103,6 @@ public class CustomIconAdapter extends BaseAdapter {
     }
 
     public interface ClickItem {
-        void onClick(IconModel appItem);
+        void onClick(int appItemPosition);
     }
 }

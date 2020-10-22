@@ -4,6 +4,7 @@ package com.developer.phimtatnhanh.ui.touch;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -19,24 +20,28 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.developer.phimtatnhanh.R;
-import com.developer.phimtatnhanh.base.MvpActivity;
+import com.developer.phimtatnhanh.base.BaseActivity;
 import com.developer.phimtatnhanh.data.ListUtils;
 import com.developer.phimtatnhanh.data.Pref;
 import com.developer.phimtatnhanh.data.PrefUtil;
+import com.developer.phimtatnhanh.di.component.ActivityComponent;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.UpdateIconTouch;
 import com.developer.phimtatnhanh.ui.touch.gridview.CustomIconAdapter;
+import com.developer.phimtatnhanh.ui.touch.gridview.IconModel;
 import com.developer.phimtatnhanh.util.PixelUtil;
 import com.developer.phimtatnhanh.view.CompatView;
 import com.divyanshu.colorseekbar.ColorSeekBar;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
-public class TouchActivity extends MvpActivity implements TouchView, ConfigFloatTouch {
+public class TouchActivity extends BaseActivity implements TouchView, ConfigFloatTouch {
 
     @Inject
     ListUtils listUtils;
@@ -66,9 +71,7 @@ public class TouchActivity extends MvpActivity implements TouchView, ConfigFloat
     private TouchPresenter touchPresenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getComponent().inject(this);
+    protected void init() {
         this.touchPresenter = new TouchPresenter();
         this.touchPresenter.attachView(this);
         this.setUp();
@@ -108,8 +111,10 @@ public class TouchActivity extends MvpActivity implements TouchView, ConfigFloat
             this.gridView.setVisibility(View.VISIBLE);
             CustomIconAdapter customIconAdapter = CustomIconAdapter.init(this, this.listUtils.getListIconTouch(), this.gridView);
             customIconAdapter.setClickItem(aIconModel -> {
-                PrefUtil.get().postInt(Pref.ICON_TOUCH, aIconModel.iconId);
-                Glide.with(this).load(aIconModel.iconId).into(this.cvTouch);
+                PrefUtil.get().postInt(Pref.ICON_TOUCH, aIconModel);
+                Glide.with(this)
+                        .load(this.listUtils.getListIconTouch().get(aIconModel).iconId)
+                        .into(this.cvTouch);
                 EventBus.getDefault().post(new UpdateIconTouch());
             });
         }
@@ -121,9 +126,14 @@ public class TouchActivity extends MvpActivity implements TouchView, ConfigFloat
     }
 
     @Override
+    protected void injectDagger(ActivityComponent activityComponent) {
+        activityComponent.inject(this);
+    }
+
+    @Override
     protected void onDestroy() {
-        super.onDestroy();
         this.touchPresenter.detachView();
+        super.onDestroy();
     }
 
     @Override
@@ -146,7 +156,10 @@ public class TouchActivity extends MvpActivity implements TouchView, ConfigFloat
          * getIcon
          * */
         int icon = PrefUtil.get().getInt(Pref.ICON_TOUCH, ICON_DEFAULT);
-        Glide.with(this).load(icon).into(this.cvTouch);
+        if (icon > this.listUtils.getListIconTouch().size()) {
+            icon = 0;
+        }
+        Glide.with(this).load(this.listUtils.getListIconTouch().get(icon).iconId).into(this.cvTouch);
 
         /*
          * getAlpha

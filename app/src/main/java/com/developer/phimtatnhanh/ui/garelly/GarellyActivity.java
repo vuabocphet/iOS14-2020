@@ -13,8 +13,9 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.FragmentManager;
 
 import com.developer.phimtatnhanh.R;
-import com.developer.phimtatnhanh.base.MvpActivity;
+import com.developer.phimtatnhanh.base.BaseActivity;
 import com.developer.phimtatnhanh.delayclickview.PostDelayClick;
+import com.developer.phimtatnhanh.di.component.ActivityComponent;
 import com.developer.phimtatnhanh.ui.garelly.gridview.CustomGarellyAdapter;
 import com.developer.phimtatnhanh.ui.garelly.gridview.FileItem;
 
@@ -28,7 +29,7 @@ import butterknife.BindView;
 
 import static com.developer.phimtatnhanh.setuptouch.config.ConfigAll.PATH;
 
-public class GarellyActivity extends MvpActivity implements GarellyView {
+public class GarellyActivity extends BaseActivity implements GarellyView {
 
     @BindView(R.id.grid_view)
     GridView gridView;
@@ -40,9 +41,7 @@ public class GarellyActivity extends MvpActivity implements GarellyView {
     private String type;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getComponent().inject(this);
+    protected void init() {
         EventBus.getDefault().register(this);
         this.garellyPresenter = new GarellyPresenter();
         this.garellyPresenter.attachView(this);
@@ -78,6 +77,11 @@ public class GarellyActivity extends MvpActivity implements GarellyView {
     }
 
     @Override
+    protected void injectDagger(ActivityComponent activityComponent) {
+        activityComponent.inject(this);
+    }
+
+    @Override
     public Context getContext() {
         return this;
     }
@@ -106,10 +110,10 @@ public class GarellyActivity extends MvpActivity implements GarellyView {
         this.customGarellyAdapter = CustomGarellyAdapter.init(this, fileItems, this.gridView);
         this.customGarellyAdapter.setClickItem(fileItem -> {
             if (TextUtils.equals(this.type, GarellyView.IMG)) {
-                PreviewImage.open(this, fileItem.path, 1234,GarellyView.IMG);
+                PreviewImage.open(this, fileItem.path, 1234, GarellyView.IMG);
                 return;
             }
-            PreviewImage.open(this, fileItem.path, 1234,GarellyView.VIDEO);
+            PreviewImage.open(this, fileItem.path, 1234, GarellyView.VIDEO);
         });
     }
 

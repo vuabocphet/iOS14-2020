@@ -13,7 +13,11 @@ import android.view.WindowManager;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.developer.phimtatnhanh.di.component.ActivityComponent;
+import com.developer.phimtatnhanh.di.component.DaggerActivityComponent;
 import com.developer.phimtatnhanh.setuptouch.utilities.permission.ConfigPer;
+import com.developer.phimtatnhanh.ui.Screen;
+import com.developer.phimtatnhanh.ui.home.HomeActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -28,12 +32,22 @@ public abstract class BaseActivity extends AppCompatActivity implements ConfigPe
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(initLayout());
+        if (!isTaskRoot() && getClass() == Screen.class) {
+            finish();
+            return;
+        }
         if (fullScreen()) {
             this.setupFullScreen();
         }
+        ActivityComponent mComponent = DaggerActivityComponent.builder().applicationComponent(getApp().getApplicationComponent()).build();
+        this.injectDagger(mComponent);
         this.unbinder = ButterKnife.bind(this);
         this.init();
         this.initViews();
+    }
+
+    protected BaseApplication getApp() {
+        return (BaseApplication) getApplicationContext();
     }
 
     private void setupFullScreen() {
@@ -55,6 +69,8 @@ public abstract class BaseActivity extends AppCompatActivity implements ConfigPe
     }
 
     protected abstract int initLayout();
+
+    protected abstract void injectDagger(@Nullable ActivityComponent activityComponent);
 
     protected boolean fullScreen() {
         return false;

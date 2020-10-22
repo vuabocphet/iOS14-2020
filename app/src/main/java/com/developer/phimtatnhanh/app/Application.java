@@ -23,6 +23,7 @@ public class Application extends BaseApplication {
         AppLogEvent.initialize(getApplicationContext());
         AdPrefs.initialize(getApplicationContext());
         MobileAds.initialize(getApplicationContext());
+
         List<String> testDeviceIds = Collections.singletonList("69F6E77E43D5FD63F0E6FA2FAA558B48");
 
         RequestConfiguration configuration =

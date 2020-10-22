@@ -104,7 +104,7 @@
     <string name="capture_setting">Ảnh chụp màn hình</string>
     <string name="album">Ảnh của bạn</string>
     <string name="capture_preview">Hiển thị hình ảnh Preview</string>
-    <string name="dev_des">\t\tDesign By VanTinhIT\t\t</string>
+    <string name="dev_des" translatable="false">\t\tBy NguyenTinh Developer\t\t</string>
     <string name="capture_sussce">Đã chụp xong</string>
 
 
@@ -152,9 +152,12 @@
     <string name="content_fb">Ứng dụng rất hay</string>
     <string name="ad">Ad</string>
     <string name="clean_junk">Dọn rác</string>
-    <string name="scan">Đang quét rác…</string>
+    <string name="scan">Quét rác…</string>
     <string name="clean_junk_error">Có lỗi…</string>
     <string name="clean_junk_finish">Đã tìm thấy</string>
-    <string name="clean_junk_ngay">Dọn rác\nngay</string>
+    <string name="clean_junk_ngay">Dọn rác ngay</string>
+    <string name="ccs1">Trợ Năng</string>
+    <string name="so1">SỐ 1</string>
+    <string name="other_clean">Tệp tin khác</string>
 
 </resources>
