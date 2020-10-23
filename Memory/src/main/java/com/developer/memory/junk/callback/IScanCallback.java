@@ -23,7 +23,7 @@ public interface IScanCallback {
 
     void onProgressOther(JunkInfo info);
 
-    void onFinish(ArrayList<JunkInfo> junkInfos, ArrayList<JunkInfo> sysCaches);
+    void onFinish();
 
     void onErrorJunk(Throwable throwable);
 }

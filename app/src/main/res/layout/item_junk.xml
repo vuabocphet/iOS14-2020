@@ -22,26 +22,26 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_name"
         android:layout_width="0dp"
+        android:fontFamily="@font/thin_ios"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_5sdp"
-        android:ellipsize="end"
-        android:fontFamily="@font/mitr_regular"
-        android:lines="1"
+        android:ellipsize="start"
         android:text="@string/cache_clean"
         android:textColor="@color/black"
         android:textSize="@dimen/_13sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_size"
         app:layout_constraintStart_toEndOf="@+id/iv_icon"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:singleLine="true" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_check"
         android:layout_width="@dimen/_18sdp"
         android:layout_height="@dimen/_18sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:padding="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:padding="@dimen/_1sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -52,13 +52,13 @@
         android:id="@+id/tv_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:fontFamily="@font/mitr_regular"
+        android:layout_marginEnd="@dimen/_11sdp"
+        android:fontFamily="@font/russoone_regular"
         android:textColor="@color/gray_1"
         android:textSize="@dimen/_11sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/iv_check"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="100MB" />
+        tools:text="0.0MB" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

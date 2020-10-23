@@ -7,7 +7,7 @@
     android:layout_marginTop="@dimen/_5sdp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="5dp"
-    app:cardElevation="2dp"
+    app:cardElevation="1dp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,8 +31,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:fontFamily="@font/mitr_regular"
                 android:text="@string/cache_clean"
+                android:fontFamily="@font/thin_ios"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold"
@@ -45,7 +45,7 @@
                 android:layout_width="@dimen/_18sdp"
                 android:layout_height="@dimen/_18sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:padding="@dimen/_2sdp"
+                android:padding="@dimen/_1sdp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,6 +54,7 @@
                 app:tint="@color/red" />
 
             <ProgressBar
+                android:id="@+id/progressBar"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_check"
@@ -78,9 +79,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_12sdp"
-                android:fontFamily="@font/mitr_regular"
+                android:fontFamily="@font/russoone_regular"
                 android:includeFontPadding="false"
-                android:text="0,0MB"
+                android:text="0.0MB"
                 android:textColor="@color/red"
                 android:textSize="@dimen/_16sdp"
                 app:layout_constraintBottom_toBottomOf="parent"

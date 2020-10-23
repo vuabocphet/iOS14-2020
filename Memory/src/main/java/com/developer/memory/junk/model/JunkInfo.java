@@ -19,10 +19,12 @@ public class JunkInfo implements Comparable<JunkInfo> {
     public ArrayList<JunkInfo> mChildren = new ArrayList<>();
     public boolean mIsVisible = false;
     public boolean mIsChild = true;
+    public int typeJunk;
     private Context context;
 
-    public JunkInfo(Context context) {
+    public JunkInfo(Context context, int typeJunk) {
         this.context = context;
+        this.typeJunk = typeJunk;
     }
 
     @Override

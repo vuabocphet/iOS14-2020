@@ -448,7 +448,7 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
 
     private void loadAd() {
         NativeAdLoader.newInstance().setAdPosition(NT_AD)
-                .setAdUnit(NT_AD_KEY)
+                .setAdUnit(NT_AD_KEY_1)
                 .setLiveKey(NT_AD_LIVE)
                 .setOnAdLoaderListener(new NativeAdLoader.NativeAdLoaderListener() {
                     @Override

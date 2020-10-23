@@ -2,10 +2,8 @@ package com.developer.phimtatnhanh.ui.junk;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -13,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.developer.memory.junk.JunkScanRx;
@@ -26,18 +25,16 @@ import com.developer.phimtatnhanh.ads.NativeAdView;
 import com.developer.phimtatnhanh.base.BaseActivity;
 import com.developer.phimtatnhanh.di.component.ActivityComponent;
 import com.developer.phimtatnhanh.ui.junk.viewjunk.ViewListJunk;
-import com.github.florent37.viewanimator.ViewAnimator;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
 
 import static com.developer.phimtatnhanh.ads.UnitID.NT_AD;
-import static com.developer.phimtatnhanh.ads.UnitID.NT_AD_KEY;
+import static com.developer.phimtatnhanh.ads.UnitID.NT_AD_KEY_1;
 import static com.developer.phimtatnhanh.ads.UnitID.NT_AD_LIVE;
 
 public class JunkActivity extends BaseActivity implements IScanCallback, CleanUtil.CleanCallBack {
@@ -66,6 +63,8 @@ public class JunkActivity extends BaseActivity implements IScanCallback, CleanUt
     ViewListJunk junkLog;
     @BindView(R.id.junk_other)
     ViewListJunk junkOther;
+    @BindView(R.id.nested_layout)
+    NestedScrollView nestedLayout;
 
     private Disposable disposableClean;
     private HashMap<Object, Object> mJunkGroups;
@@ -231,20 +230,28 @@ public class JunkActivity extends BaseActivity implements IScanCallback, CleanUt
     }
 
     @Override
-    public void onFinish(ArrayList<JunkInfo> junkInfos, ArrayList<JunkInfo> sysCaches) {
-        Log.e("TinhNv", "onFinish: ");
+    public void onFinish() {
         if (this.handler != null) {
             this.handler.post(() -> {
-                if (this.tvTitle == null || this.tvTitleBottom == null) {
-                    return;
+                if (this.junkApk != null) {
+                    this.junkApk.setListJunk(this.junkScanRx.getmApkInfo());
                 }
-                this.tvTitle.setText(getString(R.string.clean_junk_finish));
-                this.clearAll.setVisibility(View.VISIBLE);
-                ViewAnimator.animate(this.tvTitleBottom).scale(1f, 0f).duration(1000).start().onStop(() -> this.tvTitleBottom.setVisibility(View.GONE));
-                ViewAnimator.animate(this.clearAll).bounceIn().slideBottomIn().onStop(() -> ViewAnimator.animate(this.clearAll).pulse().duration(1000).repeatCount(ViewAnimator.INFINITE).repeatMode(ViewAnimator.REVERSE).start()).duration(1000).start();
+                if (this.junkCache != null) {
+                    this.junkCache.setListJunk(this.junkScanRx.getmCacheInfo());
+                }
+                if (this.junkOther != null) {
+                    this.junkOther.setListJunk(this.junkScanRx.getmOtherInfo());
+                }
+                if (this.junkTmp != null) {
+                    this.junkTmp.setListJunk(this.junkScanRx.getmTmpInfo());
+                }
+                if (this.junkLog != null) {
+                    this.junkLog.setListJunk(this.junkScanRx.getmLogInfo());
+                }
             });
         }
-        this.clearAll.setOnClickListener(view -> this.disposableClean = CleanUtil.freeJunkInfos(this, junkInfos, sysCaches, this));
+
+        /*  this.clearAll.setOnClickListener(view -> this.disposableClean = CleanUtil.freeJunkInfos(this, junkInfos, sysCaches, this));*/
     }
 
     @Override
@@ -268,7 +275,7 @@ public class JunkActivity extends BaseActivity implements IScanCallback, CleanUt
 
     private void loadAd() {
         NativeAdLoader.newInstance().setAdPosition(NT_AD)
-                .setAdUnit(NT_AD_KEY)
+                .setAdUnit(NT_AD_KEY_1)
                 .setLiveKey(NT_AD_LIVE)
                 .setOnAdLoaderListener(new NativeAdLoader.NativeAdLoaderListener() {
                     @Override
@@ -314,10 +321,7 @@ public class JunkActivity extends BaseActivity implements IScanCallback, CleanUt
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public void onBack(View view) {
+        this.finish();
     }
 }

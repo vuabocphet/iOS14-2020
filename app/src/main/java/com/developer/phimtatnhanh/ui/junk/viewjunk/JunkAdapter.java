@@ -9,8 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.developer.memory.junk.model.JunkGroup;
 import com.developer.memory.junk.model.JunkInfo;
+import com.developer.memory.junk.util.CleanUtil;
 import com.developer.phimtatnhanh.R;
+import com.developer.phimtatnhanh.setuptouch.gridviewstarapp.AppItem;
+import com.developer.phimtatnhanh.setuptouch.gridviewstarapp.AppUtil;
+import com.developer.phimtatnhanh.util.loadiconapp.GlideApp;
 
 public class JunkAdapter extends RecyclerView.Adapter<JunkHolder> {
 
@@ -44,7 +50,24 @@ public class JunkAdapter extends RecyclerView.Adapter<JunkHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull JunkHolder holder, int position) {
-
+        JunkInfo junkInfo = this.junkInfo.mChildren.get(position);
+        holder.tvName.setText(junkInfo.name);
+        holder.tvSize.setText(CleanUtil.formatShortFileSize(this.context, junkInfo.mSize));
+        if (this.junkInfo.typeJunk == JunkGroup.GROUP_TMP) {
+            Glide.with(this.context).load(R.drawable.all_ic_tmp).into(holder.ivIcon);
+        }
+        if (this.junkInfo.typeJunk == JunkGroup.GROUP_OTHER) {
+            Glide.with(this.context).load(R.drawable.all_ic_other).into(holder.ivIcon);
+        }
+        if (this.junkInfo.typeJunk == JunkGroup.GROUP_LOG) {
+            Glide.with(this.context).load(R.drawable.all_ic_log).into(holder.ivIcon);
+        }
+        if (this.junkInfo.typeJunk == JunkGroup.GROUP_APK) {
+            Glide.with(this.context).load(R.drawable.all_ic_log).into(holder.ivIcon);
+        }
+        if (this.junkInfo.typeJunk == JunkGroup.GROUP_CACHE) {
+            GlideApp.with(this.context).load(AppUtil.init().getApplication(this.context.getPackageManager(),junkInfo.mPackageName).applicationInfo).into(holder.ivIcon);
+        }
     }
 
     @Override

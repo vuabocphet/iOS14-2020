@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,8 @@ public class ViewListJunk extends FrameLayout {
     RecyclerView recyclerJunk;
     @BindView(R.id.cs_layout1)
     ConstraintLayout csLayout1;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     public ViewListJunk(@NonNull Context context) {
         super(context);
@@ -70,7 +73,25 @@ public class ViewListJunk extends FrameLayout {
 
     public ViewListJunk setListJunk(JunkInfo junkInfo) {
         JunkAdapter.create(this.getContext(), junkInfo, this.recyclerJunk);
+        this.ivRotateCache.setVisibility(VISIBLE);
+        this.ivCheck.setVisibility(VISIBLE);
+        this.progressBar.setVisibility(GONE);
+        if (junkInfo == null || junkInfo.mChildren == null || junkInfo.mChildren.isEmpty()) {
+            this.csLayout1.setAlpha(0.5f);
+            return this;
+        }
+        this.csLayout1.setAlpha(1f);
+        this.csLayout1.setOnClickListener(view -> {
+            if (this.recyclerJunk.getVisibility() == View.VISIBLE) {
+                this.recyclerJunk.setVisibility(GONE);
+                this.view.setVisibility(GONE);
+                this.ivRotateCache.setRotation(0f);
+                return;
+            }
+            this.recyclerJunk.setVisibility(VISIBLE);
+            this.view.setVisibility(VISIBLE);
+            this.ivRotateCache.setRotation(90f);
+        });
         return this;
     }
-
 }

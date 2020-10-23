@@ -5,7 +5,7 @@
     android:id="@+id/cs_layout_all"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_3"
+    android:background="@color/white"
     tools:context=".ui.junk.JunkActivity">
 
     <com.developer.phimtatnhanh.ads.NativeAdView
@@ -120,6 +120,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -132,11 +133,42 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:orientation="vertical">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/appCompatTextView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/thin_ios"
+                    android:text="@string/scan_junk"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    app:tint="@color/red"
+                    android:onClick="onBack"
+                    android:layout_marginEnd="@dimen/_14sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/all_ic_close_svg" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <com.developer.phimtatnhanh.ui.junk.viewjunk.ViewListJunk
                 android:id="@+id/junk_cache"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 app:layout_constraintTop_toBottomOf="@+id/native_view" />
 
             <com.developer.phimtatnhanh.ui.junk.viewjunk.ViewListJunk
@@ -155,9 +187,9 @@
 
             <com.developer.phimtatnhanh.ui.junk.viewjunk.ViewListJunk
                 android:id="@+id/junk_log"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 app:layout_constraintTop_toBottomOf="@+id/native_view" />
 

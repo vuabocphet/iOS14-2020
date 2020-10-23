@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatTextView;
@@ -33,6 +34,7 @@ import com.developer.phimtatnhanh.ui.garelly.EventBusPathScreenShot;
 import com.developer.phimtatnhanh.util.SetUpTouchUtil;
 import com.developer.phimtatnhanh.view.CompatLayout;
 import com.developer.phimtatnhanh.view.CompatView;
+import com.skydoves.transformationlayout.TransformationLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
