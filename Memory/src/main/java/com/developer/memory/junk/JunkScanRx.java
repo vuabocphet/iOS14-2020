@@ -11,13 +11,13 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageStats;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.RemoteException;
-import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import com.developer.memory.R;
 import com.developer.memory.junk.callback.IScanCallback;
 import com.developer.memory.junk.model.JunkGroup;
 import com.developer.memory.junk.model.JunkInfo;
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -61,11 +61,9 @@ public class JunkScanRx {
 
     private HashMap<String, String> mAppNames;
 
-    private Disposable disposable1;
-    private Disposable disposable2;
-    private Disposable disposable3;
-    private Disposable disposable4;
-    private Disposable disposable5;
+    AtomicReference<Disposable> subscribe;
+    private File externalDir;
+    private Handler handler;
 
     public JunkInfo getmApkInfo() {
         return mApkInfo;
@@ -88,14 +86,17 @@ public class JunkScanRx {
     }
 
     public JunkScanRx(Context context, IScanCallback callback) {
-        mCallback = callback;
+        this.mCallback = callback;
+        this.handler = new Handler(Looper.getMainLooper());
+        this.subscribe = new AtomicReference<>();
         this.context = context;
-        mApkInfo = new JunkInfo(this.context, JunkGroup.GROUP_APK);
-        mLogInfo = new JunkInfo(this.context, JunkGroup.GROUP_LOG);
-        mTmpInfo = new JunkInfo(this.context, JunkGroup.GROUP_TMP);
-        mOtherInfo = new JunkInfo(this.context, JunkGroup.GROUP_OTHER);
-        mCacheInfo = new JunkInfo(this.context, JunkGroup.GROUP_CACHE);
-        mSysCaches = new ArrayList<>();
+        this.mApkInfo = new JunkInfo(this.context, JunkGroup.GROUP_APK);
+        this.mLogInfo = new JunkInfo(this.context, JunkGroup.GROUP_LOG);
+        this.mTmpInfo = new JunkInfo(this.context, JunkGroup.GROUP_TMP);
+        this.mOtherInfo = new JunkInfo(this.context, JunkGroup.GROUP_OTHER);
+        this.mCacheInfo = new JunkInfo(this.context, JunkGroup.GROUP_CACHE);
+        this.mSysCaches = new ArrayList<>();
+        this.externalDir = Environment.getExternalStorageDirectory();
     }
 
     private void travelPath(File root, int junkType) {
@@ -139,8 +140,6 @@ public class JunkScanRx {
                 travelPath(file, junkType);
             }
         }
-
-        return;
     }
 
     private void createJunkApk(File file) {
@@ -151,10 +150,15 @@ public class JunkScanRx {
         info.mPath = file.getAbsolutePath();
         info.mIsChild = false;
         info.mIsVisible = true;
+        info.typeJunk = JunkGroup.GROUP_APK;
         mApkInfo.mChildren.add(info);
         mApkInfo.mSize += info.mSize;
         if (this.mCallback != null && this.isRunning) {
-            this.mCallback.onProgressApk(info);
+            try {
+                this.mCallback.onProgressApk(info);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -166,10 +170,15 @@ public class JunkScanRx {
         info.mPath = file.getAbsolutePath();
         info.mIsChild = false;
         info.mIsVisible = true;
+        info.typeJunk = JunkGroup.GROUP_LOG;
         mLogInfo.mChildren.add(info);
         mLogInfo.mSize += info.mSize;
         if (this.mCallback != null && this.isRunning) {
-            this.mCallback.onProgressLog(info);
+            try {
+                this.mCallback.onProgressLog(info);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -181,10 +190,15 @@ public class JunkScanRx {
         info.mPath = file.getAbsolutePath();
         info.mIsChild = false;
         info.mIsVisible = true;
+        info.typeJunk = JunkGroup.GROUP_TMP;
         mTmpInfo.mChildren.add(info);
         mTmpInfo.mSize += info.mSize;
         if (this.mCallback != null && this.isRunning) {
-            this.mCallback.onProgressTmp(info);
+            try {
+                this.mCallback.onProgressTmp(info);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -196,53 +210,67 @@ public class JunkScanRx {
         info.mPath = file.getAbsolutePath();
         info.mIsChild = false;
         info.mIsVisible = true;
+        info.typeJunk = JunkGroup.GROUP_OTHER;
         mOtherInfo.mChildren.add(info);
         mOtherInfo.mSize += info.mSize;
         if (this.mCallback != null && this.isRunning) {
-            this.mCallback.onProgressOther(info);
+            try {
+                this.mCallback.onProgressOther(info);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void startScanJunkRx() {
         this.isRunning = true;
-        if (mCallback != null) {
-            mCallback.onStartJunk();
-        }
-        File externalDir = Environment.getExternalStorageDirectory();
+        this.subscribeScanJunkCacheRx();
+    }
 
-        this.disposable1 = this.createJunkRx(externalDir, JunkGroup.GROUP_APK).subscribeOn(Schedulers.io())
+    private void subscribeScanJunkRx(int typeJunk) {
+        if (this.mCallback != null) {
+            try {
+                this.mCallback.onStartJunk(typeJunk);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        this.subscribe.set(this.createJunkRx(externalDir, typeJunk).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
-        this.disposable2 = this.createJunkRx(externalDir, JunkGroup.GROUP_LOG).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
-        this.disposable3 = this.createJunkRx(externalDir, JunkGroup.GROUP_TMP).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
-        this.disposable4 = this.createJunkRx(externalDir, JunkGroup.GROUP_OTHER).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
-        this.disposable5 = this.createCacheRx().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                .subscribe());
+    }
+
+    private void subscribeScanJunkCacheRx() {
+        if (this.mCallback != null) {
+            try {
+                this.mCallback.onCreateJunk(JunkGroup.GROUP_CACHE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        this.handler.postDelayed(() -> {
+            if (this.mCallback != null) {
+                try {
+                    this.mCallback.onStartJunk(JunkGroup.GROUP_CACHE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            this.subscribe.set(this.createCacheRx().subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe());
+        }, 1500);
+
     }
 
     public void stopScanJunkRx() {
         this.isRunning = false;
-        if (this.disposable1 != null) {
-            this.disposable1.dispose();
+        if (this.subscribe == null) {
+            return;
         }
-        if (this.disposable2 != null) {
-            this.disposable2.dispose();
-        }
-        if (this.disposable3 != null) {
-            this.disposable3.dispose();
-        }
-        if (this.disposable4 != null) {
-            this.disposable4.dispose();
-        }
-        if (this.disposable5 != null) {
-            this.disposable5.dispose();
+        Disposable disposable = this.subscribe.get();
+        if (disposable != null) {
+            disposable.dispose();
         }
     }
 
@@ -261,22 +289,57 @@ public class JunkScanRx {
     private void scanJunkRxComplete(int typeJunk) {
         if (typeJunk == JunkGroup.GROUP_APK) {
             this.completeJunkApk = true;
+            if (this.mCallback != null) {
+                try {
+                    this.mCallback.onCompleteJunk(JunkGroup.GROUP_APK);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            this.subscribeScanJunkRx(JunkGroup.GROUP_LOG);
         }
         if (typeJunk == JunkGroup.GROUP_LOG) {
             this.completeJunkLog = true;
+            if (this.mCallback != null) {
+                try {
+                    this.mCallback.onCompleteJunk(JunkGroup.GROUP_LOG);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            this.subscribeScanJunkRx(JunkGroup.GROUP_TMP);
         }
         if (typeJunk == JunkGroup.GROUP_TMP) {
             this.completeJunkTmp = true;
+            if (this.mCallback != null) {
+                try {
+                    this.mCallback.onCompleteJunk(JunkGroup.GROUP_TMP);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            this.subscribeScanJunkRx(JunkGroup.GROUP_OTHER);
         }
         if (typeJunk == JunkGroup.GROUP_OTHER) {
             this.completeJunkOther = true;
+            if (this.mCallback != null) {
+                try {
+                    this.mCallback.onCompleteJunk(JunkGroup.GROUP_OTHER);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
         this.finishAll();
     }
 
     private void onErrorJunk(Exception e) {
         if (this.mCallback != null) {
-            this.mCallback.onErrorJunk(e);
+            try {
+                this.mCallback.onErrorJunk(e);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -288,8 +351,12 @@ public class JunkScanRx {
                 this.completeJunkOther &&
                 this.isRunning &&
                 (this.mScanCount == this.mTotalCount)) {
-            this.mCallback.onFinish();
-            this.mCallback.onStopJunk();
+            try {
+                this.mCallback.onFinish();
+                this.mCallback.onStopJunk();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             this.stopScanJunkRx();
         }
     }
@@ -345,19 +412,19 @@ public class JunkScanRx {
                 info.mPackageName = ai.packageName;
                 info.name = mAppNames.get(info.mPackageName);
                 info.mSize = storageStats.getCacheBytes();
+                info.typeJunk = JunkGroup.GROUP_CACHE;
                 if (info.mSize > 0 && !info.mPackageName.equals(context.getPackageName())) {
                     mSysCaches.add(info);
                     mCacheInfo.mChildren.add(info);
                     if (mCallback != null && isRunning) {
                         mCallback.onProgressCache(info);
-                        mCallback.onProgress(info);
                     }
                 }
             }
             if (mScanCount == mTotalCount) {
                 Collections.sort(mSysCaches);
                 Collections.reverse(mSysCaches);
-                finishAll();
+                subscribeScanJunkRx(JunkGroup.GROUP_APK);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -391,12 +458,16 @@ public class JunkScanRx {
                 info.mPackageName = packageStats.packageName;
                 info.name = mAppNames.get(info.mPackageName);
                 info.mSize = packageStats.cacheSize + packageStats.externalCacheSize;
+                info.typeJunk = JunkGroup.GROUP_CACHE;
                 if (info.mSize > 0 && !info.mPackageName.equals(context.getPackageName())) {
                     mSysCaches.add(info);
                     mCacheInfo.mChildren.add(info);
                     if (mCallback != null && isRunning) {
-                        mCallback.onProgress(info);
-                        mCallback.onProgressCache(info);
+                        try {
+                            mCallback.onProgressCache(info);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -404,7 +475,7 @@ public class JunkScanRx {
             if (mScanCount == mTotalCount) {
                 Collections.sort(mSysCaches);
                 Collections.reverse(mSysCaches);
-                finishAll();
+                subscribeScanJunkRx(JunkGroup.GROUP_APK);
             }
         }
     }

@@ -15,6 +15,7 @@ import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -199,7 +200,9 @@ public class ViewManagerAnimateOnTouchUtil implements View.OnTouchListener, Conf
         v.setScaleY(v.getScaleY() + 0.029f);
         float xDiff = event.getRawX() - initialTouchX;
         float yDiff = event.getRawY() - initialTouchY;
-        if ((Math.abs(xDiff) < 5) && (Math.abs(yDiff) < 5) && this.typeClick != TypeClick.LONGCLICK) {
+        float abs = Math.abs(xDiff);
+        float abs1 = Math.abs(yDiff);
+        if ((abs < 5) && (abs1 < 5) && this.typeClick != TypeClick.LONGCLICK) {
             if (viewManagerUtil != null && viewManagerUtil.lifeCaptureVideo != EvenBusCaptureVideoUpdateTouch.LifeCaptureVideo.STOP) {
                 RxScreenCapture.get().stopCaptureVideo();
                 return true;

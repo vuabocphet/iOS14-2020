@@ -41,7 +41,7 @@ public class Application extends BaseApplication {
 
         InterAds.initialize(getApplicationContext());
 
-        AppOpen.create(this)
+       /* AppOpen.create(this)
                 .setAdUnitId(UnitID.APP_OPEN)
                 .setAutoShowAds(BuildConfig.DEBUG)
                 .setListActivityNotShowAds(Screen.class, JunkActivity.class)
@@ -55,6 +55,6 @@ public class Application extends BaseApplication {
                     public void onAppOpenFailed(String message) {
                         Log.i("TinhNv", "onAppOpenFailed: " + message);
                     }
-                }).buildAds();
+                }).buildAds();*/
     }
 }

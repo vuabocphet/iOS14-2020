@@ -1,7 +1,9 @@
 package com.developer.memory.junk.util;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -15,7 +17,11 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+
 import com.developer.memory.R;
+import com.developer.memory.junk.model.JunkGroup;
 import com.developer.memory.junk.model.JunkInfo;
 
 import java.io.File;
@@ -32,6 +38,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class CleanUtil {
+
     public static String formatShortFileSize(Context context, long number) {
         if (context == null) {
             return "";
@@ -74,6 +81,33 @@ public class CleanUtil {
                         value, context.getString(suffix));
     }
 
+    public static int[] formatShortFileSize(long number) {
+        float result = number;
+        int suffix = R.string.byte_short;
+        if (result > 900) {
+            suffix = R.string.kilo_byte_short;
+            result = result / 1024;
+        }
+        if (result > 900) {
+            suffix = R.string.mega_byte_short;
+            result = result / 1024;
+        }
+        if (result > 900) {
+            suffix = R.string.giga_byte_short;
+            result = result / 1024;
+        }
+        if (result > 900) {
+            suffix = R.string.tera_byte_short;
+            result = result / 1024;
+        }
+        if (result > 900) {
+            suffix = R.string.peta_byte_short;
+            result = result / 1024;
+        }
+        int r = (int) result;
+        return new int[]{r, suffix};
+    }
+
     public static boolean deleteFile(File file) {
         if (file.isDirectory()) {
             String[] children = file.list();
@@ -87,6 +121,18 @@ public class CleanUtil {
         return file.delete();
     }
 
+    public static final int REQUEST_CODE_FOR_PERMISSION = 501;
+
+    public static void requestPermissionForClearCache(Activity activity) {
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CLEAR_APP_CACHE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.CLEAR_APP_CACHE)) {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CLEAR_APP_CACHE}, REQUEST_CODE_FOR_PERMISSION);
+            } else {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CLEAR_APP_CACHE}, REQUEST_CODE_FOR_PERMISSION);
+            }
+        }
+    }
+
     public static void killAppProcesses(Context context, String packageName) {
         if (packageName == null || packageName.isEmpty()) {
             return;
@@ -97,58 +143,64 @@ public class CleanUtil {
         am.killBackgroundProcesses(packageName);
     }
 
-    public static Disposable freeJunkInfos(Context context, ArrayList<JunkInfo> junks, ArrayList<JunkInfo> sysCaches, CleanCallBack cleanCallBack) {
+    public static Disposable freeJunkInfos(Context context, ArrayList<JunkInfo> junks, @Nullable CleanCallBack cleanCallBack) {
         return Single.create((SingleOnSubscribe<Void>) emitter -> {
             for (JunkInfo info : junks) {
                 try {
+                    if (info.typeJunk == JunkGroup.GROUP_CACHE) {
+                        if (cleanCallBack != null) {
+                            cleanCallBack.onProgressClean(info);
+                        }
+                        killAppProcesses(context, info.mPackageName);
+                        freeAllAppsCache(context, info, cleanCallBack);
+                        if (junks.size() < 50) {
+                            SystemClock.sleep(50);
+                        }
+                        continue;
+                    }
                     File file = new File(info.mPath);
                     if (file.exists()) {
                         boolean delete = file.delete();
                         if (delete) {
-                            cleanCallBack.onProgressClean(info);
+                            if (cleanCallBack != null) {
+                                cleanCallBack.onProgressClean(info);
+                            }
                         } else {
-                            cleanCallBack.onProgressClean(info);
+                            if (cleanCallBack != null) {
+                                cleanCallBack.onProgressClean(info);
+                            }
                         }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    cleanCallBack.onError(e);
+                    if (cleanCallBack != null) {
+                        cleanCallBack.onError(e);
+                    }
                 }
                 if (junks.size() < 50) {
                     SystemClock.sleep(50);
                 }
             }
-            for (JunkInfo info : sysCaches) {
-                if (info == null || TextUtils.isEmpty(info.name)) {
-                    continue;
-                }
-                cleanCallBack.onProgressClean(info);
-                if (sysCaches.size() < 50) {
-                    SystemClock.sleep(50);
-                }
+            if (cleanCallBack != null) {
+                cleanCallBack.onComplete();
             }
-            cleanCallBack.onComplete();
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
     }
 
-    public static void freeAllAppsCache(Context context, CleanCallBack cleanCallBack) {
+    public static void freeAllAppsCache(Context context, JunkInfo junkInfo, @Nullable CleanCallBack cleanCallBack) {
 
         File externalDir = context.getExternalCacheDir();
         if (externalDir == null) {
             return;
         }
         PackageManager pm = context.getPackageManager();
-        @SuppressLint("WrongConstant") List<ApplicationInfo>
-                installedPackages = pm.getInstalledApplications(PackageManager.GET_GIDS);
-        for (ApplicationInfo info : installedPackages) {
-            String externalCacheDir = externalDir.getAbsolutePath()
-                    .replace(context.getPackageName(), info.packageName);
-            File externalCache = new File(externalCacheDir);
-            if (externalCache.exists() && externalCache.isDirectory()) {
-                deleteFile(externalCache);
-            }
+        String externalCacheDir = externalDir.getAbsolutePath()
+                .replace(context.getPackageName(), junkInfo.mPackageName);
+        File externalCache = new File(externalCacheDir);
+        if (externalCache.exists() && externalCache.isDirectory()) {
+            deleteFile(externalCache);
         }
         try {
             Method freeStorageAndNotify = pm.getClass()
@@ -158,13 +210,13 @@ public class CleanUtil {
             freeStorageAndNotify.invoke(pm, freeStorageSize, new IPackageDataObserver.Stub() {
                 @Override
                 public void onRemoveCompleted(String packageName, boolean succeeded) throws RemoteException {
-                    /*cleanCallBack.onProgressClean(packageName, freeStorageSize);*/
                 }
             });
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            cleanCallBack.onError(e);
+            if (cleanCallBack != null) {
+                cleanCallBack.onError(e);
+            }
         }
-        cleanCallBack.onComplete();
     }
 
     public interface CleanCallBack {

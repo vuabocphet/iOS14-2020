@@ -20,7 +20,7 @@
         tools:src="@drawable/all_ic_logo_app" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_name"
+        android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:fontFamily="@font/thin_ios"
         android:layout_height="wrap_content"

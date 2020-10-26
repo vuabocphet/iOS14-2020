@@ -34,7 +34,7 @@ import com.developer.phimtatnhanh.ui.garelly.EventBusPathScreenShot;
 import com.developer.phimtatnhanh.util.SetUpTouchUtil;
 import com.developer.phimtatnhanh.view.CompatLayout;
 import com.developer.phimtatnhanh.view.CompatView;
-import com.skydoves.transformationlayout.TransformationLayout;
+
 
 import org.greenrobot.eventbus.EventBus;
 

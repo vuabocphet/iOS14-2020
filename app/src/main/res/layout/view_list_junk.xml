@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/_5sdp"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="1dp"
-    app:cardUseCompatPadding="true">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cs_layout1"
@@ -21,72 +18,24 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cs_layout_all"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="?actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_name"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:text="@string/cache_clean"
-                android:fontFamily="@font/thin_ios"
-                android:textColor="@color/black"
+                android:fontFamily="@font/mitr_medium"
+                android:text="@string/dangkhoitao"
+                android:textColor="@color/red"
                 android:textSize="@dimen/_15sdp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_check"
-                android:layout_width="@dimen/_18sdp"
-                android:layout_height="@dimen/_18sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:padding="@dimen/_1sdp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/all_ic_unchecked"
-                app:tint="@color/red" />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_check"
-                app:layout_constraintEnd_toEndOf="@+id/iv_check"
-                app:layout_constraintStart_toStartOf="@+id/iv_check"
-                app:layout_constraintTop_toTopOf="@+id/iv_check" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_rotate_cache"
-                android:layout_width="@dimen/_18sdp"
-                android:layout_height="@dimen/_18sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/iv_check"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/all_ic_next"
-                app:tint="@color/black" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:fontFamily="@font/russoone_regular"
-                android:includeFontPadding="false"
-                android:text="0.0MB"
-                android:textColor="@color/red"
-                android:textSize="@dimen/_16sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/iv_rotate_cache"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -116,4 +65,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.cardview.widget.CardView>
+</RelativeLayout>

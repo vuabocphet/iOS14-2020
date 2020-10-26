@@ -18,190 +18,180 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:lottie_colorFilter="@color/red"
-            app:lottie_fileName="s7.json"
-            app:lottie_loop="true" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="276dp"
-            android:fontFamily="@font/ios"
-            android:includeFontPadding="false"
-            android:text="@string/scan"
-            android:textColor="@color/red"
-            android:textSize="@dimen/_14sdp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/tv_preview"
-            app:layout_constraintEnd_toEndOf="@+id/lottie"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/lottie"
-            app:layout_constraintTop_toBottomOf="@+id/lottie" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_preview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginBottom="256dp"
-            android:fontFamily="@font/russoone_regular"
-            android:includeFontPadding="false"
-            android:text="0,00B"
-            android:textColor="@color/red"
-            android:textSize="@dimen/_28sdp"
-            app:layout_constraintBottom_toTopOf="@+id/lottie"
-            app:layout_constraintEnd_toEndOf="@+id/lottie"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/lottie"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_title_bottom"
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="wrap_content"
-            android:ellipsize="start"
-            android:fontFamily="@font/thin_ios"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:singleLine="true"
-            android:text="@string/scan"
-            android:textColor="@color/red"
-            android:textSize="@dimen/_14sdp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/lottie"
-            app:layout_constraintEnd_toEndOf="@+id/lottie"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/lottie"
-            app:layout_constraintTop_toBottomOf="@+id/tv_preview" />
-
-        <RelativeLayout
-            android:id="@+id/clear_all"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_44sdp"
-            android:layout_margin="@dimen/_20sdp"
-            android:background="@drawable/all_bg_red"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/lottie"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.502"
-            tools:visibility="visible">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:fontFamily="@font/thin_ios"
-                android:gravity="center"
-                android:text="@string/clean_junk_ngay"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sdp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_layout"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/native_view">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginStart="@dimen/_4sdp"
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:fontFamily="@font/mitr_medium"
+                android:text="@string/scan_junk"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/appCompatTextView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/thin_ios"
-                    android:text="@string/scan_junk"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_16sdp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    app:tint="@color/red"
-                    android:onClick="onBack"
-                    android:layout_marginEnd="@dimen/_14sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/all_ic_close_svg" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <com.developer.phimtatnhanh.ui.junk.viewjunk.ViewListJunk
-                android:id="@+id/junk_cache"
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_24sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                app:layout_constraintTop_toBottomOf="@+id/native_view" />
+                android:adjustViewBounds="true"
+                android:id="@+id/close"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/all_ic_close_svg"
+                app:tint="@color/blue" />
 
-            <com.developer.phimtatnhanh.ui.junk.viewjunk.ViewListJunk
-                android:id="@+id/junk_apk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@+id/native_view" />
 
-            <com.developer.phimtatnhanh.ui.junk.viewjunk.ViewListJunk
-                android:id="@+id/junk_tmp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@+id/native_view" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.developer.phimtatnhanh.ui.junk.viewjunk.ViewListJunk
-                android:id="@+id/junk_log"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@+id/native_view" />
 
-            <com.developer.phimtatnhanh.ui.junk.viewjunk.ViewListJunk
-                android:id="@+id/junk_other"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@+id/native_view" />
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+          <androidx.constraintlayout.widget.ConstraintLayout
+              android:layout_width="match_parent"
+              android:layout_above="@+id/clear_all"
+              android:layout_height="match_parent">
 
-        </LinearLayout>
+              <com.airbnb.lottie.LottieAnimationView
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  android:id="@+id/lottieAnimationView"
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:padding="@dimen/_10sdp"
+                  android:visibility="gone"
+                  app:lottie_cacheComposition="true"
+                  app:lottie_fileName="s8.json"
+                  app:lottie_loop="true"
+                  tools:visibility="visible" />
 
-    </androidx.core.widget.NestedScrollView>
+              <androidx.appcompat.widget.AppCompatTextView
+                  android:paddingStart="@dimen/_10sdp"
+                  android:paddingEnd="@dimen/_10sdp"
+                  android:ellipsize="marquee"
+                  tools:visibility="visible"
+                  android:id="@+id/tv_title"
+                  android:layout_width="match_parent"
+                  android:layout_height="?actionBarSize"
+                  android:layout_gravity="center"
+                  android:layout_marginTop="@dimen/_30sdp"
+                  android:textStyle="bold"
+                  android:gravity="center"
+                  android:fontFamily="@font/mitr_medium"
+                  android:text="@string/dangkhoitao"
+                  android:textColor="@color/blue"
+                  android:textSize="@dimen/_15sdp"
+                  app:layout_constraintBottom_toTopOf="@+id/guideline3"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  android:singleLine="true" />
+
+              <ProgressBar
+                  tools:visibility="visible"
+                  android:id="@+id/progressBar"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:indeterminateDrawable="@drawable/progressbar_custom"
+                  android:visibility="visible"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent" />
+
+
+              <androidx.appcompat.widget.AppCompatTextView
+                  tools:visibility="visible"
+                  android:id="@+id/tv_scan"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:fontFamily="@font/mitr_medium"
+                  android:text="@string/phathienthay"
+                  android:textColor="@color/white"
+                  android:textSize="@dimen/_14sdp"
+                  android:textStyle="bold"
+                  android:visibility="gone"
+                  app:layout_constraintBottom_toTopOf="@+id/tv_scan_size"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />
+
+              <androidx.appcompat.widget.AppCompatTextView
+                  tools:visibility="visible"
+                  android:id="@+id/tv_scan_size"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="@dimen/_12sdp"
+                  android:fontFamily="@font/russoone_regular"
+                  android:text="0.00B"
+                  android:textColor="@color/white"
+                  android:textSize="@dimen/_26sdp"
+                  android:textStyle="bold"
+                  android:visibility="gone"
+                  app:layout_constraintBottom_toTopOf="@+id/lottieAnimationView"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@+id/tv_scan" />
+
+              <androidx.constraintlayout.widget.Guideline
+                  android:id="@+id/guideline3"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  app:layout_constraintGuide_percent="0.2" />
+
+          </androidx.constraintlayout.widget.ConstraintLayout>
+
+          <RelativeLayout
+              tools:visibility="visible"
+              android:id="@+id/clear_all"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/_44sdp"
+              android:layout_margin="@dimen/_10sdp"
+              android:background="@drawable/all_bg_red"
+              android:visibility="gone"
+              android:layout_alignParentBottom="true"
+              android:layout_centerHorizontal="true">
+
+              <androidx.appcompat.widget.AppCompatTextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_centerInParent="true"
+                  android:layout_gravity="center"
+                  android:fontFamily="@font/mitr_medium"
+                  android:gravity="center"
+                  android:text="@string/clean_junk_ngay"
+                  android:textColor="@color/white"
+                  android:textSize="@dimen/_14sdp"
+                  android:textStyle="bold" />
+
+          </RelativeLayout>
+
+      </RelativeLayout>
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -75,7 +75,7 @@ dependencies {
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
-    implementation 'com.google.firebase:firebase-ads:19.4.0'
+    implementation 'com.google.firebase:firebase-ads:19.5.0'
 
     implementation 'com.airbnb.android:lottie:3.4.4'
 
@@ -84,5 +84,9 @@ dependencies {
     //noinspection LifecycleAnnotationProcessorWithJava8
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0"
 
-    implementation "com.github.skydoves:transformationlayout:1.0.6"
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    implementation 'com.daasuu:CountAnimationTextView:0.1.2'
+
+    implementation 'com.jakewharton.rxbinding4:rxbinding-material:4.0.0'
 }

@@ -159,6 +159,9 @@
     <string name="ccs1">Trợ Năng</string>
     <string name="so1">SỐ 1</string>
     <string name="other_clean">Tệp tin khác</string>
-    <string name="scan_junk">Quét tệp tin rác</string>
+    <string name="scan_junk">Đang tìm kiếm tập tin rác…</string>
+    <string name="dangkhoitao">Đang khởi tạo…</string>
+    <string name="phathienthay">Phát hiện thấy</string>
+    <string name="daquetxong">Đã quét xong</string>
 
 </resources>

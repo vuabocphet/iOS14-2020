@@ -5,12 +5,13 @@ import android.content.Context;
 
 import com.developer.memory.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by mazhuang on 16/1/14.
  */
-public class JunkInfo implements Comparable<JunkInfo> {
+public class JunkInfo implements Comparable<JunkInfo>, Serializable {
     public String name;
     public long mSize;
     public int icon;
@@ -19,7 +20,7 @@ public class JunkInfo implements Comparable<JunkInfo> {
     public ArrayList<JunkInfo> mChildren = new ArrayList<>();
     public boolean mIsVisible = false;
     public boolean mIsChild = true;
-    public int typeJunk;
+    public int typeJunk;;
     private Context context;
 
     public JunkInfo(Context context, int typeJunk) {

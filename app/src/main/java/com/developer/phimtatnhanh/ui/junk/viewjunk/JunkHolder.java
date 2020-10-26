@@ -17,7 +17,7 @@ public class JunkHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.iv_icon)
     public AppCompatImageView ivIcon;
-    @BindView(R.id.tv_name)
+    @BindView(R.id.tv_title)
     public AppCompatTextView tvName;
     @BindView(R.id.iv_check)
     public AppCompatImageView ivCheck;

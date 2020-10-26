@@ -8,7 +8,6 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,22 +20,20 @@ import butterknife.ButterKnife;
 
 public class ViewListJunk extends FrameLayout {
 
-    @BindView(R.id.tv_name)
+    @BindView(R.id.tv_title)
     AppCompatTextView tvName;
-    @BindView(R.id.iv_check)
-    AppCompatImageView ivCheck;
-    @BindView(R.id.iv_rotate_cache)
-    AppCompatImageView ivRotateCache;
-    @BindView(R.id.tv_size)
-    AppCompatTextView tvSize;
+
     @BindView(R.id.cs_layout_all)
     ConstraintLayout csLayoutAll;
     @BindView(R.id.view)
     View view;
+
     @BindView(R.id.recycler_junk)
     RecyclerView recyclerJunk;
+
     @BindView(R.id.cs_layout1)
     ConstraintLayout csLayout1;
+
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
@@ -67,16 +64,15 @@ public class ViewListJunk extends FrameLayout {
     }
 
     public ViewListJunk setTvSize(String size) {
-        this.tvSize.setText(size);
         return this;
     }
 
     public ViewListJunk setListJunk(JunkInfo junkInfo) {
-        JunkAdapter.create(this.getContext(), junkInfo, this.recyclerJunk);
+        /*JunkAdapter.create(this.getContext(), junkInfo, this.recyclerJunk);
         this.ivRotateCache.setVisibility(VISIBLE);
-        this.ivCheck.setVisibility(VISIBLE);
+        this.ivCheck.setVisibility(VISIBLE);*/
         this.progressBar.setVisibility(GONE);
-        if (junkInfo == null || junkInfo.mChildren == null || junkInfo.mChildren.isEmpty()) {
+       /* if (junkInfo == null || junkInfo.mChildren == null || junkInfo.mChildren.isEmpty()) {
             this.csLayout1.setAlpha(0.5f);
             return this;
         }
@@ -91,7 +87,7 @@ public class ViewListJunk extends FrameLayout {
             this.recyclerJunk.setVisibility(VISIBLE);
             this.view.setVisibility(VISIBLE);
             this.ivRotateCache.setRotation(90f);
-        });
+        });*/
         return this;
     }
 }

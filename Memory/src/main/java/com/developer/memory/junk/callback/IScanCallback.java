@@ -7,23 +7,26 @@ import java.util.ArrayList;
 
 public interface IScanCallback {
 
-    void onStartJunk();
+    void onCreateJunk(int typeScanJunk) throws Exception;
 
-    void onStopJunk();
+    void onStartJunk(int typeScanJunk) throws Exception;
 
-    void onProgress(JunkInfo info);
+    void onCompleteJunk(int typeScanJunk) throws Exception;
 
-    void onProgressCache(JunkInfo info);
+    void onStopJunk() throws Exception;
 
-    void onProgressApk(JunkInfo info);
+    void onProgressCache(JunkInfo info) throws Exception;
 
-    void onProgressTmp(JunkInfo info);
+    void onProgressApk(JunkInfo info) throws Exception;
 
-    void onProgressLog(JunkInfo info);
+    void onProgressTmp(JunkInfo info) throws Exception;
 
-    void onProgressOther(JunkInfo info);
+    void onProgressLog(JunkInfo info) throws Exception;
 
-    void onFinish();
+    void onProgressOther(JunkInfo info) throws Exception;
 
-    void onErrorJunk(Throwable throwable);
+    void onFinish() throws Exception;
+
+    void onErrorJunk(Throwable throwable) throws Exception;
+
 }

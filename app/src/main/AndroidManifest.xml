@@ -38,11 +38,12 @@
     <uses-permission
         android:name="android.permission.CLEAR_APP_CACHE"
         tools:ignore="ProtectedPermissions" />
-
+    <uses-permission
+        android:name="android.permission.CLEAR_APP_CACHE"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
     <application
@@ -57,18 +58,26 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".ui.cleanjunk.CleanJunkActivity"
+            android:noHistory="true" />
+        <activity
             android:name=".ui.junk.JunkActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:noHistory="true"
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".ui.Screen"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".ui.settingcapturevideo.SettingCaptureVideoActivity"
