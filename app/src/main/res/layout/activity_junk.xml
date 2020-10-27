@@ -145,6 +145,7 @@
                   android:layout_marginTop="@dimen/_12sdp"
                   android:fontFamily="@font/russoone_regular"
                   android:text="0.00B"
+                  android:gravity="center"
                   android:textColor="@color/white"
                   android:textSize="@dimen/_26sdp"
                   android:textStyle="bold"

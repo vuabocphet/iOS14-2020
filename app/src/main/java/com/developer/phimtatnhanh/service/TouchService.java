@@ -76,7 +76,7 @@ public class TouchService extends Service {
         super.onCreate();
         EventBus.getDefault().register(this);
         MMKV.initialize(this);
-        PrefUtil.init();
+        PrefUtil.initialize();
         this.viewManagerUtil = ViewManagerUtil.init(this);
     }
 

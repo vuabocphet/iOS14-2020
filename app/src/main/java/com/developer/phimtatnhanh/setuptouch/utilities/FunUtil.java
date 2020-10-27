@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.developer.memory.junk.RamMaster;
 import com.developer.phimtatnhanh.R;
 import com.developer.phimtatnhanh.app.AppContext;
+import com.developer.phimtatnhanh.data.PrefUtil;
 import com.developer.phimtatnhanh.notui.PerActivityTransparent;
 import com.developer.phimtatnhanh.service.CustomAccessibilityService;
 import com.developer.phimtatnhanh.setuptouch.config.ConstKey;
@@ -24,6 +25,7 @@ import com.developer.phimtatnhanh.setuptouch.dialog.TimeBrightnessDialog;
 import com.developer.phimtatnhanh.setuptouch.utilities.capturescreen.RxScreenCapture;
 import com.developer.phimtatnhanh.setuptouch.utilities.permission.ConfigPer;
 import com.developer.phimtatnhanh.setuptouch.utilities.permission.PermissionUtils;
+import com.developer.phimtatnhanh.ui.cleanjunk.CleanJunkActivity;
 import com.developer.phimtatnhanh.ui.junk.JunkActivity;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
@@ -295,6 +297,10 @@ public class FunUtil implements ConstKey {
             if (allJunk()) return;
         }
         if (allReadWriteStogre(MENU_SCAN_JUNK)) return;
+        if (System.currentTimeMillis() <= PrefUtil.get().getLong(JunkActivity.CACHE_JUNK, 0L) + (15 * 60 * 1000)) {
+            CleanJunkActivity.open(AppContext.get().getContext(), true);
+            return;
+        }
         JunkActivity.open(AppContext.get().getContext());
     }
 

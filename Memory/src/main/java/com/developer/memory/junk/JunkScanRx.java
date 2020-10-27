@@ -387,6 +387,7 @@ public class JunkScanRx {
                 }
             } catch (Exception e) {
                 onErrorJunk(e);
+                subscribeScanJunkRx(JunkGroup.GROUP_APK);
             }
         });
     }

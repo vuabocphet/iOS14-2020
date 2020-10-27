@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -28,11 +27,13 @@ import com.developer.phimtatnhanh.ads.InterAds;
 import com.developer.phimtatnhanh.ads.NativeAdLoader;
 import com.developer.phimtatnhanh.ads.NativeAdView;
 import com.developer.phimtatnhanh.base.BaseActivity;
+import com.developer.phimtatnhanh.data.PrefUtil;
 import com.developer.phimtatnhanh.delayclickview.PostDelayClick;
 import com.developer.phimtatnhanh.di.component.ActivityComponent;
 import com.developer.phimtatnhanh.ui.cleanjunk.CleanJunkActivity;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.tencent.mmkv.MMKV;
 
 import java.util.ArrayList;
 
@@ -63,6 +64,8 @@ public class JunkActivity extends BaseActivity implements IScanCallback {
     ConstraintLayout csLayoutAll;
     @BindView(R.id.tv_content)
     AppCompatTextView tvContent;
+
+    public static final String CACHE_JUNK = "CACHE_JUNK";
 
     private boolean checkNullView() {
         return isView(this.clearAll,
@@ -102,7 +105,7 @@ public class JunkActivity extends BaseActivity implements IScanCallback {
         AppLogEvent.getInstance().log("JunkActivity clean");
         this.isStartActivity = true;
         InterAds.get().show(() -> {
-            CleanJunkActivity.open(this);
+            CleanJunkActivity.open(this,false);
             if (isFinishing() || isDestroyed()) {
                 return;
             }
@@ -155,6 +158,8 @@ public class JunkActivity extends BaseActivity implements IScanCallback {
 
     @Override
     protected void init() {
+        MMKV.initialize(this);
+        PrefUtil.initialize();
         AppLogEvent.initialize(this);
         InterAds.initialize(this);
         InterAds.get().reload();
@@ -167,7 +172,12 @@ public class JunkActivity extends BaseActivity implements IScanCallback {
         listJunkAll = new ArrayList<>();
         this.handler = new Handler(Looper.getMainLooper());
         this.junkScanRx = new JunkScanRx(this, this);
-        this.handler.postDelayed(() -> this.junkScanRx.startScanJunkRx(), 1000);
+        this.handler.postDelayed(() -> {
+            if (this.junkScanRx == null) {
+                return;
+            }
+            this.junkScanRx.startScanJunkRx();
+        }, 1000);
     }
 
     @Override
@@ -296,17 +306,13 @@ public class JunkActivity extends BaseActivity implements IScanCallback {
 
     @Override
     public void onErrorJunk(Throwable e) {
-        Log.e("TinhNv", "onErrorJunk: "+e.toString() );
-        /*if (this.handler != null) {
-            Toast.makeText(this, getString(R.string.clean_junk_error), Toast.LENGTH_SHORT).show();
-        }*/
+        Log.i("TinhNv", "onErrorJunk: " + e.toString());
     }
 
     @Override
     protected void onDestroy() {
 
         if (!this.isStartActivity) {
-            Log.e("TinhNv", "onDestroy: " + isStartActivity);
             cleanStatic();
         }
 

@@ -1,19 +1,11 @@
 package com.developer.phimtatnhanh.app;
 
 
-import android.os.Build;
-import android.util.Log;
-
-import com.developer.phimtatnhanh.BuildConfig;
 import com.developer.phimtatnhanh.ads.AppLogEvent;
-import com.developer.phimtatnhanh.ads.AppOpen;
 import com.developer.phimtatnhanh.ads.InterAds;
-import com.developer.phimtatnhanh.ads.UnitID;
 import com.developer.phimtatnhanh.ads.util.AdPrefs;
 import com.developer.phimtatnhanh.base.BaseApplication;
 import com.developer.phimtatnhanh.data.PrefUtil;
-import com.developer.phimtatnhanh.ui.Screen;
-import com.developer.phimtatnhanh.ui.junk.JunkActivity;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.RequestConfiguration;
 import com.tencent.mmkv.MMKV;
@@ -27,7 +19,7 @@ public class Application extends BaseApplication {
         super.onCreate();
         AppContext.create(getApplicationContext());
         MMKV.initialize(this);
-        PrefUtil.init();
+        PrefUtil.initialize();
         AppLogEvent.initialize(getApplicationContext());
         AdPrefs.initialize(getApplicationContext());
         MobileAds.initialize(getApplicationContext());

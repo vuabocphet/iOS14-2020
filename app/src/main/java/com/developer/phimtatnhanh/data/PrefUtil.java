@@ -19,7 +19,7 @@ public class PrefUtil implements ConfigAll {
         return prefUtil;
     }
 
-    public static void init() {
+    public static void initialize() {
         if (prefUtil == null) {
             prefUtil = new PrefUtil();
         }
@@ -38,6 +38,10 @@ public class PrefUtil implements ConfigAll {
         this.mmkv.encode(key, i);
     }
 
+    public void postLong(String key, long i) {
+        this.mmkv.encode(key, i);
+    }
+
     public void postString(String key, String ms) {
         this.mmkv.encode(key, ms);
     }
@@ -52,6 +56,10 @@ public class PrefUtil implements ConfigAll {
 
     public float getFloat(String key, float... defaultValue) {
         return this.mmkv.decodeFloat(key, defaultValue == null || defaultValue.length == 0 ? 0.0f : defaultValue[0]);
+    }
+
+    public float getLong(String key, long... defaultValue) {
+        return this.mmkv.decodeLong(key, defaultValue == null || defaultValue.length == 0 ? 0L : defaultValue[0]);
     }
 
     public void postBool(String key, boolean is) {

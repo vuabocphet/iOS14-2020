@@ -7,17 +7,17 @@
     <string name="cache_clean">Bộ nhớ cache</string>
     <string name="system_cache">Bộ nhớ đệm hệ thống</string>
 
-    <string name="byte_short">B</string>
+    <string name="byte_short">\nB</string>
     <!-- Suffix added to a number to signify size in kilobytes. -->
-    <string name="kilo_byte_short">KB</string>
+    <string name="kilo_byte_short">\nKB</string>
     <!-- Suffix added to a number to signify size in megabytes. -->
-    <string name="mega_byte_short">MB</string>
+    <string name="mega_byte_short">\nMB</string>
     <!-- Suffix added to a number to signify size in gigabytes. -->
-    <string name="giga_byte_short">GB</string>
+    <string name="giga_byte_short">\nGB</string>
     <!-- Suffix added to a number to signify size in terabytes. -->
-    <string name="tera_byte_short">TB</string>
+    <string name="tera_byte_short">\nTB</string>
     <!-- Suffix added to a number to signify size in petabytes. -->
-    <string name="peta_byte_short">PB</string>
+    <string name="peta_byte_short">\nPB</string>
 
     <string name="clean_file_size_suffix">%1$s%2$s</string>
 </resources>

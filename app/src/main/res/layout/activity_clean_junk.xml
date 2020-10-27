@@ -9,13 +9,14 @@
 
 
     <com.airbnb.lottie.LottieAnimationView
-        android:scaleType="centerCrop"
         android:id="@+id/lottieAnimationView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         app:lottie_autoPlay="true"
         app:lottie_fileName="s10.json"
-        app:lottie_loop="false" />
+        app:lottie_loop="false"
+        tools:visibility="invisible" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView3"
@@ -28,13 +29,43 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="false"
         app:lottie_fileName="s11.json"
-        app:lottie_loop="false" />
+        app:lottie_loop="false"
+        tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_happy"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_happy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_happy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_68sdp"
+        android:fontFamily="@font/mitr_medium"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/_2sdp"
+        android:text="@string/junk_happy"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_22sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/view9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/count_animation_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/russoone_regular"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/_4sdp"
         android:text="0.00MB"
         android:textColor="@color/white"
         android:textSize="@dimen/_36sdp"
@@ -50,5 +81,30 @@
         android:layout_height="@dimen/_1sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@+id/lottieAnimationView2" />
+
+    <RelativeLayout
+        android:id="@+id/clear_complete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_44sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/_14sdp"
+        android:background="@drawable/all_bg_blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/count_animation_textView"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:fontFamily="@font/mitr_medium"
+            android:gravity="center"
+            android:text="@string/clean_junk_complete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

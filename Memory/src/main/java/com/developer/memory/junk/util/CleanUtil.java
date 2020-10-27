@@ -148,11 +148,11 @@ public class CleanUtil {
             for (JunkInfo info : junks) {
                 try {
                     if (info.typeJunk == JunkGroup.GROUP_CACHE) {
+                        killAppProcesses(context, info.mPackageName);
+                        freeAllAppsCache(context, info, cleanCallBack);
                         if (cleanCallBack != null) {
                             cleanCallBack.onProgressClean(info);
                         }
-                        killAppProcesses(context, info.mPackageName);
-                        freeAllAppsCache(context, info, cleanCallBack);
                         if (junks.size() < 50) {
                             SystemClock.sleep(50);
                         }
@@ -161,18 +161,15 @@ public class CleanUtil {
                     File file = new File(info.mPath);
                     if (file.exists()) {
                         boolean delete = file.delete();
-                        if (delete) {
-                            if (cleanCallBack != null) {
-                                cleanCallBack.onProgressClean(info);
-                            }
-                        } else {
-                            if (cleanCallBack != null) {
-                                cleanCallBack.onProgressClean(info);
-                            }
-                        }
+                    }
+                    if (cleanCallBack != null) {
+                        cleanCallBack.onProgressClean(info);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    if (cleanCallBack != null) {
+                        cleanCallBack.onProgressClean(info);
+                    }
                     if (cleanCallBack != null) {
                         cleanCallBack.onError(e);
                     }

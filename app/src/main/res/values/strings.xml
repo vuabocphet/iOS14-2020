@@ -163,5 +163,7 @@
     <string name="dangkhoitao">Đang khởi tạo…</string>
     <string name="phathienthay">Phát hiện thấy</string>
     <string name="daquetxong">Đã quét xong</string>
+    <string name="clean_junk_complete">Hoàn thành</string>
+    <string name="junk_happy">Xin chúc mừng\nthiết bị sạch sẽ</string>
 
 </resources>
