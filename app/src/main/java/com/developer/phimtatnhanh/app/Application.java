@@ -4,6 +4,7 @@ package com.developer.phimtatnhanh.app;
 import com.developer.phimtatnhanh.ads.AppLogEvent;
 import com.developer.phimtatnhanh.ads.InterAds;
 import com.developer.phimtatnhanh.ads.util.AdPrefs;
+import com.developer.phimtatnhanh.alarm.AlarmHelper;
 import com.developer.phimtatnhanh.base.BaseApplication;
 import com.developer.phimtatnhanh.data.PrefUtil;
 import com.google.android.gms.ads.MobileAds;
@@ -23,7 +24,7 @@ public class Application extends BaseApplication {
         AppLogEvent.initialize(getApplicationContext());
         AdPrefs.initialize(getApplicationContext());
         MobileAds.initialize(getApplicationContext());
-
+        AlarmHelper.get(this).startAlarm();
         List<String> testDeviceIds = Collections.singletonList("69F6E77E43D5FD63F0E6FA2FAA558B48");
 
         RequestConfiguration configuration =

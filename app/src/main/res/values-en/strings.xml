@@ -149,4 +149,23 @@
     <string name="content_fb">Very good application</string>
     <string name="clean_junk">Junk Clean</string>
     <string name="ad">Ad</string>
+
+    <string name="scan">Scan Junk…</string>
+    <string name="clean_junk_error">Error…</string>
+    <string name="clean_junk_finish">Had found</string>
+    <string name="clean_junk_ngay">Clear Now</string>
+    <string name="ccs1">Accessibility</string>
+    <string name="so1">NO. 1</string>
+    <string name="other_clean">Other files</string>
+    <string name="scan_junk">Looking for junk files…</string>
+    <string name="dangkhoitao">Initializing…</string>
+    <string name="phathienthay">Discovered</string>
+    <string name="daquetxong">Scanning finished</string>
+    <string name="clean_junk_complete">Finish</string>
+    <string name="junk_happy">Congratulations\nclean equipment</string>
+    <string name="pjunk_denied">Please grant permission to use the feature</string>
+    <string name="save_complete">Video saved</string>
+    <string name="dang_giai_phong">Free up RAM…</string>
+    <string name="clean_ram">Memory Accele ram</string>
+
 </resources>

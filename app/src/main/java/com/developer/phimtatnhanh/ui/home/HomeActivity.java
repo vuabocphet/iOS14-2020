@@ -1,6 +1,5 @@
 package com.developer.phimtatnhanh.ui.home;
 
-
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -18,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 
 import com.developer.phimtatnhanh.R;
+import com.developer.phimtatnhanh.ads.AppLogEvent;
 import com.developer.phimtatnhanh.ads.InterAds;
 import com.developer.phimtatnhanh.ads.NativeAdLoader;
 import com.developer.phimtatnhanh.ads.NativeAdView;
@@ -185,6 +185,7 @@ public class HomeActivity extends BaseActivity implements HomeView, View.OnClick
 
     @Override
     protected void init() {
+        AppLogEvent.getInstance().log("HomeActivity_Show");
         this.homePresenter = new HomePresenter(this);
         this.homePresenter.attachView(this);
         this.initView();

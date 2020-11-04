@@ -49,24 +49,26 @@
 
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:gravity="center_vertical"
                 android:id="@+id/appCompatTextView2"
                 android:layout_width="0dp"
-                app:autoSizeTextType="uniform"
-                app:autoSizeMinTextSize="8sp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:fontFamily="@font/thin_ios"
+                android:gravity="center_vertical"
                 android:includeFontPadding="false"
                 android:lines="3"
+                android:paddingEnd="@dimen/_4sdp"
                 android:text="@string/brightness_xiaomi"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                app:autoSizeMinTextSize="8sp"
+                app:autoSizeTextType="uniform"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_resolution"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlSymmetry" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -92,8 +94,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/appCompatTextView3"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:fontFamily="@font/thin_ios"
                 android:includeFontPadding="false"
                 android:text="@string/fix_brightness"
@@ -101,14 +104,15 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/switch_brightness_fix"
                 app:layout_constraintStart_toEndOf="@+id/appCompatImageView1"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.suke.widget.SwitchButton
                 android:id="@+id/switch_brightness_fix"
-                android:layout_marginEnd="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

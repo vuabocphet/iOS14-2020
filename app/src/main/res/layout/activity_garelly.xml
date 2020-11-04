@@ -51,7 +51,7 @@
         android:columnWidth="@dimen/_60sdp"
         android:gravity="center"
         android:horizontalSpacing="@dimen/_5sdp"
-        android:numColumns="2"
+        android:numColumns="3"
         android:overScrollMode="never"
         android:stretchMode="columnWidth"
         android:verticalSpacing="@dimen/_5sdp"

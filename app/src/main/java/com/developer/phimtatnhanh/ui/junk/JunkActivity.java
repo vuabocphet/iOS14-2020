@@ -65,8 +65,6 @@ public class JunkActivity extends BaseActivity implements IScanCallback {
     @BindView(R.id.tv_content)
     AppCompatTextView tvContent;
 
-    public static final String CACHE_JUNK = "CACHE_JUNK";
-
     private boolean checkNullView() {
         return isView(this.clearAll,
                 this.csLayoutAll,
@@ -95,20 +93,17 @@ public class JunkActivity extends BaseActivity implements IScanCallback {
     public void close(View view) {
         this.isStartActivity = false;
         PostDelayClick.get().postDelayViewClick(view);
-        AppLogEvent.getInstance().log("JunkActivity finish");
+        AppLogEvent.getInstance().log("JunkActivity_finish");
         this.finish();
     }
 
     @OnClick(R.id.clear_all)
     public void clean(View view) {
         PostDelayClick.get().postDelayViewClick(view);
-        AppLogEvent.getInstance().log("JunkActivity clean");
+        AppLogEvent.getInstance().log("JunkActivity_clean");
         this.isStartActivity = true;
         InterAds.get().show(() -> {
-            CleanJunkActivity.open(this,false);
-            if (isFinishing() || isDestroyed()) {
-                return;
-            }
+            CleanJunkActivity.open(this, false);
             this.finish();
         });
     }
@@ -163,7 +158,7 @@ public class JunkActivity extends BaseActivity implements IScanCallback {
         AppLogEvent.initialize(this);
         InterAds.initialize(this);
         InterAds.get().reload();
-        AppLogEvent.getInstance().log("JunkActivity show");
+        AppLogEvent.getInstance().log("JunkActivity_show");
         this.loadAd();
         if (listJunkAll != null) {
             listJunkAll.clear();

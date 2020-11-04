@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 
@@ -107,6 +108,7 @@ public class GarellyActivity extends BaseActivity implements GarellyView {
 
     @Override
     public void onResult(List<FileItem> fileItems) {
+        Log.i("TinhNv", "onResult: "+fileItems.size());
         this.customGarellyAdapter = CustomGarellyAdapter.init(this, fileItems, this.gridView);
         this.customGarellyAdapter.setClickItem(fileItem -> {
             if (TextUtils.equals(this.type, GarellyView.IMG)) {

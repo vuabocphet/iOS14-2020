@@ -26,4 +26,9 @@ public interface ConfigPer {
     String DATA_BUNDEL = "data_bundel";
 
     int KEY_IMAGE_BG = 827;
+
+    String CACHE_JUNK = "CACHE_JUNK";
+
+    String CACHE_RAM = "CACHE_RAM";
+
 }

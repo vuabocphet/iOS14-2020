@@ -178,7 +178,10 @@ public class PermissionUtils implements ConfigPer {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             for (String s : permission) {
-                return context.checkSelfPermission(s) == PackageManager.PERMISSION_GRANTED;
+                boolean isP = context.checkSelfPermission(s) == PackageManager.PERMISSION_GRANTED;
+                if (!isP) {
+                    return isP;
+                }
             }
         }
         return true;

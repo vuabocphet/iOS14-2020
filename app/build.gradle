@@ -10,8 +10,8 @@ android {
         applicationId "com.developer.phimtatnhanh"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 9
-        versionName "2.4"
+        versionCode 11
+        versionName "2.6"
         renderscriptTargetApi 28
         renderscriptSupportModeEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -32,11 +32,11 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
-    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.3'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
+    implementation 'com.google.firebase:firebase-analytics:18.0.0'
     implementation project(path: ':Memory')
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
@@ -89,4 +89,5 @@ dependencies {
     implementation 'com.daasuu:CountAnimationTextView:0.1.2'
 
     implementation 'com.jakewharton.rxbinding4:rxbinding-material:4.0.0'
+
 }

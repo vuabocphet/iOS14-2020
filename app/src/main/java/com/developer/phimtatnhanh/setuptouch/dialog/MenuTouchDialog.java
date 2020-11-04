@@ -7,7 +7,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -94,6 +98,7 @@ public class MenuTouchDialog implements ConfigAll, ConstKey, LifeRxScreenCapture
     private int menuTopToLeft;
     private int menuTopToRight;
     private FunUtil funUtil;
+    private Handler handler;
 
     @OnClick({R.id.ll_bottom_to_centter,
             R.id.ll_bottom_to_left,
@@ -135,6 +140,7 @@ public class MenuTouchDialog implements ConfigAll, ConstKey, LifeRxScreenCapture
         this.lifeDialog = lifeDialog;
         this.menuDialog = create();
         this.funUtil = new FunUtil(this);
+        this.handler = new Handler(Looper.getMainLooper());
     }
 
     @SuppressLint("InflateParams")
@@ -194,18 +200,22 @@ public class MenuTouchDialog implements ConfigAll, ConstKey, LifeRxScreenCapture
 
     @Override
     public void onResultCaptureScreen(Bitmap bitmap) {
-        if (this.lifeDialog == null) {
-            return;
-        }
-        this.lifeDialog.onResultCaptureScreen(bitmap);
+        this.handler.post(() -> {
+            if (this.lifeDialog == null) {
+                return;
+            }
+            this.lifeDialog.onResultCaptureScreen(bitmap);
+        });
     }
 
     @Override
     public void onFailedCaptureScreen() {
-        if (this.lifeDialog == null) {
-            return;
-        }
-        this.lifeDialog.onFailedCaptureScreen();
+        this.handler.post(() -> {
+            if (this.lifeDialog == null) {
+                return;
+            }
+            this.lifeDialog.onFailedCaptureScreen();
+        });
     }
 
     @Override
@@ -218,10 +228,12 @@ public class MenuTouchDialog implements ConfigAll, ConstKey, LifeRxScreenCapture
 
     @Override
     public void onStopCaptureScreen() {
-        if (this.lifeDialog == null) {
-            return;
-        }
-        this.lifeDialog.onStopCaptureScreen();
+        this.handler.post(() -> {
+            if (this.lifeDialog == null) {
+                return;
+            }
+            this.lifeDialog.onStopCaptureScreen();
+        });
     }
 
     @Override

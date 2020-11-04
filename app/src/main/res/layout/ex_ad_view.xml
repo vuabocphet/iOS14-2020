@@ -98,7 +98,7 @@
                     android:includeFontPadding="false"
                     android:paddingLeft="@dimen/_4sdp"
                     android:paddingRight="@dimen/_4sdp"
-                    android:text="@string/ad"
+                    android:text="Ad"
                     android:textColor="#fff"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="parent"

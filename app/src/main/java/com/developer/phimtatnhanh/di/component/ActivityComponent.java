@@ -7,6 +7,7 @@ import com.developer.phimtatnhanh.ui.garelly.GarellyActivity;
 import com.developer.phimtatnhanh.ui.home.HomeActivity;
 import com.developer.phimtatnhanh.ui.junk.JunkActivity;
 import com.developer.phimtatnhanh.ui.menulayout.MenuActivity;
+import com.developer.phimtatnhanh.ui.ram.RamActivity;
 import com.developer.phimtatnhanh.ui.settingcapturevideo.SettingCaptureVideoActivity;
 import com.developer.phimtatnhanh.ui.touch.TouchActivity;
 
@@ -29,5 +30,7 @@ public interface ActivityComponent extends ApplicationComponent {
     void inject(JunkActivity junkActivity);
 
     void inject(CleanJunkActivity cleanJunkActivity);
+
+    void inject(RamActivity ramActivity);
 
 }

@@ -14,7 +14,7 @@ public class FileUtil {
     public static Single<List<FileItem>> createGetFileGarelly() {
         return Single.create(emitter -> {
             try {
-                List<FileItem> listFileFolder =getListFileFolder(SaveBitmapUtil.getPathBig());
+                List<FileItem> listFileFolder = getListFileFolder(SaveBitmapUtil.getPathBig());
                 emitter.onSuccess(listFileFolder);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -26,7 +26,7 @@ public class FileUtil {
     public static Single<List<FileItem>> createGetFileVideo() {
         return Single.create(emitter -> {
             try {
-                List<FileItem> listFileFolder =getListFileFolder(SaveBitmapUtil.getPathBigVideo());
+                List<FileItem> listFileFolder = getListFileFolder(SaveBitmapUtil.getPathBigVideo());
                 emitter.onSuccess(listFileFolder);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -43,9 +43,12 @@ public class FileUtil {
             return list;
         }
         for (File file : files) {
+            if (file == null || file.length() == 0 || file.length() < 100) {
+                continue;
+            }
             FileItem fileItem = new FileItem();
             fileItem.path = file.getPath();
-            list.add(0,fileItem);
+            list.add(0, fileItem);
         }
         return list;
     }

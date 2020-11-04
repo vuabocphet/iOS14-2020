@@ -45,6 +45,9 @@ public class PreviewImage extends BaseActivity implements ConfigAll {
 
     @OnClick(R.id.iv_preview)
     public void playVideo(View view) {
+        if (TextUtils.equals(this.type, GarellyView.IMG)) {
+            return;
+        }
         PostDelayClick.get().postDelayViewClick(view);
         SaveBitmapUtil.openCaptureScreen(this, new File(this.path),GarellyView.VIDEO);
     }

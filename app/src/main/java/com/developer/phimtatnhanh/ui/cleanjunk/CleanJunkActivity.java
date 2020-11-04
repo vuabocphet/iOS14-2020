@@ -107,7 +107,7 @@ public class CleanJunkActivity extends BaseActivity implements CleanUtil.CleanCa
             PostDelayClick.get().postDelayViewClick(view);
             this.finish();
         });
-        AppLogEvent.getInstance().log("CleanJunkActivity show");
+        AppLogEvent.getInstance().log("CleanJunkActivity_show");
         this.junkInfos = new ArrayList<>();
         this.junkInfos.addAll(JunkActivity.getListJunkAll() == null ? new ArrayList<>() : JunkActivity.getListJunkAll());
         this.sizeJunk = JunkActivity.getSizeJunk();
@@ -149,7 +149,7 @@ public class CleanJunkActivity extends BaseActivity implements CleanUtil.CleanCa
 
     @Override
     public void onComplete() {
-        AppLogEvent.getInstance().log("CleanJunkActivity onComplete");
+        AppLogEvent.getInstance().log("CleanJunkActivity_complete");
         if (this.junkInfos != null && !this.junkInfos.isEmpty()) {
             Log.i("TinhNv", "onComplete: post CACHE_JUNK");
             PrefUtil.get().postLong(JunkActivity.CACHE_JUNK, System.currentTimeMillis());

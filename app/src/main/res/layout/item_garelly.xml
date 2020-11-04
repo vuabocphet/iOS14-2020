@@ -7,12 +7,12 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv"
-        app:riv_corner_radius="@dimen/_5sdp"
+        app:riv_corner_radius="@dimen/_2sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:adjustViewBounds="true"
-        android:src="@drawable/bg_menu_layout" />
+         />
 
 
 </RelativeLayout>

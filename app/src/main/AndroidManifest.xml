@@ -38,7 +38,9 @@
     <uses-permission
         android:name="android.permission.CLEAR_APP_CACHE"
         tools:ignore="ProtectedPermissions" />
-    <permission android:name="android.permission.CLEAR_APP_CACHE"/>
+
+    <permission android:name="android.permission.CLEAR_APP_CACHE" />
+
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
@@ -56,26 +58,26 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".ui.ram.RamActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" />
+        <activity
             android:name=".ui.cleanjunk.CleanJunkActivity"
             android:noHistory="true" />
         <activity
             android:name=".ui.junk.JunkActivity"
             android:launchMode="singleTask"
             android:noHistory="true"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.Screen"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ui.settingcapturevideo.SettingCaptureVideoActivity"
@@ -103,6 +105,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".notui.PerActivityTransparent"
+            android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.Transparent" />
         <activity
@@ -137,6 +140,13 @@
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".alarm.AlarmReceiver" />
+        <receiver android:name=".alarm.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
 

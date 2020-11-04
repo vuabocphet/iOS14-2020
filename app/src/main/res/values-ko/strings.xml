@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="not_click_touch">조치 없음</string>
+    <string name="back_click_touch">돌아와</string>
+    <string name="home_click_touch">메인 화면</string>
+    <string name="recent_click_touch">최근 신청</string>
+    <string name="source_click_touch">소스 대화 상자</string>
+    <string name="menu_floating_click_touch">플로팅 메뉴</string>
+    <string name="notification_click_touch">풀 알림</string>
+    <string name="lock_click_touch">잠금 화면</string>
+    <string name="title_click_single">메뉴 누르기</string>
+    <string name="select">고르다</string>
+    <string name="cancel">취소</string>
+    <string name="setting">환경</string>
+    <string name="click_one">메뉴 누르기</string>
+    <string name="click_two">더블 클릭</string>
+    <string name="click_long">길게 누르기</string>
+    <string name="floating">떠 다니는 아이콘</string>
+    <string name="floating_type">상</string>
+    <string name="type_0">유형 1</string>
+    <string name="floating_size">크기</string>
+    <string name="floating_color">색상 선택</string>
+    <string name="menu_layout">형세</string>
+    <string name="menu_location">자위</string>
+    <string name="rate_share"><![CDATA[평가 & 공유]]></string>
+    <string name="rate">앱 리뷰</string>
+    <string name="share">친구 공유</string>
+    <string name="policy">개인 정보 정책</string>
+    <string name="chonapp">응용 프로그램 선택</string>
+    <string name="home_menu_touch">메인 화면</string>
+    <string name="recent_menu_touch">최근 신청</string>
+    <string name="back_menu_touch">돌아와</string>
+    <string name="air_menu_touch">비행기</string>
+    <string name="bluetool_menu_touch">블루투스</string>
+    <string name="bright_menu_touch">화면 밝기</string>
+    <string name="setting_menu_touch">환경</string>
+    <string name="notification_menu_touch">공고</string>
+    <string name="flash_menu_touch">플래시</string>
+    <string name="loc_screen_menu_touch">잠금 화면</string>
+    <string name="rotate_menu_touch">화면 회전</string>
+    <string name="volue_up_menu_touch">볼륨 업</string>
+    <string name="volue_out_menu_touch">볼륨 낮추기</string>
+    <string name="wifi_menu_touch">와이파이</string>
+    <string name="network_menu_touch">모바일 데이터</string>
+    <string name="star_menu_touch">특히 잘하는</string>
+    <string name="time_bright_menu_touch">밝기 시간</string>
+    <string name="device_menu_touch">장치</string>
+    <string name="capture_video_menu_touch">비디오</string>
+    <string name="capture_menu_touch">화면 캡처</string>
+    <string name="none">아무것도</string>
+    <string name="back">반환</string>
+    <string name="des">
+        *응용 프로그램에서 작업을 수행하려면 액세스 서비스 권한이 필요합니다.\n
+        +반환\n
+        +멀티 태스킹 화면 열기\n
+        +메인 화면으로 돌아 가기\n
+        +화면 캡처\n
+        +알림 열기
+    </string>
+    <string name="time_bright_15giay">15 초</string>
+    <string name="time_bright_30giay">30 초</string>
+    <string name="time_bright_1phut">1 분</string>
+    <string name="time_bright_2phut">2 분</string>
+    <string name="time_bright_10phut">10 분</string>
+    <string name="time_bright_30phut">30 분</string>
+    <string name="time_bright_never">못</string>
+    <string name="time_bright">대기 시간</string>
+    <string name="screen_orientation_off">회전 모드 끄기</string>
+    <string name="screen_orientation_on">회전 모드 ON</string>
+    <string name="desadmin">화면 끄기 기능을 사용하려면 애플리케이션에 대한 관리자 권한을 부여해야합니다.</string>
+    <string name="flash_on_off">손전등 켜기 및 끄기</string>
+    <string name="flash_set">*빛이 깜박이는 경우 0에서 5까지 조정*</string>
+    <string name="pcamera_denied">기능을 사용하려면 카메라 권한을 부여하십시오.</string>
+    <string name="preadwrite_denied">기능을 사용하려면 읽기 및 쓰기 메모리 권한을 부여하십시오.</string>
+    <string name="precord_denied">기능을 사용하려면 녹음 권한을 부여하십시오.</string>
+    <string name="start">시작…</string>
+    <string name="brightness_setting">화면 밝기 설정</string>
+    <string name="brightness_xiaomi">중국의 일부 모델 (Xiaomi, Oppo, …)에서는 밝기가 매우 높습니다. 휴대 전화가 목록에있는 경우 밝기 보정 모드를 사용 설정하세요. </string>
+    <string name="fix_brightness">중국 컴퓨터의 밝기 오류 수정</string>
+    <string name="title_menu_activity">레이아웃 변경</string>
+    <string name="power_menu_touch">소스 메뉴</string>
+    <string name="menu_bg_color">배경색</string>
+    <string name="menu_bg_photo">배경 이미지</string>
+    <string name="photo">이미지 선택</string>
+    <string name="set_color">배경색 변경</string>
+    <string name="set_photo">이미지 변경</string>
+    <string name="color_bg">배경색👉</string>
+    <string name="boder_bg">둥근 모서리👉</string>
+    <string name="alpha_bg">불투명👉</string>
+    <string name="select_photo">이미지 선택</string>
+    <string name="luachon">선택</string>
+    <string name="error">오류가 발생하였습니다</string>
+    <string name="blur_bg">흐림👉</string>
+    <string name="restore">기본값 복원</string>
+    <string name="warning">경고</string>
+    <string name="warning_user">복구 하시겠습니까??</string>
+    <string name="yes">있다</string>
+    <string name="title_touch_activity">아이콘 변경</string>
+    <string name="size_bg">크기👉</string>
+    <string name="pmedia_denied">기능 사용 권한을 부여하십시오</string>
+    <string name="err_brightness">최대 밝기는 255이며 재설정했습니다.</string>
+    <string name="capture_setting">스크린 샷</string>
+    <string name="album">사진</string>
+    <string name="capture_preview">미리보기 이미지를 표시합니다.</string>
+    <string name="capture_sussce">촬영 완료</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_video_resolution">Resolution</string>
+    <string name="title_record_audio">Record Audio</string>
+
+    <string name="summary_video_resolution">Specify video size</string>
+    <string name="summary_record_audio">Should audio be recorded</string>
+
+    <string name="key_record_audio">key_record_audio</string>
+    <string name="key_video_resolution">key_video_resolution</string>
+    <string name="key_video_fps">key_video_fps</string>
+    <string name="key_video_bitrate">key_video_bitrate</string>
+    <string name="key_show_notification">key_show_notification</string>
+    <string name="key_video_encoder">key_video_encoder</string>
+    <string name="key_audio_source">key_audio_source</string>
+    <string name="key_output_format">key_output_format</string>
+    <string name="setting_capture_video">비디오 녹화 설정</string>
+    <string name="capture_video_setting">화면 녹화</string>
+    <string name="video">비디오</string>
+    <string name="audio">소리 구성</string>
+    <string name="videoconfig">비디오 구성</string>
+    <string name="audio_source">음원</string>
+    <string name="mic">마이크</string>
+    <string name="audio_record">녹음</string>
+    <string name="bit_rate">비트율</string>
+    <string name="frame_rate">프레임 속도</string>
+    <string name="resolution">해결</string>
+    <string name="video_encoder">비디오 인코더</string>
+    <string name="more">많은</string>
+    <string name="output_format">출력 형식</string>
+    <string name="user_video">비디오</string>
+    <string name="xiaomi">중요 : xiaomi 장치에 대한 권한</string>
+    <string name="start_in_backgroud_content"> Xiaomi 기기를 사용하는 경우 권한 부여를 탭하고 앱에서 요청한 모든 권한을 허용하십시오 </string>
+    <string name="yes_per"> 승인 </string>
+    <string name="edit"> 편집 </string>
+    <string name="delete"> 삭제 </string>
+    <string name="close"> 취소 </string>
+    <string name="k_t_n_i"> 연결 </string>
+    <string name="ti_n_i_ch"> 부가 기능 </string>
+    <string name="developer"> 개발 기능 </string>
+    <string name="chiasebanbe"> 친구와 공유 </string>
+    <string name="content_fb"> 훌륭한 응용 프로그램 </string>
+    <string name="ad"> 광고 </string>
+    <string name="clean_junk"> 가비지 수집 </string>
+
+    <string name="scan"> 스팸 검사 … </string>
+    <string name="clean_junk_error"> 오류가 발생했습니다 … </string>
+    <string name="clean_junk_finish"> </string>
+    발견됨
+    <string name="clean_junk_ngay"> 지금 정리 </string>
+    <string name="ccs1"> 접근성 </string>
+    <string name="so1"> NUMBER 1 </string>
+    <string name="other_clean"> 기타 파일 </string>
+    <string name="scan_junk"> 정크 파일 검색 중 … </string>
+    <string name="dangkhoitao"> 초기화 중… </string>
+    <string name="phathienthay"> 발견됨 </string>
+    <string name="daquetxong"> 스캔 됨 </string>
+    <string name="clean_junk_complete"> 완료 </string>
+    <string name="junk_happy"> 축하합니다 \ 깨끗한 장치 </string>
+    <string name="pjunk_denied"> </string>
+    기능을 사용할 수있는 권한을 부여하십시오.
+    <string name="save_complete"> 비디오 저장 됨 </string>
+    <string name="dang_giai_phong"> RAM 확보 … </string>
+    <string name="clean_ram"> 램 속도 향상 </string>
+</resources>

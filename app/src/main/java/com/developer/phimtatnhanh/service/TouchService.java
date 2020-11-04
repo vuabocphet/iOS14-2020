@@ -22,6 +22,8 @@ import com.developer.phimtatnhanh.setuptouch.utilities.bus.EvenBusCaptureStart;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.EvenBusCaptureStartVideo;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.EvenBusCaptureVideoUpdateTouch;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.EvenBusFlash;
+import com.developer.phimtatnhanh.setuptouch.utilities.bus.ScanJunk;
+import com.developer.phimtatnhanh.setuptouch.utilities.bus.ScanRam;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.ShowFloatTouch;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.UpdateIconTouch;
 import com.developer.phimtatnhanh.setuptouch.utilities.permission.PermissionUtils;
@@ -160,6 +162,20 @@ public class TouchService extends Service {
     public void onMessageEvent(ShowFloatTouch event) {
         if (this.viewManagerUtil != null) {
             this.viewManagerUtil.showView(true);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ScanJunk event) {
+        if (this.viewManagerUtil != null) {
+            this.viewManagerUtil.startScanJunk();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ScanRam event) {
+        if (this.viewManagerUtil != null) {
+            this.viewManagerUtil.startScanRam();
         }
     }
 

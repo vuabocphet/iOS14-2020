@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.ram.RamActivity">
+
+    <com.developer.phimtatnhanh.view.AppTextViewFont
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:fontFamily="@font/russoone_regular"
+        android:text="@string/dang_giai_phong"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_23sdp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_position"
+        app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView4"
+        app:layout_constraintStart_toStartOf="@+id/lottieAnimationView4" />
+
+    <com.developer.phimtatnhanh.view.AppTextViewFont
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:paddingEnd="@dimen/_10sdp"
+        android:background="@drawable/shape_troke"
+        android:id="@+id/tv_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:fontFamily="@font/russoone_regular"
+        android:textColor="@color/red"
+        android:textSize="@dimen/_22sdp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/lottieAnimationView4"
+        app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView4"
+        app:layout_constraintStart_toStartOf="@+id/lottieAnimationView4"
+        tools:text="0/120" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationRipper"
+        android:layout_width="@dimen/_235sdp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toTopOf="@+id/nativeAdView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_cacheComposition="true"
+        app:lottie_colorFilter="@color/gray_3"
+        app:lottie_fileName="loader.json"
+        app:lottie_loop="true" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView4"
+        android:layout_width="@dimen/_222sdp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toTopOf="@+id/nativeAdView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="false"
+        app:lottie_cacheComposition="true"
+        app:lottie_fileName="s15.json"
+        app:lottie_loop="true" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationHappy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="s11.json"
+        app:lottie_loop="false"
+        tools:visibility="visible" />
+
+    <com.developer.phimtatnhanh.view.AppTextViewFont
+        android:id="@+id/tv_name_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:fontFamily="@font/russoone_regular"
+        android:gravity="center"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView4"
+        app:layout_constraintStart_toStartOf="@+id/lottieAnimationView4"
+        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationRipper" />
+
+    <RelativeLayout
+        android:id="@+id/clear_complete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_44sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/_14sdp"
+        android:background="@drawable/all_bg_blue"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        tools:layout_editor_absoluteX="18dp"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:fontFamily="@font/mitr_medium"
+            android:gravity="center"
+            android:text="@string/clean_junk_complete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+
+    </RelativeLayout>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_app"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/lottieAnimationView4"
+        app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView4"
+        app:layout_constraintStart_toStartOf="@+id/lottieAnimationView4"
+        app:layout_constraintTop_toTopOf="@+id/lottieAnimationView4"
+        app:riv_corner_radius="@dimen/_10sdp" />
+
+    <com.developer.phimtatnhanh.ads.NativeAdView
+        android:layout_margin="@dimen/_10sdp"
+        android:id="@+id/nativeAdView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:ad_style="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

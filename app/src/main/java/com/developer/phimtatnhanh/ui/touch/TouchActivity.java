@@ -4,7 +4,6 @@ package com.developer.phimtatnhanh.ui.touch;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -20,6 +19,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.developer.phimtatnhanh.R;
+import com.developer.phimtatnhanh.ads.NativeAdLoader;
+import com.developer.phimtatnhanh.ads.NativeAdView;
 import com.developer.phimtatnhanh.base.BaseActivity;
 import com.developer.phimtatnhanh.data.ListUtils;
 import com.developer.phimtatnhanh.data.Pref;
@@ -27,19 +28,21 @@ import com.developer.phimtatnhanh.data.PrefUtil;
 import com.developer.phimtatnhanh.di.component.ActivityComponent;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.UpdateIconTouch;
 import com.developer.phimtatnhanh.ui.touch.gridview.CustomIconAdapter;
-import com.developer.phimtatnhanh.ui.touch.gridview.IconModel;
 import com.developer.phimtatnhanh.util.PixelUtil;
 import com.developer.phimtatnhanh.view.CompatView;
 import com.divyanshu.colorseekbar.ColorSeekBar;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import jp.wasabeef.glide.transformations.BlurTransformation;
+
+import static com.developer.phimtatnhanh.ads.UnitID.NT_AD;
+import static com.developer.phimtatnhanh.ads.UnitID.NT_AD_KEY_3;
+import static com.developer.phimtatnhanh.ads.UnitID.NT_AD_LIVE;
 
 public class TouchActivity extends BaseActivity implements TouchView, ConfigFloatTouch {
 
@@ -67,6 +70,8 @@ public class TouchActivity extends BaseActivity implements TouchView, ConfigFloa
     AppCompatSeekBar sizeSeek;
     @BindView(R.id.iv_bg)
     AppCompatImageView ivBg;
+    @BindView(R.id.native_view)
+    NativeAdView nativeView;
 
     private TouchPresenter touchPresenter;
 
@@ -75,10 +80,14 @@ public class TouchActivity extends BaseActivity implements TouchView, ConfigFloa
         this.touchPresenter = new TouchPresenter();
         this.touchPresenter.attachView(this);
         this.setUp();
+
+        this.loadAd();
+
         Glide.with(this)
                 .load(R.drawable.bg_menu_layout)
                 .apply(RequestOptions.bitmapTransform(new BlurTransformation(BLUR_DEFAULT, 3))).diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(this.ivBg);
+
         Intent intent = getIntent();
         if (intent == null) {
             finish();
@@ -118,6 +127,29 @@ public class TouchActivity extends BaseActivity implements TouchView, ConfigFloa
                 EventBus.getDefault().post(new UpdateIconTouch());
             });
         }
+    }
+
+    private void loadAd() {
+        NativeAdLoader.newInstance().setAdPosition(NT_AD)
+                .setAdUnit(NT_AD_KEY_3)
+                .setLiveKey(NT_AD_LIVE)
+                .setOnAdLoaderListener(new NativeAdLoader.NativeAdLoaderListener() {
+                    @Override
+                    public void onAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                        super.onAdLoaded(unifiedNativeAd);
+                        if (nativeView != null) {
+                            nativeView.show(unifiedNativeAd);
+                        }
+                    }
+
+                    @Override
+                    public void onAdLoadFailed(String message) {
+                        super.onAdLoadFailed(message);
+                        if (nativeView != null) {
+                            nativeView.setVisibility(View.GONE);
+                        }
+                    }
+                }).loadAd(this);
     }
 
     @Override

@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.developer.memory.junk.RamMaster;
@@ -27,9 +26,12 @@ import com.developer.phimtatnhanh.setuptouch.utilities.permission.ConfigPer;
 import com.developer.phimtatnhanh.setuptouch.utilities.permission.PermissionUtils;
 import com.developer.phimtatnhanh.ui.cleanjunk.CleanJunkActivity;
 import com.developer.phimtatnhanh.ui.junk.JunkActivity;
+import com.developer.phimtatnhanh.ui.ram.RamActivity;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
 import static android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS;
+import static com.developer.phimtatnhanh.setuptouch.utilities.permission.ConfigPer.CACHE_JUNK;
+import static com.developer.phimtatnhanh.setuptouch.utilities.permission.ConfigPer.CACHE_RAM;
 
 public class FunUtil implements ConstKey {
 
@@ -107,11 +109,14 @@ public class FunUtil implements ConstKey {
             case MENU_CAPTURE_SCREEN:
                 this.onCaptureScreen();
                 return;
-            case POWER_DIALOG:
+            case MENU_POWER_DIALOG:
                 this.onPowerDialog();
                 return;
             case MENU_SCAN_JUNK:
                 this.junk();
+                return;
+            case MENU_SCAN_RAM:
+                this.ram();
         }
     }
 
@@ -294,14 +299,23 @@ public class FunUtil implements ConstKey {
 
     private void junk() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if (allJunk()) return;
+            if (allJunk(MENU_SCAN_JUNK)) return;
         }
         if (allReadWriteStogre(MENU_SCAN_JUNK)) return;
-        if (System.currentTimeMillis() <= PrefUtil.get().getLong(JunkActivity.CACHE_JUNK, 0L) + (15 * 60 * 1000)) {
+        if (System.currentTimeMillis() <= PrefUtil.get().getLong(CACHE_JUNK, 0L) + (15 * 60 * 1000)) {
             CleanJunkActivity.open(AppContext.get().getContext(), true);
             return;
         }
         JunkActivity.open(AppContext.get().getContext());
+    }
+
+    private void ram() {
+        if (allJunk(MENU_SCAN_RAM)) return;
+        if (System.currentTimeMillis() <= PrefUtil.get().getLong(CACHE_RAM, 0L) + (15 * 60 * 1000)) {
+            RamActivity.open(AppContext.get().getContext(), true);
+            return;
+        }
+        RamActivity.open(AppContext.get().getContext(), false);
     }
 
     private boolean allAccessibility() {
@@ -353,12 +367,11 @@ public class FunUtil implements ConstKey {
         return false;
     }
 
-    private boolean allJunk() {
+    private boolean allJunk(int menuType) {
         this.menuTouchDialog.cancelMenuTouch(true);
         boolean permission = RamMaster.hasPermission(AppContext.get().getContext());
-        Log.e("Tinhnv", "allJunk: " + permission);
         if (!permission) {
-            PerActivityTransparent.open(AppContext.get().getContext(), ConfigPer.RQCODE_PACKAGE_USAGE_STATS, MENU_SCAN_JUNK);
+            PerActivityTransparent.open(AppContext.get().getContext(), ConfigPer.RQCODE_PACKAGE_USAGE_STATS, menuType);
             return true;
         }
         return false;

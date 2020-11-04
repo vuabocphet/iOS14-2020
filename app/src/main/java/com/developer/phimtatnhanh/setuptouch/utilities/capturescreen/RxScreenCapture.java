@@ -23,7 +23,9 @@ import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.developer.phimtatnhanh.R;
 import com.developer.phimtatnhanh.app.AppContext;
 import com.developer.phimtatnhanh.notui.PerActivityTransparent;
 import com.developer.phimtatnhanh.setuptouch.config.ConfigAll;
@@ -47,13 +49,13 @@ import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicReference;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
-import io.reactivex.subjects.PublishSubject;
+import io.reactivex.schedulers.Schedulers;
 
 import static android.content.Context.MEDIA_PROJECTION_SERVICE;
 import static android.content.Context.WINDOW_SERVICE;
@@ -73,6 +75,7 @@ public final class RxScreenCapture implements ConfigPer, LifeCaptureVideo {
         return instance == null ? instance = new RxScreenCapture() : instance;
     }
 
+
     public void removeAll() {
         this.resultCode = -1010;
         this.resultData = null;
@@ -86,11 +89,12 @@ public final class RxScreenCapture implements ConfigPer, LifeCaptureVideo {
     private static final String TAG = "CCTVRxScreenCapture";
     private int resultCode = -1010;
     private Intent resultData;
-    private Disposable disposable;
     private LifeRxScreenCapture lifeRxScreenCapture;
     private ScreenCaptureVideo screenCaptureVideo;
+    private WindowManager windowManager;
     private ContentValues contentValues;
     private Uri mUri;
+    private MediaProjectionManager mediaProjectionManager;
 
     public RxScreenCapture setContext(Context context) {
         AppContext.create(context);
@@ -129,6 +133,15 @@ public final class RxScreenCapture implements ConfigPer, LifeCaptureVideo {
             }
             return;
         }
+
+        if (this.windowManager == null) {
+            this.windowManager = (WindowManager) AppContext.get().getContext().getSystemService(WINDOW_SERVICE);
+        }
+
+        if (this.mediaProjectionManager == null) {
+            this.mediaProjectionManager = (MediaProjectionManager) AppContext.get().getContext().getSystemService(MEDIA_PROJECTION_SERVICE);
+        }
+
         if (this.resultData == null || this.resultCode == -1010) {
             PerActivityTransparent.open(AppContext.get().getContext(), GET_MEDIA_PROJECTION_CODE, 0);
             return;
@@ -137,111 +150,72 @@ public final class RxScreenCapture implements ConfigPer, LifeCaptureVideo {
             this.lifeRxScreenCapture.onStartCaptureScreen();
         }
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Observable<Bitmap> captureScreen = captureScreen();
-            if (captureScreen == null) {
-                if (this.lifeRxScreenCapture != null) {
-                    this.lifeRxScreenCapture.onFailedCaptureScreen();
-                }
-                return;
-            }
-            captureScreen.subscribe(new Observer<Bitmap>() {
-                @Override
-                public void onSubscribe(Disposable d) {
-                    disposable = d;
-                }
-
-                @Override
-                public void onNext(Bitmap bitmap) {
-                    if (lifeRxScreenCapture != null) {
-                        lifeRxScreenCapture.onResultCaptureScreen(bitmap);
-                    }
-                    stop();
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    if (lifeRxScreenCapture != null) {
-                        lifeRxScreenCapture.onFailedCaptureScreen();
-                    }
-                    Log.i(TAG, "onError: " + e.toString());
-                }
-
-                @Override
-                public void onComplete() {
-                    Log.i(TAG, "onComplete: ");
-                    if (lifeRxScreenCapture != null) {
-                        lifeRxScreenCapture.onStopCaptureScreen();
-                    }
-                }
-            });
+            this.captureScreen().subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe();
         }, ConfigAll.durationCaptureScreen);
     }
 
-    public void stop() {
-        try {
+    public Single<Void> captureScreen() {
+
+        return Single.create(emitter -> {
+            try {
+                this.capture(new Rect(0, 0, DeviceUtils.w(windowManager), DeviceUtils.h(windowManager)));
+            } catch (Exception e) {
+                e.printStackTrace();
+                emitter.onError(e);
+            }
+        });
+    }
+
+    private void capture(Rect rect1) {
+        AtomicReference<Bitmap> bitmapCaptureScreen = new AtomicReference<>();
+        if (this.mediaProjectionManager == null || this.windowManager == null) {
             if (this.lifeRxScreenCapture != null) {
-                this.lifeRxScreenCapture.onStopCaptureScreen();
+                this.lifeRxScreenCapture.onFailedCaptureScreen();
             }
-            if (this.disposable == null) {
-                return;
+            return;
+        }
+        final MediaProjection mediaProjection = mediaProjectionManager.getMediaProjection(resultCode, resultData);
+        int w = DeviceUtils.w(this.windowManager);
+        int h = DeviceUtils.h(this.windowManager);
+        @SuppressLint("WrongConstant") final ImageReader imageReader = ImageReader.newInstance(w, h, PixelFormat.RGBA_8888, 2);
+        final VirtualDisplay virtualDisplay = mediaProjection.createVirtualDisplay(
+                TAG, w, h, DeviceUtils.dpi(this.windowManager),
+                DisplayManager.VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY | DisplayManager.VIRTUAL_DISPLAY_FLAG_PUBLIC,
+                imageReader.getSurface(), null, null);
+        imageReader.setOnImageAvailableListener(reader -> {
+            Image image = imageReader.acquireLatestImage();
+            if (image != null) {
+                try {
+                    Image.Plane[] planes = image.getPlanes();
+                    ByteBuffer buffer = planes[0].getBuffer();
+                    int pixelStride = planes[0].getPixelStride();
+                    int rowStride = planes[0].getRowStride();
+                    int rowPadding = rowStride - pixelStride * DeviceUtils.w(windowManager);
+                    Bitmap bitmap = Bitmap.createBitmap(w + rowPadding / pixelStride, h, Bitmap.Config.ARGB_8888);
+                    bitmap.copyPixelsFromBuffer(buffer);
+                    bitmapCaptureScreen.set(Bitmap.createBitmap(bitmap, rect1.left, rect1.top, rect1.width(), rect1.height()));
+                    if (this.lifeRxScreenCapture != null && bitmapCaptureScreen.get() != null) {
+                        this.lifeRxScreenCapture.onResultCaptureScreen(bitmapCaptureScreen.get());
+                        this.lifeRxScreenCapture.onStopCaptureScreen();
+                    }
+                    if (this.lifeRxScreenCapture != null && bitmapCaptureScreen.get() == null) {
+                        this.lifeRxScreenCapture.onFailedCaptureScreen();
+                    }
+                    bitmap.recycle();
+                    image.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    if (this.lifeRxScreenCapture != null) {
+                        this.lifeRxScreenCapture.onFailedCaptureScreen();
+                    }
+                }
             }
-            this.disposable.dispose();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private Observable<Bitmap> captureScreen() {
-        WindowManager windowManager = (WindowManager) AppContext.get().getContext().getSystemService(WINDOW_SERVICE);
-        if (windowManager == null) {
-            return Observable.error(new NullPointerException());
-        }
-        return capture(new Rect(0, 0, DeviceUtils.w(windowManager), DeviceUtils.h(windowManager)));
-    }
-
-    public Observable<Bitmap> capture(Rect rect) {
-        return Observable.just(rect)
-                .flatMap((Function<Rect, ObservableSource<Bitmap>>) rect1 -> {
-                    WindowManager windowManager = (WindowManager) AppContext.get().getContext().getSystemService(WINDOW_SERVICE);
-                    final MediaProjectionManager mediaProjectionManager = (MediaProjectionManager) AppContext.get().getContext().getSystemService(MEDIA_PROJECTION_SERVICE);
-                    final MediaProjection mediaProjection = mediaProjectionManager.getMediaProjection(resultCode, resultData);
-                    int w = DeviceUtils.w(windowManager);
-                    int h = DeviceUtils.h(windowManager);
-                    @SuppressLint("WrongConstant") final ImageReader imageReader = ImageReader.newInstance(w, h, PixelFormat.RGBA_8888, 2);
-
-                    final VirtualDisplay virtualDisplay = mediaProjection.createVirtualDisplay(
-                            TAG, w, h, DeviceUtils.dpi(windowManager),
-                            DisplayManager.VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY | DisplayManager.VIRTUAL_DISPLAY_FLAG_PUBLIC,
-                            imageReader.getSurface(), null, null);
-
-                    final PublishSubject<Bitmap> subject = PublishSubject.create();
-                    imageReader.setOnImageAvailableListener(reader -> {
-                        Image image = imageReader.acquireLatestImage();
-                        if (image != null) {
-                            Image.Plane[] planes = image.getPlanes();
-                            ByteBuffer buffer = planes[0].getBuffer();
-                            int pixelStride = planes[0].getPixelStride();
-                            int rowStride = planes[0].getRowStride();
-                            int rowPadding = rowStride - pixelStride * DeviceUtils.w(windowManager);
-
-                            // create bitmap
-                            Bitmap bitmap = Bitmap.createBitmap(w + rowPadding / pixelStride, h, Bitmap.Config.ARGB_8888);
-                            bitmap.copyPixelsFromBuffer(buffer);
-
-                            Bitmap cropped = Bitmap.createBitmap(bitmap, rect1.left, rect1.top, rect1.width(), rect1.height());
-                            subject.onNext(cropped);
-
-                            bitmap.recycle();
-                            image.close();
-
-                            subject.onComplete();
-                        }
-                        virtualDisplay.release();
-                        imageReader.close();
-                        mediaProjection.stop();
-                    }, null);
-                    return subject;
-                });
+            virtualDisplay.release();
+            imageReader.close();
+            mediaProjection.stop();
+        }, new Handler(Looper.getMainLooper()));
     }
 
     //endregion

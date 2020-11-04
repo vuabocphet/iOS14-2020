@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
 import com.developer.memory.R;
+import com.developer.memory.junk.RamMaster;
 import com.developer.memory.junk.model.JunkGroup;
 import com.developer.memory.junk.model.JunkInfo;
 
@@ -133,22 +134,13 @@ public class CleanUtil {
         }
     }
 
-    public static void killAppProcesses(Context context, String packageName) {
-        if (packageName == null || packageName.isEmpty()) {
-            return;
-        }
-
-        ActivityManager am = (ActivityManager) context
-                .getSystemService(Context.ACTIVITY_SERVICE);
-        am.killBackgroundProcesses(packageName);
-    }
-
     public static Disposable freeJunkInfos(Context context, ArrayList<JunkInfo> junks, @Nullable CleanCallBack cleanCallBack) {
         return Single.create((SingleOnSubscribe<Void>) emitter -> {
             for (JunkInfo info : junks) {
                 try {
                     if (info.typeJunk == JunkGroup.GROUP_CACHE) {
-                        killAppProcesses(context, info.mPackageName);
+                        boolean b = RamMaster.killPackageProcesses(context, info.mPackageName);
+                        Log.i("Tinhnv", "killPackageProcesses: " + b + "-----" + info.mPackageName);
                         freeAllAppsCache(context, info, cleanCallBack);
                         if (cleanCallBack != null) {
                             cleanCallBack.onProgressClean(info);

@@ -6,6 +6,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.developer.phimtatnhanh.R;
+import com.developer.phimtatnhanh.util.MyBounceInterpolatorUtil;
 
 public class AnimatorUtil {
 
@@ -13,7 +14,8 @@ public class AnimatorUtil {
         if (view == null) {
             return;
         }
-        view.startAnimation(AnimationUtils.loadAnimation(view.getContext(), R.anim.start));
+        Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.start);
+        view.startAnimation(animation);
     }
 
     public static void startAnimationScaleOut(View view) {

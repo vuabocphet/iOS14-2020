@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AppOpsManager;
+import android.app.Application;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.ComponentName;
@@ -14,30 +15,30 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
+import android.os.Debug;
 import android.os.Process;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import static android.content.Context.ACTIVITY_SERVICE;
+
 public class RamMaster {
-
-     /*   <uses-permission
-    android:name="android.permission.PACKAGE_USAGE_STATS"
-    tools:ignore="ProtectedPermissions" />
-
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />*/
 
     public static List<String> printForegroundTask(Context context) {
         List<String> list = new ArrayList<>();
         long time = System.currentTimeMillis();
         @SuppressLint("WrongConstant") UsageStatsManager usm = (UsageStatsManager) context.getSystemService("usagestats");
-        List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, 0, time);
+        List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,0, time);
         if (appList != null && appList.size() > 0) {
             SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
             for (UsageStats usageStats : appList) {
@@ -45,7 +46,9 @@ public class RamMaster {
             }
             if (!mySortedMap.isEmpty()) {
                 Set<Long> longs = mySortedMap.keySet();
+
                 for (Long aLong : longs) {
+
                     UsageStats usageStats = mySortedMap.get(aLong);
                     if (usageStats != null) {
                         String packageName = usageStats.getPackageName();
@@ -57,7 +60,8 @@ public class RamMaster {
                                 || packageName.startsWith("com.coloros")
                                 || packageName.startsWith("com.huawei")
                                 || packageName.startsWith("com.oneplus")
-                                || packageName.startsWith("com.vivo")) {
+                                || packageName.startsWith("com.vivo")
+                                || packageName.startsWith(context.getPackageName())) {
                             continue;
                         }
                         list.add(packageName);
@@ -66,18 +70,6 @@ public class RamMaster {
             }
         }
         return list;
-    }
-
-    public static boolean needPermissionForBlocking(Context context) {
-        try {
-            PackageManager packageManager = context.getPackageManager();
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
-            AppOpsManager appOpsManager = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
-            int mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, applicationInfo.uid, applicationInfo.packageName);
-            return (mode != AppOpsManager.MODE_ALLOWED);
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
     }
 
     public static void requestPerRamMaster(Activity activity, int rqCode) {
@@ -104,7 +96,12 @@ public class RamMaster {
         return granted;
     }
 
-    public static boolean killPackageProcesses(ActivityManager am, String packagename) {
+    public static boolean killPackageProcesses(Context context, String packagename) {
+        if (context == null || packagename == null || packagename.isEmpty()) {
+            return false;
+        }
+        ActivityManager am = (ActivityManager) context
+                .getSystemService(ACTIVITY_SERVICE);
         boolean result = false;
         if (am != null) {
             am.killBackgroundProcesses(packagename);
@@ -123,6 +120,12 @@ public class RamMaster {
             for (ActivityManager.RunningAppProcessInfo pi : am.getRunningAppProcesses()) {
                 if (pi.processName.equalsIgnoreCase(packagename)) {
                     result = pi.pid;
+                    Debug.MemoryInfo[] memoryInfoArray = am.getProcessMemoryInfo(new int[]{result});
+                    for (Debug.MemoryInfo pidMemoryInfo : memoryInfoArray) {
+                        Log.i("TAG", " pidMemoryInfo.getTotalPrivateDirty(): " + pidMemoryInfo.getTotalPrivateDirty() + "\n");
+                        Log.i("TAG", " pidMemoryInfo.getTotalPss(): " + pidMemoryInfo.getTotalPss() + "\n");
+                        Log.i("TAG", " pidMemoryInfo.getTotalSharedDirty(): " + pidMemoryInfo.getTotalSharedDirty() + "\n");
+                    }
                 }
                 if (result != -1) break;
             }

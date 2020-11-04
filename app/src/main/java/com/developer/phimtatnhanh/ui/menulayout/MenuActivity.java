@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.Group;
 import androidx.core.content.ContextCompat;
@@ -28,6 +29,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.developer.phimtatnhanh.R;
+import com.developer.phimtatnhanh.ads.NativeAdLoader;
+import com.developer.phimtatnhanh.ads.NativeAdView;
 import com.developer.phimtatnhanh.app.AppContext;
 import com.developer.phimtatnhanh.base.BaseActivity;
 import com.developer.phimtatnhanh.data.ListUtils;
@@ -46,6 +49,7 @@ import com.developer.phimtatnhanh.util.PathUtil;
 import com.developer.phimtatnhanh.util.PixelUtil;
 import com.developer.phimtatnhanh.view.CompatView;
 import com.divyanshu.colorseekbar.ColorSeekBar;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.File;
@@ -58,8 +62,13 @@ import java.nio.channels.FileChannel;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.BlurTransformation;
+
+import static com.developer.phimtatnhanh.ads.UnitID.NT_AD;
+import static com.developer.phimtatnhanh.ads.UnitID.NT_AD_KEY_3;
+import static com.developer.phimtatnhanh.ads.UnitID.NT_AD_LIVE;
 
 public class MenuActivity extends BaseActivity implements MenuView, ConfigAll, ConstKey, LifePermission {
 
@@ -87,6 +96,10 @@ public class MenuActivity extends BaseActivity implements MenuView, ConfigAll, C
     Group blurView;
     @BindView(R.id.bt_close)
     AppCompatImageView btClose;
+    @BindView(R.id.native_view)
+    NativeAdView nativeView;
+    @BindView(R.id.cardView)
+    CardView cardView;
 
     private MenuPresenter menuPresenter;
     private PermissionUtils permissionUtils;
@@ -270,6 +283,7 @@ public class MenuActivity extends BaseActivity implements MenuView, ConfigAll, C
         this.setupDataFromPer();
         switch (typeEditMenu) {
             case EDIT_BG_COLOR:
+                this.loadAd();
                 ImageViewCompat.setImageTintList(this.btClose, ColorStateList.valueOf(getResources().getColor(R.color.black)));
                 this.compatView.setVisibility(View.VISIBLE);
                 this.tv.setText(getString(R.string.set_color));
@@ -277,6 +291,7 @@ public class MenuActivity extends BaseActivity implements MenuView, ConfigAll, C
                 this.editBgColor();
                 break;
             case EDIT_BG_PHOTO:
+                this.cardView.setVisibility(View.GONE);
                 ImageViewCompat.setImageTintList(this.btClose, ColorStateList.valueOf(getResources().getColor(R.color.black)));
                 this.ivBgMenu.setVisibility(View.VISIBLE);
                 this.btnSelectPhoto.setVisibility(View.VISIBLE);
@@ -287,6 +302,7 @@ public class MenuActivity extends BaseActivity implements MenuView, ConfigAll, C
                 this.editBgPhoto();
                 break;
             case EDIT_MENU_FUN:
+                this.loadAd();
                 this.csColor.setVisibility(View.GONE);
                 this.ivBg.setVisibility(View.VISIBLE);
                 Glide.with(this)
@@ -502,5 +518,35 @@ public class MenuActivity extends BaseActivity implements MenuView, ConfigAll, C
 
     public void onBack(View view) {
         finish();
+    }
+
+    private void loadAd() {
+        NativeAdLoader.newInstance().setAdPosition(NT_AD)
+                .setAdUnit(NT_AD_KEY_3)
+                .setLiveKey(NT_AD_LIVE)
+                .setOnAdLoaderListener(new NativeAdLoader.NativeAdLoaderListener() {
+                    @Override
+                    public void onAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                        super.onAdLoaded(unifiedNativeAd);
+                        if (nativeView != null) {
+                            nativeView.show(unifiedNativeAd);
+                        }
+                    }
+
+                    @Override
+                    public void onAdLoadFailed(String message) {
+                        super.onAdLoadFailed(message);
+                        if (nativeView != null) {
+                            nativeView.setVisibility(View.GONE);
+                        }
+                    }
+                }).loadAd(this);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

@@ -87,7 +87,8 @@ public class ListUtils implements ConfigAll {
                 getString(R.string.capture_video_menu_touch),
                 getString(R.string.capture_menu_touch),
                 getString(R.string.power_menu_touch),
-                getString(R.string.clean_junk)
+                getString(R.string.clean_junk),
+                getString(R.string.clean_ram)
         );
     }
 
@@ -118,7 +119,8 @@ public class ListUtils implements ConfigAll {
                 R.drawable.ic_all_ic_video,
                 R.drawable.ic_all_ic_capture,
                 R.drawable.all_ic_power,
-                R.drawable.all_ic_magic_broom
+                R.drawable.all_ic_magic_broom,
+                R.drawable.all_ic_ram
         );
     }
 
@@ -149,7 +151,8 @@ public class ListUtils implements ConfigAll {
                 R.drawable.all_click_capture_video,
                 R.drawable.all_click_capture,
                 R.drawable.all_click_power,
-                R.drawable.all_click_boom
+                R.drawable.all_click_boom,
+                R.drawable.all_click_ram
         );
     }
 
@@ -249,7 +252,7 @@ public class ListUtils implements ConfigAll {
 
         int anInt = PrefUtil.get().getInt(Pref.ICON_TOUCH, ICON_DEFAULT);
         for (int i = 0; i < listIcon.size(); i++) {
-            if (i==anInt){
+            if (i == anInt) {
                 iconModels.add(IconModel.create().setIconId(listIcon.get(i)).setStatus(true));
                 continue;
             }

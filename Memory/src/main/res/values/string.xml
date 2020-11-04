@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="apk_clean">Gói cài đặt apk</string>
-    <string name="tmp_clean">Tệp tạm thời</string>
-    <string name="log_clean">Tệp nhật ký</string>
-    <string name="cache_clean">Bộ nhớ cache</string>
-    <string name="system_cache">Bộ nhớ đệm hệ thống</string>
+    <string name="apk_clean" translatable="false">Gói cài đặt apk</string>
+    <string name="tmp_clean" translatable="false">Tệp tạm thời</string>
+    <string name="log_clean" translatable="false">Tệp nhật ký</string>
+    <string name="cache_clean" translatable="false">Bộ nhớ cache</string>
+    <string name="system_cache" translatable="false">Bộ nhớ đệm hệ thống</string>
 
-    <string name="byte_short">\nB</string>
+    <string name="byte_short" translatable="false">\nB</string>
     <!-- Suffix added to a number to signify size in kilobytes. -->
-    <string name="kilo_byte_short">\nKB</string>
+    <string name="kilo_byte_short" translatable="false">\nKB</string>
     <!-- Suffix added to a number to signify size in megabytes. -->
-    <string name="mega_byte_short">\nMB</string>
+    <string name="mega_byte_short" translatable="false">\nMB</string>
     <!-- Suffix added to a number to signify size in gigabytes. -->
-    <string name="giga_byte_short">\nGB</string>
+    <string name="giga_byte_short" translatable="false">\nGB</string>
     <!-- Suffix added to a number to signify size in terabytes. -->
-    <string name="tera_byte_short">\nTB</string>
+    <string name="tera_byte_short" translatable="false">\nTB</string>
     <!-- Suffix added to a number to signify size in petabytes. -->
-    <string name="peta_byte_short">\nPB</string>
+    <string name="peta_byte_short" translatable="false">\nPB</string>
 
-    <string name="clean_file_size_suffix">%1$s%2$s</string>
+    <string name="clean_file_size_suffix" translatable="false">%1$s%2$s</string>
 </resources>

@@ -314,6 +314,7 @@ public class ViewManagerUtil implements ConfigAll, EvenClick, OnHomePressedListe
         if (this.viewManagerAnimateOnTouchUtil == null) {
             return;
         }
+        Toast.makeText(AppContext.get().getContext(), AppContext.get().getContext().getString(R.string.error), Toast.LENGTH_SHORT).show();
         this.viewManagerAnimateOnTouchUtil.alphaTouch();
     }
 
@@ -338,8 +339,10 @@ public class ViewManagerUtil implements ConfigAll, EvenClick, OnHomePressedListe
 
     @Override
     public void onResultCaptureScreenVideo(String path) {
+        this.handler.post(() -> {
+            Toast.makeText(AppContext.get().getContext(), AppContext.get().getContext().getString(R.string.save_complete), Toast.LENGTH_SHORT).show();
+        });
         this.lifeCaptureVideo = EvenBusCaptureVideoUpdateTouch.LifeCaptureVideo.STOP;
-        Log.e("TinhNv", "onResultCaptureScreenVideo: " + path);
     }
 
     @Override
@@ -398,6 +401,29 @@ public class ViewManagerUtil implements ConfigAll, EvenClick, OnHomePressedListe
             this.viewManagerAnimateOnTouchUtil.updateFloatingTouchView(true);
         }
     }
+
+    public void startScanJunk() {
+        if (this.menuTouchDialog == null) {
+            return;
+        }
+        FunUtil funUtil = this.menuTouchDialog.getFunUtil();
+        if (funUtil == null) {
+            return;
+        }
+        funUtil.select(MENU_SCAN_JUNK);
+    }
+
+    public void startScanRam() {
+        if (this.menuTouchDialog == null) {
+            return;
+        }
+        FunUtil funUtil = this.menuTouchDialog.getFunUtil();
+        if (funUtil == null) {
+            return;
+        }
+        funUtil.select(MENU_SCAN_RAM);
+    }
+
     //endregion
 
 

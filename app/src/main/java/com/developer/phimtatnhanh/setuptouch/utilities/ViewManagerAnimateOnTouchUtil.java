@@ -240,6 +240,9 @@ public class ViewManagerAnimateOnTouchUtil implements View.OnTouchListener, Conf
     }
 
     public void alphaTouch() {
+        if (this.handler == null) {
+            return;
+        }
         this.handler.postDelayed(this.runnable, durationAlphaViewTouch);
     }
 

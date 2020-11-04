@@ -1,12 +1,5 @@
 package com.developer.phimtatnhanh.notui;
 
-
-
-
-/*
- * Create By Nguyễn Tình
- * */
-
 import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
@@ -24,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.developer.memory.junk.RamMaster;
 import com.developer.phimtatnhanh.R;
+import com.developer.phimtatnhanh.app.AppContext;
 import com.developer.phimtatnhanh.service.MyAdmin;
 import com.developer.phimtatnhanh.service.TouchService;
 import com.developer.phimtatnhanh.setuptouch.config.ConstKey;
@@ -31,6 +25,7 @@ import com.developer.phimtatnhanh.setuptouch.utilities.bus.EvenBusCaptureStart;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.EvenBusCaptureStartVideo;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.EvenBusFlash;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.ScanJunk;
+import com.developer.phimtatnhanh.setuptouch.utilities.bus.ScanRam;
 import com.developer.phimtatnhanh.setuptouch.utilities.bus.ShowFloatTouch;
 import com.developer.phimtatnhanh.setuptouch.utilities.capturescreen.RxScreenCapture;
 import com.developer.phimtatnhanh.setuptouch.utilities.permission.ConfigPer;
@@ -204,12 +199,24 @@ public class PerActivityTransparent extends AppCompatActivity implements ConfigP
         }
 
         if (requestCode == RQCODE_PACKAGE_USAGE_STATS) {
-            if (resultCode != Activity.RESULT_OK) {
+
+            if (RamMaster.hasPermission(AppContext.get().getContext()) && this.keyMenu == ConstKey.MENU_SCAN_RAM) {
+                EventBus.getDefault().post(new ScanRam());
+                finish();
+                return;
+            }
+            if (RamMaster.hasPermission(AppContext.get().getContext()) && PermissionUtils.checkPerShowDialog(this, ConfigPer.READWRITE)) {
                 EventBus.getDefault().post(new ScanJunk());
                 finish();
                 return;
             }
-
+            if (RamMaster.hasPermission(AppContext.get().getContext()) && !PermissionUtils.checkPerShowDialog(this, ConfigPer.READWRITE)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    this.permissionUtils.requestPermissions(RQCODE_PACKAGE_USAGE_STATS, ConfigPer.READWRITE);
+                }
+                return;
+            }
+            Toast.makeText(this, getString(R.string.pjunk_denied), Toast.LENGTH_SHORT).show();
         }
         finish();
     }
@@ -253,6 +260,10 @@ public class PerActivityTransparent extends AppCompatActivity implements ConfigP
             EventBus.getDefault().post(new EvenBusCaptureStart());
             finish();
         }
+
+        if (rcode == RQCODE_PACKAGE_USAGE_STATS && this.keyMenu == ConstKey.MENU_SCAN_JUNK) {
+            EventBus.getDefault().post(new ScanJunk());
+        }
         finish();
     }
 
@@ -263,7 +274,7 @@ public class PerActivityTransparent extends AppCompatActivity implements ConfigP
             Toast.makeText(this, getString(R.string.pcamera_denied), Toast.LENGTH_SHORT).show();
             finish();
         }
-        if (rcode == RQCODE_READ_WRITE) {
+        if (rcode == RQCODE_READ_WRITE || rcode == RQCODE_PACKAGE_USAGE_STATS) {
             Toast.makeText(this, getString(R.string.preadwrite_denied), Toast.LENGTH_SHORT).show();
             finish();
         }
